@@ -1,0 +1,33 @@
+#!/usr/bin/expect -f
+#
+# Usage:
+#       command [host/ip] [port] [password]
+
+set host [lindex $argv 0]
+set port [lindex $argv 1]
+set pass [lindex $argv 2]
+
+
+set arg {\$1}
+
+set force_conservative 0  ;# set to 1 to force conservative mode even if
+			  ;# script wasn't run conservatively originally
+if {$force_conservative} {
+	set send_slow {1 .1}
+	proc send {ignore arg} {
+		sleep .1
+		exp_send -s -- $arg
+	}
+}
+
+set timeout 10
+spawn telnet $host $port
+match_max 100000
+expect "Please enter password:\r"
+send "$pass\r"
+sleep 1
+send "spawnScouts \$arg"
+sleep 1
+expect "Scouts spawning at\r"
+send "exit\r"
+expect eof
