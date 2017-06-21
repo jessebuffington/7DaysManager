@@ -26,10 +26,12 @@
 //          XOXO
 //              Jesse B.
 //
-
-require 'config.php';
 	
-// MySQL connection stuffs
+$DB_HOST	= '**MYSQL_HOST**';
+$DB_USER	= '**MYSQL_USER**';
+$DB_PASSWORD	= '**MYSQL_PASS**';
+$DB_NAME	= '7daysManager';
+
 $link = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD);
 
 if (!$link) {

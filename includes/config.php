@@ -31,9 +31,4 @@ $TELNET_HOST	= '**HOST**';
 $TELNET_PORT	= '**PORT**';
 $TELNET_PASS	= '**PASSWORD**';
 
-$DB_HOST	= '**MYSQL_HOST**';
-$DB_USER	= '**MYSQL_USER**';
-$DB_PASSWORD	= '**MYSQL_PASS**';
-$DB_NAME	= '7daysManager';
-
 ?>
