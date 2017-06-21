@@ -27,10 +27,10 @@
 //              Jesse B.
 //
 	
-$DB_HOST	= '**MYSQL_HOST**';
-$DB_USER	= '**MYSQL_USER**';
-$DB_PASSWORD	= '**MYSQL_PASS**';
-$DB_NAME	= '7daysManager';
+define ( 'DB_HOST','**HOST**');
+define ( 'DB_USER','**USER**');
+define ( 'DB_NAME','7daysManager');
+define ( 'DB_PASSWORD','**PASSWORD**');
 
 $link = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD);
 
