@@ -80,7 +80,9 @@ else{
     while(true){
 	file_put_contents($log, 'Running...\n', FILE_APPEND);
 	sleep(5);
-	
+
+	exec('lib/listPlayers.php');
+	sleep 30
     }
 }
  
