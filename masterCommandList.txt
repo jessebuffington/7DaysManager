@@ -1,0 +1,40 @@
+/day7
+  - Gets current zombie count and caluclates how many days until the day 7 horde.
+  - Output:
+      Zombie hordes will arrive in 7 days!
+      There are currently 37 zombies.
+
+/day7-stats (new)
+  - Gets current day and calculates how many day 7 hordes have happened.
+  - Future logic will calculate how many players have died during a day 7 horde.
+
+/wallet
+  - Gets the player's zcoin wallet from the manager database.
+
+/shop
+  - Displays all items in the server zcoin shop
+  - Without arguments, command will show all items
+  - /shop list - will display separate categories
+    ie: /shop ammo
+
+/buy
+  - Purchase an tiem from the shop
+  - Requires player to enter item id (see /shop command to get id)
+
+/zgate
+  Arguments: list, create, toggle, delete
+  - list - Will list all zgates assigned to player
+  - create - Creates a zgate at players current location
+  - toggle - Enable/disable zgate location public
+  - delete - Deletes a zgate assigned to player
+
+/zgate-admin (new)
+  - Admin commands for zgates
+
+/help (new)
+  - Displays help information for a command
+  - No arguments shows topics for all commands
+    ie: /help shop - will display help information for the shop
+
+/admin
+  Arguments: shop, zgate, wallet
