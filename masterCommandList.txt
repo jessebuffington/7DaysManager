@@ -1,5 +1,5 @@
 /day7
-  - Gets current zombie count and caluclates how many days until the day 7 horde.
+  - Gets current zombie count and calculates how many days until the day 7 horde.
   - Output:
       Zombie hordes will arrive in 7 days!
       There are currently 37 zombies.
@@ -18,7 +18,7 @@
     ie: /shop ammo
 
 /buy
-  - Purchase an tiem from the shop
+  - Purchase an item from the shop
   - Requires player to enter item id (see /shop command to get id)
 
 /zgate
