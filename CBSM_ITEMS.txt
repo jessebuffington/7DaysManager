@@ -53,3 +53,15 @@ version
 
 		2017-06-27T11:25:38 26695.029 INF Executing command 'pm 171 "[4CAF50][CBSM][-] Zombie hordes will arrive in 7 days!"' by Telnet from 67.205.111.132:54571
 		2017-06-27T11:25:38 26695.125 INF Executing command 'pm 171 "[4CAF50][CBSM][-] There are currently 37 zombies."' by Telnet from 67.205.111.132:54571
+
+		------
+		OUTPUT
+		Looks for 'Zom: #'' from 'mem'
+		Looks for 'Day ###' from 'gettime' and
+		------
+		mem
+		2017-06-30T13:04:08 32601.171 INF Executing command 'mem' by Telnet from 68.184.100.42:58316
+		Time: 542.43m FPS: 38.94 Heap: 443.4MB Max: 1176.1MB Chunks: 104 CGO: 0 Ply: 0 Zom: 17 Ent: 0 (17) Items: 0 CO: 0 RSS: 1294.0MB
+		gettime
+		2017-06-30T13:04:11 32604.571 INF Executing command 'gettime' by Telnet from 68.184.100.42:58316
+		Day 321, 17:28
