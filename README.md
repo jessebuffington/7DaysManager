@@ -1,9 +1,8 @@
-#
+
 #			7DaysManager
-#
 #	Author: Jesse Buffington
 #	Email: bassmastry101@gmail.com
-#
+
 
 
 					*** This is a work in progress!!! ***
