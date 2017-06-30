@@ -1,0 +1,55 @@
+Telnet commands used by CBSM
+
+listplayers
+	- Lists all players
+	- Runs every 60 seconds
+
+pm CBSM "Sync 191 at 0.04 / 0.92"
+pm CBSM "Sync B 191 at 0.02 / 0.93"
+pm alanine "[4CAF50][CBSM][-]  Wait(RC-1): 0.00010895729064941406"
+pm NuTcAsE "[4CAF50][CBSM][-]  Wait(RC-1): 0.00010895729064941406"
+
+lkp -online
+	- Runs every 90 seconds
+
+le
+	- list entities
+	- Runs every 50 seconds
+
+mem
+	- Displays current server memory usage
+	- Runs every 10 minutes
+
+SystemInfo
+	- Displays current system information
+	- Runs every 10 minutes
+
+si *PlayerID*
+	- Will not run if no players in server
+	- Shows player inventory
+	- Every 20 seconds
+
+version
+	- Every 20 seconds
+			version
+			2017-06-18T06:49:22 10079.602 INF Executing command 'version' by Telnet from 127.0.0.1:45110
+			Game version: Alpha 16 (b112) Compatibility Version: Alpha 16
+			Mod Allocs command extensions: 12
+			Mod Allocs server fixes: 14
+			Mod Allocs MapRendering and Webinterface: 19
+			Mod memMod: 1
+
+/day7 invokes
+	gettime
+	mem
+		2017-06-27T11:25:36 26692.954 INF Chat: 'Dragoon1CaN': /day7
+		2017-06-27T11:25:37 26693.886 INF Executing command 'pm 171 "[4CAF50][CBSM][-] Counting zombies.."' by Telnet from 67.205.111.132:54571
+		2017-06-27T11:25:37 26693.965 INF Executing command 'gettime' by Telnet from 67.205.111.132:54571
+		2017-06-27T11:25:37 26694.146 INF Executing command 'mem' by Telnet from 67.205.111.132:54571
+		Unloading 1 Unused Serialized files (Serialized files now loaded: 2)
+
+		Unloading 60 unused Assets to reduce memory usage. Loaded Objects now: 329957.
+		Total: 567.668945 ms (FindLiveObjects: 50.443001 ms CreateObjectMapping: 13.736000 ms MarkObjects: 501.232971 ms  DeleteObjects: 2.255000 ms)
+
+		2017-06-27T11:25:38 26695.029 INF Executing command 'pm 171 "[4CAF50][CBSM][-] Zombie hordes will arrive in 7 days!"' by Telnet from 67.205.111.132:54571
+		2017-06-27T11:25:38 26695.125 INF Executing command 'pm 171 "[4CAF50][CBSM][-] There are currently 37 zombies."' by Telnet from 67.205.111.132:54571
