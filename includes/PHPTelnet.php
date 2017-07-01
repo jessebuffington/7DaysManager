@@ -9,7 +9,7 @@ public domain
 class PHPTelnet {
 	var $show_connect_error=1;
 
-	var $use_usleep=0;	// change to 1 for faster execution
+	var $use_usleep=1;	// change to 1 for faster execution
 		// don't change to 1 on Windows servers unless you have PHP 5
 	var $sleeptime=1250;
 	var $loginsleeptime=100;
@@ -19,7 +19,7 @@ class PHPTelnet {
 
 	var $conn1;
 	var $conn2;
-	
+
 	/*
 	0 = success
 	1 = couldn't open network connection
@@ -41,9 +41,9 @@ class PHPTelnet {
 				return 4;
 			}
 		}
-		
+
 		$this->Disconnect();
-		
+
 		if (strlen($server)) {
 			if (preg_match('/[^0-9.]/',$server)) {
 				$ip=gethostbyname($server);
@@ -53,10 +53,10 @@ class PHPTelnet {
 				}
 			} else $ip=$server;
 		} else $ip='127.0.0.1';
-		
+
 		if (strlen($ip)) {
 			if ($this->fp=fsockopen($ip,$port)) {
-				
+
 				fputs($this->fp,"$pass\r");
 				if ($this->use_usleep) usleep($this->loginsleeptime);
 				else sleep(1);
@@ -68,11 +68,11 @@ class PHPTelnet {
 				}
 			} else $rv=1;
 		}
-		
+
 		if ($rv) $this->ConnectError($rv);
 		return $rv;
 	}
-	
+
 	function Disconnect($exit=1) {
 		if ($this->fp) {
 			if ($exit) $this->DoCommand('exit',$junk);
@@ -90,20 +90,20 @@ class PHPTelnet {
 		}
 		return $this->fp?1:0;
 	}
-	
+
 	function GetResponse(&$r) {
 		$r='';
-		do { 
+		do {
 			$r.=fread($this->fp,1000);
 			$s=socket_get_status($this->fp);
 		} while ($s['unread_bytes']);
 	}
-	
+
 	function Sleep() {
 		if ($this->use_usleep) usleep($this->sleeptime);
 		else sleep(1);
 	}
-	
+
 	function PHPTelnet() {
 		$this->conn1=chr(0xFF).chr(0xFB).chr(0x1F).chr(0xFF).chr(0xFB).
 			chr(0x20).chr(0xFF).chr(0xFB).chr(0x18).chr(0xFF).chr(0xFB).
@@ -120,7 +120,7 @@ class PHPTelnet {
 		$this->conn2=chr(0xFF).chr(0xFC).chr(0x01).chr(0xFF).chr(0xFC).
 			chr(0x22).chr(0xFF).chr(0xFE).chr(0x05).chr(0xFF).chr(0xFC).chr(0x21);
 	}
-	
+
 	function ConnectError($num) {
 		if ($this->show_connect_error) switch ($num) {
 		case 1: echo '[PHP Telnet] Connect failed: Unable to open network connection'; break;
