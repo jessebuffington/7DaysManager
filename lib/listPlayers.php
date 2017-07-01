@@ -1,32 +1,32 @@
 <?php
 
-//  
-//                  Y.                      _   
-//                  YiL                   .```.  
-//                  Yii;                .; .;;`.    
-//                  YY;ii._           .;`.;;;; :    
-//                  iiYYYYYYiiiii;;;;i` ;;::;;;;    
-//              _.;YYYYYYiiiiiiYYYii  .;;.   ;;; 
-//           .YYYYYYYYYYiiYYYYYYYYYYYYii;`  ;;;;    
-//         .YYYYYYY$$YYiiYY$$$$iiiYYYYYY;.ii;`..   
-//        :YYY$!.  TYiiYY$$$$$YYYYYYYiiYYYYiYYii.    
-//        Y$MM$:   :YYYYYY$!"``"4YYYYYiiiYYYYiiYY.    
-//     `. :MM$$b.,dYY$$Yii" :'   :YYYYllYiiYYYiYY    
+//
+//                  Y.                      _
+//                  YiL                   .```.
+//                  Yii;                .; .;;`.
+//                  YY;ii._           .;`.;;;; :
+//                  iiYYYYYYiiiii;;;;i` ;;::;;;;
+//              _.;YYYYYYiiiiiiYYYii  .;;.   ;;;
+//           .YYYYYYYYYYiiYYYYYYYYYYYYii;`  ;;;;
+//         .YYYYYYY$$YYiiYY$$$$iiiYYYYYY;.ii;`..
+//        :YYY$!.  TYiiYY$$$$$YYYYYYYiiYYYYiYYii.
+//        Y$MM$:   :YYYYYY$!"``"4YYYYYiiiYYYYiiYY.
+//     `. :MM$$b.,dYY$$Yii" :'   :YYYYllYiiYYYiYY
 //  _.._ :`4MM$!YYYYYYYYYii,.__.diii$$YYYYYYYYYYY
 //  .,._ $b`P`     "4$$$$$iiiiiiii$$$$YY$$$$$$YiY;
 //     `,.`$:       :$$$$$$$$$YYYYY$$$$$$$$$YYiiYYL
-//      "`;$$.    .;PPb$`.,.``T$$YY$$$$YYYYYYiiiYYU:  
-//      ;$P$;;: ;;;;i$y$"!Y$$$b;$$$Y$YY$$YYYiiiYYiYY 
-//      $Fi$$ .. ``:iii.`-":YYYYY$$YY$$$$$YYYiiYiYYY    
-//      :Y$$rb ````  `_..;;i;YYY$YY$$$$$$$YYYYYYYiYY:    
-//       :$$$$$i;;iiiiidYYYYYYYYYY$$$$$$YYYYYYYiiYYYY. 
-//        `$$$$$$$YYYYYYYYYYYYY$$$$$$YYYYYYYYiiiYYYYYY    
-//        .i!$$$$$$YYYYYYYYY$$$$$$YYY$$YYiiiiiiYYYYYYY    
-//       :YYiii$$$$$$$YYYYYYY$$$$YY$$$$YYiiiiiYYYYYYi'    
-//  
+//      "`;$$.    .;PPb$`.,.``T$$YY$$$$YYYYYYiiiYYU:
+//      ;$P$;;: ;;;;i$y$"!Y$$$b;$$$Y$YY$$YYYiiiYYiYY
+//      $Fi$$ .. ``:iii.`-":YYYYY$$YY$$$$$YYYiiYiYYY
+//      :Y$$rb ````  `_..;;i;YYY$YY$$$$$$$YYYYYYYiYY:
+//       :$$$$$i;;iiiiidYYYYYYYYYY$$$$$$YYYYYYYiiYYYY.
+//        `$$$$$$$YYYYYYYYYYYYY$$$$$$YYYYYYYYiiiYYYYYY
+//        .i!$$$$$$YYYYYYYYY$$$$$$YYY$$YYiiiiiiYYYYYYY
+//       :YYiii$$$$$$$YYYYYYY$$$$YY$$$$YYiiiiiYYYYYYi'
+//
 //          XOXO
 //  		Jesse B.
-// 
+//
 
 session_start();
 
@@ -51,16 +51,16 @@ $value13 = $telnetResult['ip'];
 $value14 = $telnetResult['ping'];
 $value15 = $telnetResult['onlineStatus'];
 
-$telnet = new PHPTelnet(); // using a function from the included script
+$telnet = new PHPTelnet();
 
-$telnetResult = $telnet->Connect($TELNET_HOST,$TELNET_PORT , $TELNET_PASS); 
+$telnetResult = $telnet->Connect($TELNET_HOST, $TELNET_PORT, $TELNET_PASS);
 switch ($telnetResult) {
-	case 0: 
+	case 0:
 	echo "Connected!!";
 
 	$telnet->DoCommand('lp', $telnetResult);
 	echo $result;
-	$telnet->DoCommand('exit', $telnetResult); 
+	$telnet->DoCommand('exit', $telnetResult);
 	echo $result;
 }
 
@@ -71,7 +71,7 @@ $sqlGetPlayers = "SELECT playerid from 'players'";
 $sqlGetPlayers_result = mysql_query($sqlGetPlayers) or die(mysql_error());
 
 while ($row = mysql_fetch_array($sqlGetPlayers_result)
-        if ($value1 = $sqlGetPlayers_result['playerid']) {
+	if ($value1 = $sqlGetPlayers_result['playerid']) {
 		if (!mysql_query($sqlUpdatePlayer)) {
 			die('Error: ' . mysql_error());
 		}

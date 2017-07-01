@@ -13,7 +13,7 @@
 
 
 if pgrep npm
-	then 
+	then
 		pgrep node | xargs kill
 	else
 		echo "Bots are already stopped -- Continuing"

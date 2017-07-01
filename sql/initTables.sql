@@ -1,4 +1,4 @@
-CREATE DATABASE `7daysManager` /*!40100 DEFAULT CHARACTER SET latin1 */;
+CREATE DATABASE `7daysManager`
 
 CREATE TABLE `bans` (
   `id` int(11) NOT NULL,
@@ -147,4 +147,3 @@ CREATE TABLE `servers` (
   `botID` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
