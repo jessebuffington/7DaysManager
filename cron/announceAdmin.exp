@@ -7,8 +7,6 @@ set host [lindex $argv 0]
 set port [lindex $argv 1]
 set pass [lindex $argv 2]
 
-# set to 1 to force conservative mode even if
-# script wasn't run conservatively originally
 set force_conservative 0
 
 if {$force_conservative} {
@@ -24,6 +22,6 @@ spawn telnet $host $port
 match_max 100000
 expect "Please enter password:\r"
 send "$pass\r"
-send "say \"\[00ffff\]If there are any server issues, please contact NuTcAsE or Dragoon1CaN on Steam or our Discord server!\"\r"
+send "say \"\[00ffff\]If there are any server issues, please contact NuTcAsE or Dragoon1CaN on steam or our Discord server!\"\r"
 send "exit\r"
 expect eof
