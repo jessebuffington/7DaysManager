@@ -10,8 +10,8 @@
 
 
 
-This is a small collection of scripts that eventually will be merged in to a much greater toolset. My end goal is to eventually replace the current closed
-source tool (CBSM) with an open source platform that the server operators can then host on their own systems.
+This is a small collection of scripts that eventually will be merged in to a much greater toolset.
+My end goal is to eventually replace the current closed source tool (CBSM) with an open source platform that the server operators can then host on their own systems.
 
 Setup:
 - Start by configuring variables under includes/config.php and includes/dbConn.php.
