@@ -8,7 +8,7 @@ backupDir="/media/server/backup/${backupName}"
 fileName="${backupDir}/${backupName}_`date +%Y%m%d_%H%M`.gz"
 backupFile="${backupName}_`date +%Y%m%d_%H%M`.gz"
 regionDir="/home/steam/.local"
-keepTo="3"
+keepTo="2"
 
 logDir="../log/"
 logFile="regionBackup_`date +%Y%m%d_%H`.log"
