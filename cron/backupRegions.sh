@@ -10,7 +10,7 @@ backupFile="${backupName}_`date +%Y%m%d_%H%M`.gz"
 regionDir="/home/steam/.local"
 keepTo="2"
 
-logDir="../log/"
+logDir="/usr/local/etc/7dayManager/log/"
 logFile="regionBackup_`date +%Y%m%d_%H`.log"
 
 exec 1> >(logger -s -t $(basename $0)) 2>&1 >> ${logDir}/${logFile}
