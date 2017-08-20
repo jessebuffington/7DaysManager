@@ -22,9 +22,9 @@ sleep 1
 
 send "say \"\[cc0000\]SERVER MSG\: \[f2f3f4\]IT\'S PARTY TIME\!\!\!\"\r"
 
-set count 5;
+set count 10;
 while {$count > 0 } {
-	send "spawnScouts 279 75 1760\n"
+	send "spawnScouts 7299 73 -3059\n"
 	#send "spawnScouts $cords\n"
 	set count [expr $count-1];
 	expect "Scouts spawning at"
