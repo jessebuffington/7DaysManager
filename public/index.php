@@ -278,7 +278,11 @@ _.._ :`4MM$!YYYYYYYYYii,.__.diii$$YYYYYYYYYYY
                                 echo '">' . $queryGameChat['timestamp'] . '</span>';
                                 echo '</div>';
                                 //echo '<a href="http://steamidfinder.com/lookup/' . $queryAllPlayersID['steamid'] . '" target="_blank">';
-                                echo '<img class="direct-chat-img" src="/bower_components/Ionicons/png/512/ios7-contact.png" alt="message user image">';
+                                if($queryGameChat['inGame'] == 0) {
+                                  echo '<img class="direct-chat-img" src="/lib/img/icon.png" alt="message user image">';
+                                } else {
+                                  echo '<img class="direct-chat-img" src="/bower_components/Ionicons/png/512/ios7-contact.png" alt="message user image">';
+                                }
                                 //echo '</a>';
                                 echo '<div class="direct-chat-text">' . $queryGameChat['message']  . '</div>';
                                 echo '</div>';
