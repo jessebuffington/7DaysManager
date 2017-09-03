@@ -39,6 +39,8 @@
     echo '</title>';
   }
 
+  echo '<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">';
+  echo '<link rel="icon" href="/favicon.ico" type="image/png" />';
   echo '<meta charset="utf-8">';
   echo '<meta http-equiv="X-UA-Compatible" content="IE=edge">';
   echo '<header class="main-header">';
