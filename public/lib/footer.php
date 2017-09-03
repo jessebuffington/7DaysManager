@@ -14,7 +14,7 @@
 </strong>
 All rights reserved.
 </footer>
-<aside class="control-sidebar control-sidebar-dark">
+<!--<aside class="control-sidebar control-sidebar-dark">
 <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
   <li>
     <a href="#control-sidebar-home-tab" data-toggle="tab">
@@ -202,7 +202,7 @@ All rights reserved.
     </form>
   </div>
 </div>
-</aside>
+</aside> -->
 <div class="control-sidebar-bg"></div>
 </div>
 <script src="/bower_components/jquery/dist/jquery.min.js"></script>

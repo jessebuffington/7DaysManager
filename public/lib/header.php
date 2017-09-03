@@ -45,7 +45,7 @@
   echo '  <!-- Logo -->';
   echo '  <a href="/" class="logo">';
   echo '  <!-- mini logo for sidebar mini 50x50 pixels -->';
-  echo '    <span class="logo-mini"><b>A</b>LT</span>';
+  echo '    <span class="logo-mini"><b>7</b>DM</span>';
   echo '    <!-- logo for regular state and mobile devices -->';
   echo '     <span class="logo-lg"><b>7DaysManager</b></span>';
   echo '  </a>';
@@ -297,9 +297,9 @@
   echo '            </ul>';
   echo '          </li>';
   echo '          <!-- Control Sidebar Toggle Button -->';
-  echo '          <li>';
+  echo '          <!-- <li>';
   echo '            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>';
-  echo '          </li>';
+  echo '          </li> -->';
   echo '        </ul>';
   echo '      </div>';
   echo '    </nav>';
