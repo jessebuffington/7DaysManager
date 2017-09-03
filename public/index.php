@@ -161,7 +161,7 @@ _.._ :`4MM$!YYYYYYYYYii,.__.diii$$YYYYYYYYYYY
               </div>
               <div class="row">
                 <div class="col-md-8">
-                  <div class="box box-success">
+                  <!-- <div class="box box-success">
                     <div class="box-header with-border">
                       <h3 class="box-title">
                         Visitors Report
@@ -222,7 +222,7 @@ _.._ :`4MM$!YYYYYYYYYii,.__.diii$$YYYYYYYYYYY
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div> -->
                   <div class="row">
                     <div class="col-md-8">
                       <div class="box box-warning direct-chat direct-chat-warning">
@@ -304,7 +304,7 @@ _.._ :`4MM$!YYYYYYYYYii,.__.diii$$YYYYYYYYYYY
                       <div class="box box-danger">
                         <div class="box-header with-border">
                           <h3 class="box-title">
-                            Most Active Players
+                            Active Players
                           </h3>
                           <div class="box-tools pull-right">
                             <span class="label label-danger">
@@ -420,19 +420,19 @@ _.._ :`4MM$!YYYYYYYYYii,.__.diii$$YYYYYYYYYYY
             </div>
           </div>
           <div class="col-md-4">
-            <div class="info-box bg-yellow">
+            <div class="info-box bg-blue">
               <span class="info-box-icon">
                 <i class="ion ion-ios-pricetag-outline"></i>
               </span>
               <div class="info-box-content">
                 <span class="info-box-text">
-                  Inventory
+                  Shop Items Purchased (This Week)
                 </span>
                 <span class="info-box-number">
-                  5,200
+                  590
                 </span>
                 <div class="progress">
-                  <div class="progress-bar" style="width: 50%"></div>
+                  <div class="progress-bar" style="width: 90%"></div>
                 </div>
                 <span class="progress-description">
                   50% Increase in 30 Days
@@ -445,10 +445,10 @@ _.._ :`4MM$!YYYYYYYYYii,.__.diii$$YYYYYYYYYYY
               </span>
               <div class="info-box-content">
                 <span class="info-box-text">
-                  Mentions
+                  Players (This Week)
                 </span>
                 <span class="info-box-number">
-                  92,050
+                  60
                 </span>
                 <div class="progress">
                   <div class="progress-bar" style="width: 20%"></div>
@@ -458,7 +458,7 @@ _.._ :`4MM$!YYYYYYYYYii,.__.diii$$YYYYYYYYYYY
                 </span>
               </div>
             </div>
-            <div class="info-box bg-red">
+            <!--<div class="info-box bg-red">
               <span class="info-box-icon">
                 <i class="ion ion-ios-cloud-download-outline"></i>
               </span>
@@ -495,7 +495,7 @@ _.._ :`4MM$!YYYYYYYYYii,.__.diii$$YYYYYYYYYYY
                   40% Increase in 30 Days
                 </span>
               </div>
-            </div>
+            </div>-->
           </div>
         </div>
       </section>
