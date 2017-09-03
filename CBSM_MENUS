@@ -1,0 +1,202 @@
+CBSM Features (* = paid feature)
+General Settings
+	Connection Details
+		ServerIP/Telnet port/Telnet pass
+	Server Settings
+		Ping limit
+		World border radius
+		periodic worl saves
+		schedules reboots
+		global ban list
+		steam family share protection
+		enable anto-cheat A.I.
+		A.I. early detection time
+		maximuim player slots
+		*reserved player slotsfirewall
+		*firewall country list
+		*firewall country list
+		*firewall player whitelist
+	Game Settings
+		Server message of the day (welcome message)
+		player jail
+		jail sentence
+		jail coordinates
+		cost to bail from jail
+		enable /day7 (/zombies)
+		enable /grab lcb
+		*enable /who
+		*/who cooldown
+		periodic air supply drops
+		Announce air supply drops
+	Configuration Tweaks
+		Dog remover
+		spawn together mode
+		vote point conversion (to zcoins)
+		ping whitelist
+		custom item list
+	Affiliate programs (Earn Money)
+		Enable dailygamesale.com alerts
+		dailygamesale.com interval (minutes)
+Periodic Server Broadcasts
+	Periodic Server Broadcasts
+		Message
+		Interval
+	Active Broadcasts
+Interactive Server Map
+	Configure Your Map
+		Control Panel Port (serverconfig.xml)
+		*Map Generation Radius
+	Activate Your Map
+		Activate Button
+	Choose what is displayed
+		Online players
+		*Locations
+		Zombies
+		Animals
+		Vehicles
+		Supply Crates
+		Offline Players
+		Player Inventories
+		Land Claim Blocks
+		World Region Grid
+		*24 Player Tracker
+		In-Game Time
+Server Economy
+	Server Economics
+		Enable Server Economy
+		Server Currency
+		PvP Bounty System
+		Earnings per Minute
+		Earnings per Zombies
+		Earning list on Death
+		Cost of /home
+		Cost of /sethome
+		Cost of /cure research
+		Cost to create a zGate
+		Cost to visit a zGate
+		Cost to /teleport
+		Cost to /Revive
+		*/who Cost
+		/grab lcb Cost
+		Cost to create plot
+		Plot taxes
+		Cost to open/activate shop
+		Shop Taxes
+Teleportation and Waypoints
+	Server Teleportation
+		Teleport to player/coordinates
+		Create waypoints
+		Visit Waypoints
+		Public Waypoints
+		Max waypoints per player
+		Teleport to /spawn
+		Location of /spawn
+		*Enable /revive
+		Enable /home
+	Teleportation Cooldown Delays (in minutes)
+		/teleport and /spawn Cooldown
+		Waypoints Teleport Cooldown
+		/revive Cooldown
+		/home Cooldown
+	Teleportation Rules
+		How long does it take to cast a teleport?
+		Cancel teleport is player recieves damage?
+	Active Waypoints
+		--LIST--
+Plots and Landmarks
+	Server Landmarks
+		Coordinates
+		Radius
+		Trigger
+		Response
+		Cooldown
+		zCoins Cost
+		PvP Status
+		Map Display
+		Landmark Name
+		Landmark Description
+	Active Server Landmarks
+		--LIST--
+	Player Plots
+		Enable Plots
+		Plot Perimeter
+		Min Distance from Spawn (0,0)
+		Enable Vendors?
+	Active Player Plots
+		--LIST--
+Custom Commands
+	Custom Commands
+		Custom Command
+		Command Description
+		Response
+		Cooldown
+		zCoins Cost
+	Active Custom Commands
+		--LIST--
+Manage Server Whitelist
+ 	Manage Server Whitelist
+ 		Steam ID
+ 		Whitelist Action
+	Server Whitelist
+		--LIST--
+Manage Envul Autoban
+	Manage Autoban
+		Autoban (Envul Anti-Cheat)
+		Announce Anti-Cheat Results
+		Max Black Marks
+		Black Mark Penalty - illegal PvP
+		Black Mark Penalty - illegal items (warn)
+		Black Mark Penalty - illegal words
+		Curse Word List
+	AutoBan Item Rules
+		Item
+		Quantity
+		Action
+		Black Marks
+		Warn Delay (seconds)
+	Current Rules
+		--LIST--
+Manage Permissions
+	Manage Envul Permissions of Players
+		Privitize CBSM
+	Current Permission Groups
+		--LIST--
+	Your Envul players
+	 --LIST--
+Manage Permissions Shop
+	Manage Permissions Shop
+		Add Permission / Add to group
+		Shopping Group
+		Permission Duration
+		Duration Time Scale
+		Cost
+		Currency
+	Currently Listed Permissions
+		--LIST--
+Manage Gimme System
+	Manage Gimme System Settings
+		Usage delay
+		Items won per /gimme
+		Cost per /gimme
+	Add an item
+		Item
+		Group
+		Quantity (Min)
+		Quantity (Max)
+	Gimme Groups
+		--LIST--
+	Currently Listed Rewards
+		--LIST--
+Manage zCoins Shop
+	Manage zCoins Shop
+		Item
+		Group
+		Quantity
+		Quality of Item
+		zCoins Cost
+	Currently Listed Items
+		--LIST--
+Manage Voter Rewards
+	Manage Voter Rewards Shop
+		Enable Voting Rewards
+		Vote Reminder
