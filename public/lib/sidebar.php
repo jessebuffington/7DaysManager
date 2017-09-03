@@ -102,12 +102,12 @@
           </a>
           <ul class="treeview-menu">
             <li <?php if($pageTitle == 'Player Report') {echo 'class = "active"';} ?>><a href="/pages/reports/playerReport.php"><i class="fa fa-circle-o"></i> Player Report</a></li>
+            <!--<li <?php if($pageTitle == 'PAGE') {echo 'class = "active"';} ?>><a href="/pages/reports/#"><i class="fa fa-circle-o"></i> PAGE</a></li>
             <li <?php if($pageTitle == 'PAGE') {echo 'class = "active"';} ?>><a href="/pages/reports/#"><i class="fa fa-circle-o"></i> PAGE</a></li>
-            <li <?php if($pageTitle == 'PAGE') {echo 'class = "active"';} ?>><a href="/pages/reports/#"><i class="fa fa-circle-o"></i> PAGE</a></li>
-            <li <?php if($pageTitle == 'PAGE') {echo 'class = "active"';} ?>><a href="/pages/reports/#"><i class="fa fa-circle-o"></i> PAGE</a></li>
+            <li <?php if($pageTitle == 'PAGE') {echo 'class = "active"';} ?>><a href="/pages/reports/#"><i class="fa fa-circle-o"></i> PAGE</a></li>-->
           </ul>
         </li>
-        <li <?php if($pageParent == 'Reports') {echo 'class="active treeview menu open"';}else{echo 'class="treeview menu"';} ?>>
+        <li <?php if($pageParent == 'Settings') {echo 'class="active treeview menu open"';}else{echo 'class="treeview menu"';} ?>>
           <a href="#">
             <i class="fa fa-laptop"></i>
             <span>Settings</span>
@@ -117,11 +117,12 @@
           </a>
           <ul class="treeview-menu">
             <li <?php if($pageTitle == 'Server Settings') {echo 'class = "active"';} ?>><a href="/pages/settings/serverSettings.php"><i class="fa fa-circle-o"></i> Server Config</a></li>
-            <li <?php if($pageTitle == 'Custom Commands') {echo 'class = "active"';} ?>><a href="/pages/settings/customCommands/php"><i class="fa fa-circle-o"></i> Custom Commands</a></li>
+            <li <?php if($pageTitle == 'In-Game Config') {echo 'class = "active"';} ?>><a href="/pages/settings/ingameConfig.php"><i class="fa fa-circle-o"></i> In-Game Config</a></li>
+            <li <?php if($pageTitle == 'Custom Commands') {echo 'class = "active"';} ?>><a href="/pages/settings/customCommands.php"><i class="fa fa-circle-o"></i> Custom Commands</a></li>
+            <!--<li <?php if($pageTitle == 'PAGE') {echo 'class = "active"';} ?>><a href="/pages/settings/#"><i class="fa fa-circle-o"></i> PAGE</a></li>
             <li <?php if($pageTitle == 'PAGE') {echo 'class = "active"';} ?>><a href="/pages/settings/#"><i class="fa fa-circle-o"></i> PAGE</a></li>
             <li <?php if($pageTitle == 'PAGE') {echo 'class = "active"';} ?>><a href="/pages/settings/#"><i class="fa fa-circle-o"></i> PAGE</a></li>
-            <li <?php if($pageTitle == 'PAGE') {echo 'class = "active"';} ?>><a href="/pages/settings/#"><i class="fa fa-circle-o"></i> PAGE</a></li>
-            <li <?php if($pageTitle == 'PAGE') {echo 'class = "active"';} ?>><a href="/pages/settings/#"><i class="fa fa-circle-o"></i> PAGE</a></li>
+            <li <?php if($pageTitle == 'PAGE') {echo 'class = "active"';} ?>><a href="/pages/settings/#"><i class="fa fa-circle-o"></i> PAGE</a></li>-->
           </ul>
         </li>
         <!--<li class="treeview">
