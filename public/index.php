@@ -47,7 +47,7 @@ _.._ :`4MM$!YYYYYYYYYii,.__.diii$$YYYYYYYYYYY
           <h1>
             Dashboard
             <small>
-              Version 0.1
+              Version <?php echo $version;?>
             </small>
           </h1>
           <ol class="breadcrumb">

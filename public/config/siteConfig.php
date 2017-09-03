@@ -4,6 +4,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/config/dbConfig.php';
 
 //Set this for global site use
 $siteName = '7DaysManager';
+$version = '0.2';
 
 //Maximum Login Attempts
 $max_attempts = 5;
