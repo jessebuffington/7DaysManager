@@ -52,7 +52,7 @@ _.._ :`4MM$!YYYYYYYYYii,.__.diii$$YYYYYYYYYYY
           </h1>
           <ol class="breadcrumb">
             <li>
-              <a href="#">
+              <a href="/">
                 <i class="fa fa-dashboard"></i>
                  Home
               </a>
