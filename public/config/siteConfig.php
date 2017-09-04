@@ -6,6 +6,8 @@ include $_SERVER['DOCUMENT_ROOT'].'/config/dbConfig.php';
 $siteName = '7DaysManager';
 $version = '0.2';
 
+$headerColor = 'blue';
+
 //Maximum Login Attempts
 $max_attempts = 5;
 //Timeout (in seconds) after max attempts are reached

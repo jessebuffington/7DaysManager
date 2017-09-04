@@ -36,7 +36,7 @@ _.._ :`4MM$!YYYYYYYYYii,.__.diii$$YYYYYYYYYYY
       $('.gameChat').scrollTop($('.gameChat')[0].scrollHeight);
     </script>
   </head>
-  <body class="hold-transition skin-blue sidebar-mini">
+  <body class="hold-transition skin-<?php echo $headerColor ?> sidebar-mini">
     <div class="wrapper">
       <?php
         include_once($_SERVER[ "DOCUMENT_ROOT"] . "/lib/sidebar.php");

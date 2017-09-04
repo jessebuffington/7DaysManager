@@ -7,7 +7,7 @@
     include_once($_SERVER[ "DOCUMENT_ROOT"] . "/lib/header.php");
   ?>
 </head>
-<body class="hold-transition skin-red sidebar-mini">
+<body class="hold-transition skin-<?php echo $headerColor ?> sidebar-mini">
   <div class="wrapper">
     <?php
       include_once($_SERVER[ "DOCUMENT_ROOT"] . "/lib/sidebar.php");
