@@ -30,7 +30,7 @@ _.._ :`4MM$!YYYYYYYYYii,.__.diii$$YYYYYYYYYYY
 
 <head>
   <?php
-    $pageTitle='Server Settings';
+    $pageTitle='General Server Settings';
     $pageParent='Settings';
     include_once($_SERVER[ "DOCUMENT_ROOT"] . "/lib/header.php");
   ?>
@@ -46,7 +46,7 @@ _.._ :`4MM$!YYYYYYYYYii,.__.diii$$YYYYYYYYYYY
     <div class="content-wrapper">
       <section class="content-header">
         <h1>
-          Server Settings
+          General Server Settings
           <small>
             Version <?php echo $version;?>
           </small>
@@ -60,7 +60,7 @@ _.._ :`4MM$!YYYYYYYYYii,.__.diii$$YYYYYYYYYYY
           </li>
           <li>Settings</li>
           <li class="active">
-            Server Settings
+            General Server Settings
           </li>
         </ol>
       </section>
@@ -92,7 +92,7 @@ _.._ :`4MM$!YYYYYYYYYii,.__.diii$$YYYYYYYYYYY
                 </div>-->
                 <div class="checkbox">
                   <label>
-                    <input type="checkbox"> Enable Me!
+                    <input type="checkbox"> Enabled
                   </label>
                 </div>
               </div>
