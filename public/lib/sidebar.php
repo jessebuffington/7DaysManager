@@ -119,7 +119,11 @@
           <ul class="treeview-menu">
             <li <?php if($pageTitle == 'Server Settings') {echo 'class = "active"';} ?>><a href="/pages/settings/serverSettings.php"><i class="fa fa-circle-o"></i> Server Config</a></li>
             <li <?php if($pageTitle == 'In-Game Config') {echo 'class = "active"';} ?>><a href="/pages/settings/ingameConfig.php"><i class="fa fa-circle-o"></i> In-Game Config</a></li>
-            <li <?php if($pageTitle == 'Custom Commands') {echo 'class = "active"';} ?>><a href="/pages/settings/customCommands.php"><i class="fa fa-circle-o"></i> Custom Commands</a></li>
+            <li <?php if($pageTitle == 'Server Economy') {echo 'class = "active"';} ?>><a href="/pages/settings/serverEconomy.php"><i class="fa fa-circle-o"></i> Server Economy</a></li>
+            <li <?php if($pageTitle == 'Map Config') {echo 'class = "active"';} ?>><a href="/pages/settings/mapConfig.php"><i class="fa fa-circle-o"></i> Map Config</a></li>
+            <li <?php if($pageTitle == 'Commands/Broadcasts') {echo 'class = "active"';} ?>><a href="/pages/settings/customCommands.php"><i class="fa fa-circle-o"></i> Commands/Broadcasts</a></li>
+            <li <?php if($pageTitle == 'Player Management') {echo 'class = "active"';} ?>><a href="/pages/settings/playerManagement.php"><i class="fa fa-circle-o"></i> Player Management</a></li>
+            <li <?php if($pageTitle == 'Player Voting System') {echo 'class = "active"';} ?>><a href="/pages/settings/playerVoting.php"><i class="fa fa-circle-o"></i> Player Voting System</a></li>
             <!--<li <?php if($pageTitle == 'PAGE') {echo 'class = "active"';} ?>><a href="/pages/settings/#"><i class="fa fa-circle-o"></i> PAGE</a></li>
             <li <?php if($pageTitle == 'PAGE') {echo 'class = "active"';} ?>><a href="/pages/settings/#"><i class="fa fa-circle-o"></i> PAGE</a></li>
             <li <?php if($pageTitle == 'PAGE') {echo 'class = "active"';} ?>><a href="/pages/settings/#"><i class="fa fa-circle-o"></i> PAGE</a></li>
