@@ -27,8 +27,8 @@
 //  		Jesse B.
 //
 
-  include($_SERVER['DOCUMENT_ROOT'] . '/config/siteConfig.php');
-  include($_SERVER["DOCUMENT_ROOT"] . '/config/dbConfig.php');
+  require($_SERVER['DOCUMENT_ROOT'] . '/config/siteConfig.php');
+  require($_SERVER["DOCUMENT_ROOT"] . '/config/dbConfig.php');
   //$pageTitle;
 
   if(isset($pageTitle)){
