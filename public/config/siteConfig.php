@@ -4,10 +4,20 @@ include $_SERVER['DOCUMENT_ROOT'].'/config/dbConfig.php';
 
 //Set this for global site use
 $siteName = '7DaysManager';
-$version = '0.2';
+$version = '0.3';
 
-$headerColor = 'blue';
+$headerColor = 'red';
 
+//Server API Information
+$serverHost = '';
+$apiUser = '';
+$apiPass = '';
+
+
+
+//************************
+//** NOT FUNCTIONAL YET **
+//************************
 //Maximum Login Attempts
 $max_attempts = 5;
 //Timeout (in seconds) after max attempts are reached
