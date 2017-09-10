@@ -31,7 +31,7 @@ _.._ :`4MM$!YYYYYYYYYii,.__.diii$$YYYYYYYYYYY
   <head>
     <?php
       $pageTitle='Dashboard';
-      include_once($_SERVER[ "DOCUMENT_ROOT"] . "/lib/header.php");
+      include($_SERVER[ "DOCUMENT_ROOT"] . "/lib/header.php");
     ?>
     <script>
       $('.gameChat').scrollTop($('.gameChat')[0].scrollHeight);
@@ -40,7 +40,7 @@ _.._ :`4MM$!YYYYYYYYYii,.__.diii$$YYYYYYYYYYY
   <body class="hold-transition skin-<?php echo $headerColor ?> sidebar-mini">
     <div class="wrapper">
       <?php
-        include_once($_SERVER[ "DOCUMENT_ROOT"] . "/lib/sidebar.php");
+        include($_SERVER[ "DOCUMENT_ROOT"] . "/lib/sidebar.php");
       ?>
       <div class="content-wrapper">
         <section class="content-header">
@@ -83,6 +83,7 @@ _.._ :`4MM$!YYYYYYYYYii,.__.diii$$YYYYYYYYYYY
                           echo ')</i></small>';
                         }
                       ?>
+                    </span>
                     </span>
                   </div>
                 </div>
