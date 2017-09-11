@@ -4,7 +4,7 @@ date_default_timezone_set("EST");
 //App Directory (Absolute Location!)
 $appDir = '/usr/local/etc/7daysManager/';
 //Log Directory (Absolute Location!)
-$appLog = '/usr/local/etc/7daysManager/log/7daysManager.log';
+$appLog = '/usr/local/etc/7daysManager/log/7dm_' . date('Ymd') . '.log';
 $debugLogging = '1';
 //DB Config File (Absolute Location!)
 require '/usr/local/etc/7daysManager/includes/dbConfig.php';
