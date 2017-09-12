@@ -30,14 +30,12 @@
 //  		Jesse B.
 //
 
-include '../includes/config.php';
+require 'includes/appConfig.php';
 
-$dir = '/home/steam/Steam/servers/7daysManager/';
-$log = '/home/steam/Steam/servers/7daysManager/log/7daysManager.log';
 
 //Method for displaying the help and default variables.
 function displayUsage(){
-  global $log;
+  global $APP_LOG;
 
   echo '\r\n';
   echo 'Starting up 7daysManager';
@@ -59,26 +57,26 @@ if($argc > 0){
       case '--help':
       return displayUsage();
       case '--log':
-      $log = $args[1];
+      $APP_LOG = $args[1];
       break;
     }
   }
 }
 
 //fork the process to work in a daemonized environment
-file_put_contents($log, 'Status: starting up.\n', FILE_APPEND);
-$pid = pcntl_fork();
-if($pid == -1){
-  file_put_contents($log, 'Error: could not daemonize process.\n', FILE_APPEND);
+file_put_contents($APP_LOG, 'Status: starting up.\n', FILE_APPEND);
+$APP_PID = pcntl_fork();
+if($APP_PID == -1){
+  file_put_contents($APP_LOG, 'Error: could not daemonize process.\n', FILE_APPEND);
   return 1; //error
 }
-else if($pid){
+else if($APP_PID){
 	return 0; //success
 }
 else{
   //the main process
   while(true){
-    file_put_contents($log, 'Running...\n', FILE_APPEND);
+    file_put_contents($APP_LOG, 'Running...\n', FILE_APPEND);
     sleep(5);
     exec('lib/listPlayers.php');
     sleep 30
