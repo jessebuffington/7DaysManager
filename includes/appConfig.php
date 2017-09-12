@@ -11,14 +11,14 @@ if (!defined('APP_GID')) define('APP_GID', 1500);
 if (!defined('APP_PID')) define('APP_PID', '' . APP_ROOT . '' . APP_NAME . '.lock');
 
 //Log Directory (Absolute Location!)
-if (!defined('APP_PID')) define('APP_LOG', '' . APP_ROOT . 'log/7dm_' . date('Ymd') . '.log');
+if (!defined('APP_LOG')) define('APP_LOG', '' . APP_ROOT . 'log/7dm_' . date('Ymd') . '.log');
 if (!defined('DEBUG_LOGGING')) define('DEBUG_LOGGING', '1');
 
 //DB Config
-if (!defined('DB_HOST')) define('DB_HOST', 'localhost');
-if (!defined('DB_USER')) define('DB_USER', '7days');
-if (!defined('DB_NAME')) define('DB_NAME', '7daysManager');
-if (!defined('DB_PASSWORD')) define('DB_PASSWORD', 'Jrbjrb123123_');
+if (!defined('DB_HOST')) define('DB_HOST', '**HOST**');
+if (!defined('DB_USER')) define('DB_USER', '**USER**');
+if (!defined('DB_NAME')) define('DB_NAME', '**DB**');
+if (!defined('DB_PASSWORD')) define('DB_PASSWORD', '**PASS**');
 //////////////////////////////////////////////////////////
 //MySQL Connection String
 $link = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD);
@@ -32,15 +32,15 @@ if (!$db_selected) {
 //////////////////////////////////////////////////////////
 
 //Server API Information
-if (!defined('API_HOST')) define('API_HOST', 'localhost');
-if (!defined('API_PORT')) define('API_PORT', '8083');
-if (!defined('API_USER')) define('API_USER', '7dm');
-if (!defined('APT_PASS')) define('APT_PASS', '1234');
+if (!defined('API_HOST')) define('API_HOST', '**HOST');
+if (!defined('API_PORT')) define('API_PORT', '**PORT**');
+if (!defined('API_USER')) define('API_USER', '**USER**');
+if (!defined('APT_PASS')) define('APT_PASS', '**PASS');
 
 //Server Telnet Information
 if (!defined('TELNET_HOST')) define('TELNET_HOST', API_HOST);
-if (!defined('TELNET_PORT')) define('TELNET_PORT', '18081');
-if (!defined('TELNET_PASS')) define('TELNET_PASS', 'Snuff1e^agu5');
+if (!defined('TELNET_PORT')) define('TELNET_PORT', '**PORT**');
+if (!defined('TELNET_PASS')) define('TELNET_PASS', '**PASS**');
 
 //Command Schedule (Seconds)
 //Only modify this if you want to adjust when commands execute
