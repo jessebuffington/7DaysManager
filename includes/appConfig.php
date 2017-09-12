@@ -1,24 +1,56 @@
 <?php
 date_default_timezone_set("EST");
 
+define('APP_FORK',  empty($argv[1]) || 'cli' != $argv[1]);
+
 //App Directory (Absolute Location!)
-$appDir = '/usr/local/etc/7daysManager/';
+if (!defined('APP_NAME')) define('APP_NAME', '7DaysManager');
+if (!defined('APP_ROOT')) define('APP_ROOT', '/usr/local/etc/7daysManager/');
+if (!defined('APP_UID')) define('APP_UID', 1500);
+if (!defined('APP_GID')) define('APP_GID', 1500);
+if (!defined('APP_PID')) define('APP_PID', '' . APP_ROOT . '' . APP_NAME . '.lock');
+
 //Log Directory (Absolute Location!)
-$appLog = '/usr/local/etc/7daysManager/log/7dm_' . date('Ymd') . '.log';
-$debugLogging = '1';
-//DB Config File (Absolute Location!)
-require '/usr/local/etc/7daysManager/includes/dbConfig.php';
+if (!defined('APP_PID')) define('APP_LOG', '' . APP_ROOT . 'log/7dm_' . date('Ymd') . '.log');
+if (!defined('DEBUG_LOGGING')) define('DEBUG_LOGGING', '1');
+
+//DB Config
+if (!defined('DB_HOST')) define('DB_HOST', 'localhost');
+if (!defined('DB_USER')) define('DB_USER', '7days');
+if (!defined('DB_NAME')) define('DB_NAME', '7daysManager');
+if (!defined('DB_PASSWORD')) define('DB_PASSWORD', 'Jrbjrb123123_');
+//////////////////////////////////////////////////////////
+//MySQL Connection String
+$link = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD);
+if (!$link) {
+	die('Could not connect: ' .mysql_error());
+}
+$db_selected = mysql_select_db(DB_NAME, $link);
+if (!$db_selected) {
+	die('Can\'t use ' . DB_NAME . ': ' . mysql_error());
+}
+//////////////////////////////////////////////////////////
 
 //Server API Information
-$serverHost = 'localhost';
-$apiPort = '8083';
-$apiUser = '7dm';
-$apiPass = '1234';
+if (!defined('API_HOST')) define('API_HOST', 'localhost');
+if (!defined('API_PORT')) define('API_PORT', '8083');
+if (!defined('API_USER')) define('API_USER', '7dm');
+if (!defined('APT_PASS')) define('APT_PASS', '1234');
+
+//Server Telnet Information
+if (!defined('TELNET_HOST')) define('TELNET_HOST', API_HOST);
+if (!defined('TELNET_PORT')) define('TELNET_PORT', '18081');
+if (!defined('TELNET_PASS')) define('TELNET_PASS', 'Snuff1e^agu5');
 
 //Command Schedule (Seconds)
 //Only modify this if you want to adjust when commands execute
-$syncGameTime = '5';
-$syncOnlinePlayers = '10';
+if (!defined('syncGameTime')) define('syncGameTime', '5');
+if (!defined('syncOnlinePlayers')) define('syncOnlinePlayers', '10');
+if (!defined('MAX_RESULT')) define('MAX_RESULT', 100);
+if (!defined('MIN_SLEEP')) define('MIN_SLEEP', 0);
+if (!defined('MAX_SLEEP')) define('MAX_SLEEP', 4);
+
+
 
 
 //************************
