@@ -6,7 +6,7 @@
      <?php echo $version;?>
   </div>
   <strong>
-    Copyright &copy; 2017 -
+    Copyright &copy; <?php echo date("Y"); ?> -
     <a href="https://github.com/bassmastry101/7DaysManager">
     7daysManager
   </a>
