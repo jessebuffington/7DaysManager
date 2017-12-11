@@ -1,0 +1,128 @@
+/* Tooltip container */
+.tooltip {
+   position: relative;
+   display: inline-block;
+   border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+   visibility: hidden;
+   width: 200px;
+   background-color: #555;
+   color: #fff;
+   text-align: center;
+   padding: 5px 0;
+   border-radius: 6px;
+
+   /* Position the tooltip text */
+   position: absolute;
+   z-index: 1;
+   bottom: 125%;
+   left: 50%;
+   margin-left: -60px;
+
+   /* Fade in tooltip */
+   opacity: 0;
+   transition: opacity 1s;
+}
+
+/* Tooltip arrow */
+.tooltip .tooltiptext::after {
+   content: "";
+   position: absolute;
+   top: 100%;
+   left: 50%;
+   margin-left: -5px;
+   border-width: 5px;
+   border-style: solid;
+   border-color: #555 transparent transparent transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+   visibility: visible;
+   opacity: 1;
+}
+
+
+/**/
+/*Website Monitor Service Levels*/
+/**/
+.monitor-background {
+  background-color: rgb(0, 0, 0);
+}
+
+.text-center-monitor {
+  color: white;
+}
+
+.service {
+    width: 120px;
+    height: 120px;
+    margin: 0 0 .5em;
+    padding: 1.2em 0;
+    border: 3px solid #00AFED;
+    border-radius: 50%;
+    color: #00AFED
+}
+.top {
+    padding-top: 15px;
+}
+.service .name {
+    color: white;
+}
+.service .status {
+    font-weight: 300;
+}
+.up .service {
+    border-color: lime;
+    color: lime;
+}
+.problem .service {
+    border-color: orange;
+    color: orange
+}
+.down .service {
+    border-color: red;
+    color: red;
+}
+
+.ssl .service {
+    border-color: fuchsia;
+    color: fuchsia;
+}
+
+.dns .service {
+    border-color: aqua;
+    color: aqua;
+}
+
+.timeout .service {
+    border-color: yellow;
+    color: yellow;
+}
+
+.uptime {
+    color: white;
+}
+.uptime-hint {
+    display: inline;
+    border-bottom: 1px dotted #999;
+    cursor: help
+}
+
+
+.monitor_body {
+    margin: 0;
+    font-family: Lato, Helvetica, Arial, sans-serif;
+    font-size: 15;
+    line-height: 1.2;
+}
+.span2 {
+    display: inline-block;
+    zoom: 1;
+    width: 140px;
+    margin: 0 1em;
+    *display: inline
+}

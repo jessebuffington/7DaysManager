@@ -1,3 +1,7 @@
+<?php
+  //require($_SERVER[ "DOCUMENT_ROOT" ] . "/lib/loginHeader.php");
+?>
+
 <!DOCTYPE html>
 <html>
 <!--
@@ -37,7 +41,7 @@ _.._ :`4MM$!YYYYYYYYYii,.__.diii$$YYYYYYYYYYY
       $('.gameChat').scrollTop($('.gameChat')[0].scrollHeight);
     </script>
   </head>
-  <body class="hold-transition skin-<?php echo $headerColor ?> sidebar-mini">
+  <body class="hold-transition skin-<?php echo HEADER_COLOR ?> sidebar-mini">
     <div class="wrapper">
       <?php
         include($_SERVER[ "DOCUMENT_ROOT"] . "/lib/sidebar.php");
@@ -47,7 +51,7 @@ _.._ :`4MM$!YYYYYYYYYii,.__.diii$$YYYYYYYYYYY
           <h1>
             Dashboard
             <small>
-              Version <?php echo $version;?>
+              Version <?php echo SITE_VERSION;?>
             </small>
           </h1>
           <ol class="breadcrumb">
@@ -72,16 +76,7 @@ _.._ :`4MM$!YYYYYYYYYii,.__.diii$$YYYYYYYYYYY
                   <div class="info-box-content">
                     <span class="info-box-number">
                       <?php
-                        $queryGameTime = mysql_query("SELECT * FROM gameTime");
-                        while($queryGameTime = mysql_fetch_array($queryGameTime)) {
-                          echo '<big>';
-                          echo $queryGameTime['currentTime'];
-                          echo '</big></span>'; echo '<span class="info-box-number">Day ';
-                          echo $gameCurrentDay = $queryGameTime['currentDay'];
-                          echo '</span>'; echo '<span class="info-box-number"><small><i>(Next Bloodmoon: ';
-                          $gameCurrentDay = ceil($gameCurrentDay / 7) * 7;
-                          echo ')</i></small>';
-                        }
+                        echo queryGameTime();
                       ?>
                     </span>
                     </span>

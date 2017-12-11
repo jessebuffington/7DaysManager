@@ -1,331 +1,113 @@
-<?php
-//
-//                  Y.                      _
-//                  YiL                   .```.
-//                  Yii;                .; .;;`.
-//                  YY;ii._           .;`.;;;; :
-//                  iiYYYYYYiiiii;;;;i` ;;::;;;;
-//              _.;YYYYYYiiiiiiYYYii  .;;.   ;;;
-//           .YYYYYYYYYYiiYYYYYYYYYYYYii;`  ;;;;
-//         .YYYYYYY$$YYiiYY$$$$iiiYYYYYY;.ii;`..
-//        :YYY$!.  TYiiYY$$$$$YYYYYYYiiYYYYiYYii.
-//        Y$MM$:   :YYYYYY$!"``"4YYYYYiiiYYYYiiYY.
-//     `. :MM$$b.,dYY$$Yii" :'   :YYYYllYiiYYYiYY
-//  _.._ :`4MM$!YYYYYYYYYii,.__.diii$$YYYYYYYYYYY
-//  .,._ $b`P`     "4$$$$$iiiiiiii$$$$YY$$$$$$YiY;
-//     `,.`$:       :$$$$$$$$$YYYYY$$$$$$$$$YYiiYYL
-//      "`;$$.    .;PPb$`.,.``T$$YY$$$$YYYYYYiiiYYU:
-//      ;$P$;;: ;;;;i$y$"!Y$$$b;$$$Y$YY$$YYYiiiYYiYY
-//      $Fi$$ .. ``:iii.`-":YYYYY$$YY$$$$$YYYiiYiYYY
-//      :Y$$rb ````  `_..;;i;YYY$YY$$$$$$$YYYYYYYiYY:
-//       :$$$$$i;;iiiiidYYYYYYYYYY$$$$$$YYYYYYYiiYYYY.
-//        `$$$$$$$YYYYYYYYYYYYY$$$$$$YYYYYYYYiiiYYYYYY
-//        .i!$$$$$$YYYYYYYYY$$$$$$YYY$$YYiiiiiiYYYYYYY
-//       :YYiii$$$$$$$YYYYYYY$$$$YY$$$$YYiiiiiYYYYYYi';
-//
-//          XOXO
-//  		Jesse B.
-//
+<html>
+<!--
+                Y.                      _
+                YiL                   .```.
+                Yii;                .; .;;`.
+                YY;ii._           .;`.;;;; :
+                iiYYYYYYiiiii;;;;i` ;;::;;;;
+            _.;YYYYYYiiiiiiYYYii  .;;.   ;;;
+         .YYYYYYYYYYiiYYYYYYYYYYYYii;`  ;;;;
+       .YYYYYYY$$YYiiYY$$$$iiiYYYYYY;.ii;`..
+      :YYY$!.  TYiiYY$$$$$YYYYYYYiiYYYYiYYii.
+      Y$MM$:   :YYYYYY$!"``"4YYYYYiiiYYYYiiYY.
+   `. :MM$$b.,dYY$$Yii" :'   :YYYYllYiiYYYiYY
+_.._ :`4MM$!YYYYYYYYYii,.__.diii$$YYYYYYYYYYY
+.,._ $b`P`     "4$$$$$iiiiiiii$$$$YY$$$$$$YiY;
+   `,.`$:       :$$$$$$$$$YYYYY$$$$$$$$$YYiiYYL
+    "`;$$.    .;PPb$`.,.``T$$YY$$$$YYYYYYiiiYYU:
+    ;$P$;;: ;;;;i$y$"!Y$$$b;$$$Y$YY$$YYYiiiYYiYY
+    $Fi$$ .. ``:iii.`-":YYYYY$$YY$$$$$YYYiiYiYYY
+    :Y$$rb ````  `_..;;i;YYY$YY$$$$$$$YYYYYYYiYY:
+     :$$$$$i;;iiiiidYYYYYYYYYY$$$$$$YYYYYYYiiYYYY.
+      `$$$$$$$YYYYYYYYYYYYY$$$$$$YYYYYYYYiiiYYYYYY
+      .i!$$$$$$YYYYYYYYY$$$$$$YYY$$YYiiiiiiYYYYYYY
+     :YYiii$$$$$$$YYYYYYY$$$$YY$$$$YYiiiiiYYYYYYi'
 
-  require($_SERVER['DOCUMENT_ROOT'] . '/config/siteConfig.php');
-  require($_SERVER["DOCUMENT_ROOT"] . '/config/dbConfig.php');
-  //$pageTitle;
+        Much code -- WOW
+		Jesse B.
+-->
+
+<?php
+  include($_SERVER["DOCUMENT_ROOT"] . "/includes/config.php");
+  include($_SERVER["DOCUMENT_ROOT"] . "/includes/functions.php");
 
   if(isset($pageTitle)){
-    echo '<title>' . $pageTitle . ' | ' . $siteName . '</title>';
+    echo '<title>' . $pageTitle . ' | ' . SITE_NAME . '</title>';
   } else {
     echo '<title>';
-    echo $siteName;
+    echo SITE_NAME;
     echo '</title>';
   }
-
-  echo '<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">';
-  echo '<link rel="icon" href="/favicon.ico" type="image/png" />';
-  echo '<meta charset="utf-8">';
-  echo '<meta http-equiv="X-UA-Compatible" content="IE=edge">';
-  echo '<header class="main-header">';
-  echo '  <!-- Logo -->';
-  echo '  <a href="/" class="logo">';
-  echo '  <!-- mini logo for sidebar mini 50x50 pixels -->';
-  echo '    <span class="logo-mini"><b>7</b>DM</span>';
-  echo '    <!-- logo for regular state and mobile devices -->';
-  echo '     <span class="logo-lg"><b>7DaysManager</b></span>';
-  echo '  </a>';
-  echo '  <!-- Header Navbar: style can be found in header.less -->';
-  echo '  <nav class="navbar navbar-static-top">';
-  echo '    <!-- Sidebar toggle button-->';
-  echo '    <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">';
-  echo '      <span class="sr-only">Toggle navigation</span>';
-  echo '    </a>';
-  echo '    <!-- Navbar Right Menu -->';
-  echo '    <div class="navbar-custom-menu">';
-  echo '      <ul class="nav navbar-nav">';
-  echo '        <!-- Messages: style can be found in dropdown.less-->';
-  echo '          <li class="dropdown messages-menu">';
-  echo '            <a href="#" class="dropdown-toggle" data-toggle="dropdown">';
-  echo '              <i class="fa fa-envelope-o"></i>';
-  echo '              <span class="label label-success">4</span>';
-  echo '            </a>';
-  echo '            <ul class="dropdown-menu">';
-  echo '              <li class="header">You have 4 messages</li>';
-  echo '              <li>';
-  echo '                <!-- inner menu: contains the actual data -->';
-  echo '                <ul class="menu">';
-  echo '                  <li><!-- start message -->';
-  echo '                    <a href="#">';
-  echo '                      <div class="pull-left">';
-  echo '                        <img src="/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">';
-  echo '                      </div>';
-  echo '                      <h4>';
-  echo '                        Support Team';
-  echo '                        <small><i class="fa fa-clock-o"></i> 5 mins</small>';
-  echo '                      </h4>';
-  echo '                      <p>Why not buy a new awesome theme?</p>';
-  echo '                    </a>';
-  echo '                  </li>';
-  echo '                  <!-- end message -->';
-  echo '                  <li>';
-  echo '                    <a href="#">';
-  echo '                      <div class="pull-left">';
-  echo '                        <img src="/dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">';
-  echo '                      </div>';
-  echo '                      <h4>';
-  echo '                        AdminLTE Design Team';
-  echo '                        <small><i class="fa fa-clock-o"></i> 2 hours</small>';
-  echo '                      </h4>';
-  echo '                      <p>Why not buy a new awesome theme?</p>';
-  echo '                    </a>';
-  echo '                  </li>';
-  echo '                  <li>';
-  echo '                    <a href="#">';
-  echo '                      <div class="pull-left">';
-  echo '                        <img src="/dist/img/user4-128x128.jpg" class="img-circle" alt="User Image">';
-  echo '                      </div>';
-  echo '                      <h4>';
-  echo '                        Developers';
-  echo '                        <small><i class="fa fa-clock-o"></i> Today</small>';
-  echo '                      </h4>';
-  echo '                      <p>Why not buy a new awesome theme?</p>';
-  echo '                    </a>';
-  echo '                  </li>';
-  echo '                  <li>';
-  echo '                    <a href="#">';
-  echo '                      <div class="pull-left">';
-  echo '                        <img src="/dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">';
-  echo '                      </div>';
-  echo '                      <h4>';
-  echo '                        Sales Department';
-  echo '                        <small><i class="fa fa-clock-o"></i> Yesterday</small>';
-  echo '                      </h4>';
-  echo '                      <p>Why not buy a new awesome theme?</p>';
-  echo '                    </a>';
-  echo '                  </li>';
-  echo '                  <li>';
-  echo '                    <a href="#">';
-  echo '                      <div class="pull-left">';
-  echo '                        <img src="/dist/img/user4-128x128.jpg" class="img-circle" alt="User Image">';
-  echo '                      </div>';
-  echo '                      <h4>';
-  echo '                        Reviewers';
-  echo '                        <small><i class="fa fa-clock-o"></i> 2 days</small>';
-  echo '                      </h4>';
-  echo '                      <p>Why not buy a new awesome theme?</p>';
-  echo '                    </a>';
-  echo '                  </li>';
-  echo '                </ul>';
-  echo '              </li>';
-  echo '              <li class="footer"><a href="#">See All Messages</a></li>';
-  echo '            </ul>';
-  echo '          </li>';
-  echo '          <!-- Notifications: style can be found in dropdown.less -->';
-  echo '          <li class="dropdown notifications-menu">';
-  echo '            <a href="#" class="dropdown-toggle" data-toggle="dropdown">';
-  echo '              <i class="fa fa-bell-o"></i>';
-  echo '              <span class="label label-warning">10</span>';
-  echo '            </a>';
-  echo '            <ul class="dropdown-menu">';
-  echo '              <li class="header">You have 10 notifications</li>';
-  echo '              <li>';
-  echo '                <!-- inner menu: contains the actual data -->';
-  echo '                <ul class="menu">';
-  echo '                  <li>';
-  echo '                    <a href="#">';
-  echo '                      <i class="fa fa-users text-aqua"></i> 5 new members joined today';
-  echo '                    </a>';
-  echo '                  </li>';
-  echo '                  <li>';
-  echo '                    <a href="#">';
-  echo '                      <i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the';
-  echo '                      page and may cause design problems';
-  echo '                    </a>';
-  echo '                  </li>';
-  echo '                  <li>';
-  echo '                    <a href="#">';
-  echo '                      <i class="fa fa-users text-red"></i> 5 new members joined';
-  echo '                    </a>';
-  echo '                  </li>';
-  echo '                  <li>';
-  echo '                    <a href="#">';
-  echo '                      <i class="fa fa-shopping-cart text-green"></i> 25 sales made';
-  echo '                    </a>';
-  echo '                  </li>';
-  echo '                  <li>';
-  echo '                    <a href="#">';
-  echo '                      <i class="fa fa-user text-red"></i> You changed your username';
-  echo '                    </a>';
-  echo '                  </li>';
-  echo '                </ul>';
-  echo '              </li>';
-  echo '              <li class="footer"><a href="#">View all</a></li>';
-  echo '            </ul>';
-  echo '          </li>';
-  echo '          <!-- Tasks: style can be found in dropdown.less -->';
-  echo '          <li class="dropdown tasks-menu">';
-  echo '            <a href="#" class="dropdown-toggle" data-toggle="dropdown">';
-  echo '              <i class="fa fa-flag-o"></i>';
-  echo '              <span class="label label-danger">9</span>';
-  echo '            </a>';
-  echo '            <ul class="dropdown-menu">';
-  echo '              <li class="header">You have 9 tasks</li>';
-  echo '              <li>';
-  echo '                <!-- inner menu: contains the actual data -->';
-  echo '                <ul class="menu">';
-  echo '                  <li><!-- Task item -->';
-  echo '                    <a href="#">';
-  echo '                      <h3>';
-  echo '                        Design some buttons';
-  echo '                        <small class="pull-right">20%</small>';
-  echo '                      </h3>';
-  echo '                      <div class="progress xs">';
-  echo '                        <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar"';
-  echo '                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">';
-  echo '                          <span class="sr-only">20% Complete</span>';
-  echo '                        </div>';
-  echo '                      </div>';
-  echo '                    </a>';
-  echo '                  </li>';
-  echo '                  <!-- end task item -->';
-  echo '                  <li><!-- Task item -->';
-  echo '                    <a href="#">';
-  echo '                      <h3>';
-  echo '                        Create a nice theme';
-  echo '                        <small class="pull-right">40%</small>';
-  echo '                      </h3>';
-  echo '                      <div class="progress xs">';
-  echo '                        <div class="progress-bar progress-bar-green" style="width: 40%" role="progressbar"';
-  echo '                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">';
-  echo '                          <span class="sr-only">40% Complete</span>';
-  echo '                        </div>';
-  echo '                      </div>';
-  echo '                    </a>';
-  echo '                  </li>';
-  echo '                  <!-- end task item -->';
-  echo '                  <li><!-- Task item -->';
-  echo '                    <a href="#">';
-  echo '                      <h3>';
-  echo '                        Some task I need to do';
-  echo '                        <small class="pull-right">60%</small>';
-  echo '                      </h3>';
-  echo '                      <div class="progress xs">';
-  echo '                        <div class="progress-bar progress-bar-red" style="width: 60%" role="progressbar"';
-  echo '                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">';
-  echo '                          <span class="sr-only">60% Complete</span>';
-  echo '                        </div>';
-  echo '                      </div>';
-  echo '                    </a>';
-  echo '                  </li>';
-  echo '                  <!-- end task item -->';
-  echo '                  <li><!-- Task item -->';
-  echo '                    <a href="#">';
-  echo '                      <h3>';
-  echo '                        Make beautiful transitions';
-  echo '                        <small class="pull-right">80%</small>';
-  echo '                      </h3>';
-  echo '                      <div class="progress xs">';
-  echo '                        <div class="progress-bar progress-bar-yellow" style="width: 80%" role="progressbar"';
-  echo '                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">';
-  echo '                          <span class="sr-only">80% Complete</span>';
-  echo '                        </div>';
-  echo '                      </div>';
-  echo '                    </a>';
-  echo '                  </li>';
-  echo '                  <!-- end task item -->';
-  echo '                </ul>';
-  echo '              </li>';
-  echo '              <li class="footer">';
-  echo '                <a href="#">View all tasks</a>';
-  echo '              </li>';
-  echo '            </ul>';
-  echo '          </li>';
-  echo '          <!-- User Account: style can be found in dropdown.less -->';
-  echo '          <li class="dropdown user user-menu">';
-  echo '            <a href="#" class="dropdown-toggle" data-toggle="dropdown">';
-  echo '              <img src="/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">';
-  echo '              <span class="hidden-xs">Alexander Pierce</span>';
-  echo '            </a>';
-  echo '            <ul class="dropdown-menu">';
-  echo '              <!-- User image -->';
-  echo '              <li class="user-header">';
-  echo '                <img src="/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">';
-  echo '                <p>';
-  echo '                  Alexander Pierce - Web Developer';
-  echo '                  <small>Member since Nov. 2012</small>';
-  echo '                </p>';
-  echo '              </li>';
-  echo '              <!-- Menu Body -->';
-  echo '              <li class="user-body">';
-  echo '                <div class="row">';
-  echo '                  <div class="col-xs-4 text-center">';
-  echo '                    <a href="#">Followers</a>';
-  echo '                  </div>';
-  echo '                  <div class="col-xs-4 text-center">';
-  echo '                    <a href="#">Sales</a>';
-  echo '                  </div>';
-  echo '                  <div class="col-xs-4 text-center">';
-  echo '                    <a href="#">Friends</a>';
-  echo '                  </div>';
-  echo '                </div>';
-  echo '                <!-- /.row -->';
-  echo '              </li>';
-  echo '              <!-- Menu Footer-->';
-  echo '              <li class="user-footer">';
-  echo '                <div class="pull-left">';
-  echo '                  <a href="#" class="btn btn-default btn-flat">Profile</a>';
-  echo '                </div>';
-  echo '                <div class="pull-right">';
-  echo '                  <a href="#" class="btn btn-default btn-flat">Sign out</a>';
-  echo '                </div>';
-  echo '              </li>';
-  echo '            </ul>';
-  echo '          </li>';
-  echo '          <!-- Control Sidebar Toggle Button -->';
-  echo '          <!-- <li>';
-  echo '            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>';
-  echo '          </li> -->';
-  echo '        </ul>';
-  echo '      </div>';
-  echo '    </nav>';
-  echo '  </header>';
-  echo '  <!-- Tell the browser to be responsive to screen width -->';
-  echo '  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">';
-  echo '  <!-- Bootstrap 3.3.7 -->';
-  echo '  <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">';
-  echo '  <!-- Font Awesome -->';
-  echo '  <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">';
-  echo '  <!-- Ionicons -->';
-  echo '  <link rel="stylesheet" href="/bower_components/Ionicons/css/ionicons.min.css">';
-  echo '  <!-- jvectormap -->';
-  echo '  <link rel="stylesheet" href="/bower_components/jvectormap/jquery-jvectormap.css">';
-  echo '  <!-- Theme style -->';
-  echo '  <link rel="stylesheet" href="/dist/css/AdminLTE.min.css">';
-  echo '  <!-- AdminLTE Skins. Choose a skin from the css/skins folder instead of downloading all of them to reduce the load. -->';
-  echo '  <link rel="stylesheet" href="/dist/css/skins/_all-skins.min.css">';
-  echo '  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->';
-  echo '  <!-- WARNING: Respond.js doesn\'t work if you view the page via file:// -->';
-  echo '  <!--[if lt IE 9]>';
-  echo '  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>';
-  echo '  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>';
-  echo '  <![endif]-->';
-  echo '  <!-- Google Font -->';
-  echo '  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">';
 ?>
+
+  <link rel="shortcut icon" href="/lib/img/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="/lib/img/favicon.ico" type="image/png" />
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <header class="main-header">
+
+  <?php
+  if (!($pageTitle == 'Login' || $pageTitle == 'Register')) {
+    echo '<!-- Logo -->
+        <a href="/" class="logo">
+        <!-- mini logo for sidebar mini 50x50 pixels -->
+          <span class="logo-mini">' . SITE_NAME_SHORT . '</span>
+          <!-- logo for regular state and mobile devices -->
+           <span class="logo-lg"><b>' . SITE_NAME . '</b></span>
+        </a>
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top">
+          <!-- Sidebar toggle button-->
+          <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+            <span class="sr-only">Toggle navigation</span>
+          </a>
+          <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+              <li class="dropdown">
+                <a href="/lib/logout.php" class="btn-danger">Logout</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </header>';
+    }
+  ?>
+
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.7 -->
+  <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="/bower_components/Ionicons/css/ionicons.css">
+  <!-- daterange picker -->
+  <link rel="stylesheet" href="/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+  <!-- bootstrap datepicker -->
+  <link rel="stylesheet" href="/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+  <!-- iCheck for checkboxes and radio inputs -->
+  <link rel="stylesheet" href="/plugins/iCheck/all.css">
+  <!-- Bootstrap Color Picker -->
+  <link rel="stylesheet" href="/bower_components/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css">
+  <!-- Bootstrap time Picker -->
+  <link rel="stylesheet" href="/plugins/timepicker/bootstrap-timepicker.min.css">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="/bower_components/select2/dist/css/select2.min.css">
+  <!-- jvectormap -->
+  <link rel="stylesheet" href="/bower_components/jvectormap/jquery-jvectormap.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="../../bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/dist/css/AdminLTE.css">
+  <link rel="stylesheet" href="/lib/css/opslinks.css">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="/dist/css/skins/_all-skins.css">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn\'t work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="/lib/js/html5shiv.min.js"></script>
+  <script src="/lib/js/respond.min.js"></script>
+  <![endif]-->
+  <!-- Google Font -->
+  <link rel="stylesheet" href="/lib/css/google.css">

@@ -83,21 +83,8 @@ _.._ :`4MM$!YYYYYYYYYii,.__.diii$$YYYYYYYYYYY
                 </thead>
                 <tbody>
                   <?php
-                    $onlinePlayers = mysql_query("SELECT * FROM bans order by id asc");
-                    if (!$onlinePlayers) {
-                      die('Invalid query: ' . mysql_error());
-                    }
-                    while($row = mysql_fetch_array($onlinePlayers)) {
-                      echo '<tr>';
-                      echo '<td class="text-left">' . $row['playerName'] . '</td>';
-                      echo '<td class="text-left">' . $row['reason'] . '</td>';
-                      echo '<td class="text-left">' . $row['playTime'] . '</td>';
-                      echo '<td class="text-left">' . $row['bannedTo'] . '</td>';
-                      echo '<td class="text-left"><a href="http://steamidfinder.com/lookup/' . $row['steamid'] . ' "target="_blank">' . $row['steamid'] . '</a></td>';
-                      echo '<td class="text-left"><a href="https://tools.keycdn.com/geo?host=' . $row['ip'] . ' "target="_blank">' . $row['ip'] . '</a></td>';
-                      echo '</tr>';
-                    }
-                    ?>
+                    echo getBannedPlayers_List();
+                  ?>
                 </tfoot>
               </table>
             </div>

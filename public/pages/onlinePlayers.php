@@ -87,26 +87,8 @@ _.._ :`4MM$!YYYYYYYYYii,.__.diii$$YYYYYYYYYYY
                 </thead>
                 <tbody>
                   <?php
-                    $onlinePlayers = mysql_query("SELECT * FROM players where onlineStatus = '1' order by id asc");
-                    if (!$onlinePlayers) {
-                      die('Invalid query: ' . mysql_error());
-                    }
-                    while($row = mysql_fetch_array($onlinePlayers)) {
-                      echo '<tr>';
-                      echo '<td class="text-left">' . $row['playerid'] . '</td>';
-                      echo '<td class="text-left">' . $row['playerName'] . '</td>';
-                      echo '<td class="text-left">' . $row['level'] . '</td>';
-                      echo '<td class="text-left">' . $row['health'] . '</td>';
-                      echo '<td class="text-left">' . $row['zombiesKilled'] . '</td>';
-                      echo '<td class="text-left">' . $row['playersKilled'] . '</td>';
-                      echo '<td class="text-left">' . $row['deaths'] . '</td>';
-                      echo '<td class="text-left">' . $row['currentPosition'] . '</td>';
-                      echo '<td class="text-left"><a href="http://steamidfinder.com/lookup/' . $row['steamid'] . ' "target="_blank">' . $row['steamid'] . '</a></td>';
-                      echo '<td class="text-left"><a href="https://tools.keycdn.com/geo?host=' . $row['ip'] . ' "target="_blank">' . $row['ip'] . '</a></td>';
-                      echo '<td class="text-left">' . $row['ping'] . '</td>';
-                      echo '</tr>';
-                    }
-                    ?>
+                    echo getOnlinelPlayers_List();
+                  ?>
                 </tfoot>
               </table>
             </div>
