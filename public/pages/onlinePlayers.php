@@ -87,7 +87,7 @@ _.._ :`4MM$!YYYYYYYYYii,.__.diii$$YYYYYYYYYYY
                 </thead>
                 <tbody>
                   <?php
-                    echo getOnlinelPlayers_List();
+                    echo getOnlinePlayers_List();
                   ?>
                 </tfoot>
               </table>
