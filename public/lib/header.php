@@ -96,7 +96,7 @@ _.._ :`4MM$!YYYYYYYYYii,.__.diii$$YYYYYYYYYYY
   <!-- jvectormap -->
   <link rel="stylesheet" href="/bower_components/jvectormap/jquery-jvectormap.css">
   <!-- DataTables -->
-  <link rel="stylesheet" href="../../bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+  <link rel="stylesheet" href="bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="/dist/css/AdminLTE.css">
   <link rel="stylesheet" href="/lib/css/opslinks.css">

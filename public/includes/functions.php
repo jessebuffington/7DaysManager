@@ -96,7 +96,6 @@ function getOnlinePlayers_List() {
   }
 }
 
-
 function queryGameTime() {
   $queryGameTime = mysql_query("SELECT * FROM gameTime");
   while($queryGameTime = mysql_fetch_array($queryGameTime)) {
@@ -109,4 +108,24 @@ function queryGameTime() {
     echo ')</i></small>';
   }
 }
+
+function settingsUpdateServerConnection() {
+  if (!$_POST['inputIP']) {
+    unset($_POST);
+    header('location:/pages/settings/serverSettings.php');
+  }else{
+    $inputIP = $_POST['inputIP'];
+    $inputPass = $_POST['inputPass'];
+    $inputPort = $_POST['inputPort'];
+    $inputEnabled = $_POST['inputEnabled'];
+
+    $sql = "replace into servers (IP, telnetPrt, password, isEnabled, dateUpdated) values ('$inputIP', '$inputPass', '$inputPort', NOW())";
+    if (!mysql_query($sql)) {
+      die('Error: ' . mysql_error());
+    }
+    unset($_POST);
+    header('location:/pages/settings/serverSettings.php');
+  }
+}
+
 ?>

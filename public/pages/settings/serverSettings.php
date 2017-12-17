@@ -38,7 +38,7 @@ _.._ :`4MM$!YYYYYYYYYii,.__.diii$$YYYYYYYYYYY
     $('.gameChat').scrollTop($('.gameChat')[0].scrollHeight);
   </script>
 </head>
-<body class="hold-transition skin-<?php echo $headerColor ?> sidebar-mini">
+<body class="hold-transition skin-<?php echo HEADER_COLOR ?> sidebar-mini">
   <div class="wrapper">
     <?php
       include_once($_SERVER[ "DOCUMENT_ROOT"] . "/lib/sidebar.php");
@@ -48,7 +48,7 @@ _.._ :`4MM$!YYYYYYYYYii,.__.diii$$YYYYYYYYYYY
         <h1>
           General Server Settings
           <small>
-            Version <?php echo $version;?>
+            Version <?php echo SITE_VERSION;?>
           </small>
         </h1>
         <ol class="breadcrumb">
@@ -71,70 +71,56 @@ _.._ :`4MM$!YYYYYYYYYii,.__.diii$$YYYYYYYYYYY
             <div class="box-header with-border">
               <h3 class="box-title">Server Connection</h3>
             </div>
-            <form role="form">
-              <div class="box-body">
-                <div class="form-group">
-                  <label for="inputIP">IP/Hostname</label>
-                  <input type="ip" class="form-control" id="inputIP" placeholder="123.123.123.123">
-                </div>
-                <div class="form-group">
-                  <label for="inputPass">Password</label>
-                  <input type="password" class="form-control" id="inputPass" placeholder="Password">
-                </div>
-                <div class="form-group">
-                  <label for="inputPort">Telnet Port</label>
-                  <input type="port" class="form-control" id="inputPort" placeholder="18081">
-                </div>
-                <!--<div class="form-group">
-                  <label for="exampleInputFile">File input</label>
-                  <input type="file" id="exampleInputFile">
-                  <p class="help-block">Example block-level help text here.</p>
-                </div>-->
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox"> Enabled
-                  </label>
-                </div>
-              </div>
+            <form role="form" name="serverSettings"  method="post" action="<?php settingsUpdateServerConnection();?>" onSubmit="return validation()">
+              <?php $queryServerConnection = mysql_query("SELECT * FROM servers");
+                while($queryServerConnection = mysql_fetch_array($queryServerConnection)) {
+                  echo '<div class="box-body">';
+                  echo '
+                        <div class="form-group">
+                          <label form="inputIP">IP/Hostname</label>';
+                          if ($queryServerConnection['IP'] == NULL) {
+                            echo '<input type="ip" class="form-control" id="inputIP" placeholder="133.133.133.133">';
+                          }else{
+                            echo '<input type="ip" class="form-control" id="inputIP" value="' . $queryServerConnection['IP'] . '">';
+                          }
+                  echo '</div>';
+                  echo '
+                        <div class="form-group">
+                          <label form="inputPass">Password</label>';
+                          if ($queryServerConnection['password'] == NULL) {
+                            echo '<input type="password" class="form-control" id="inputPass" placeholder="***PASSWORD***">';
+                          }else{
+                            echo '<input type="password" class="form-control" id="inputPass" value="' . $queryServerConnection['password'] . '">';
+                          }
+                  echo '</div>';
+                  echo '
+                        <div class="form-group">
+                          <label form="inputPort">Telnet Port</label>';
+                          if ($queryServerConnection['telnetPort'] == NULL) {
+                            echo '<input type="port" class="form-control" id="inputPort" placeholder="8081">';
+                          }else{
+                            echo '<input type="port" class="form-control" id="inputPort" value="' . $queryServerConnection['telnetPort'] . '">';
+                          }
+                  echo '</div>';
+                  echo '
+                        <div class="checkbox">
+                          <label>';
+                          if ($queryServerConnection['isEnabled'] == 1) {
+                            echo '<input type="checkbox" checked> Enabled';
+                          }else{
+                            echo '<input type="checkbox"> Enabled';
+                          }
+                          echo '</label>
+                        </div>';
+                  echo '</div>';
+                }
+              ?>
               <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" name="submit" id="submit" value="Submit" class="btn btn-primary">Submit</button>
               </div>
             </form>
           </div>
-          <div class="box box-primary">
-            <div class="box-header with-border">
-              <h3 class="box-title">Server Connection</h3>
-            </div>
-            <form role="form">
-              <div class="box-body">
-                <div class="form-group">
-                  <label for="inputIP">IP/Hostname</label>
-                  <input type="ip" class="form-control" id="inputIP" placeholder="123.123.123.123" value="<?php echo isset($_POST['inputIP']) ? $_POST['inputIP'] : '' ?>" >
-                </div>
-                <div class="form-group">
-                  <label for="inputPass">Password</label>
-                  <input type="password" class="form-control" id="inputPass" placeholder="Password" value="<?php echo isset($_POST['inputPass']) ? $_POST['inputPass'] : '' ?>" >
-                </div>
-                <div class="form-group">
-                  <label for="inputPort">Telnet Port</label>
-                  <input type="port" class="form-control" id="inputPort" placeholder="18081" value="<?php echo isset($_POST['inputPort']) ? $_POST['inputPort'] : '' ?>" >
-                </div>
-                <!--<div class="form-group">
-                  <label for="exampleInputFile">File input</label>
-                  <input type="file" id="exampleInputFile">
-                  <p class="help-block">Example block-level help text here.</p>
-                </div>-->
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox"> Enable Me!
-                  </label>
-                </div>
-              </div>
-              <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
-              </div>
-            </form>
-          </div>
+
           <div class="box box-success">
             <div class="box-header with-border">
               <h3 class="box-title">Different Height</h3>
