@@ -4,45 +4,14 @@
 
 <!DOCTYPE html>
 <html>
-<!--
-                Y.                      _
-                YiL                   .```.
-                Yii;                .; .;;`.
-                YY;ii._           .;`.;;;; :
-                iiYYYYYYiiiii;;;;i` ;;::;;;;
-            _.;YYYYYYiiiiiiYYYii  .;;.   ;;;
-         .YYYYYYYYYYiiYYYYYYYYYYYYii;`  ;;;;
-       .YYYYYYY$$YYiiYY$$$$iiiYYYYYY;.ii;`..
-      :YYY$!.  TYiiYY$$$$$YYYYYYYiiYYYYiYYii.
-      Y$MM$:   :YYYYYY$!"``"4YYYYYiiiYYYYiiYY.
-   `. :MM$$b.,dYY$$Yii" :'   :YYYYllYiiYYYiYY
-_.._ :`4MM$!YYYYYYYYYii,.__.diii$$YYYYYYYYYYY
-.,._ $b`P`     "4$$$$$iiiiiiii$$$$YY$$$$$$YiY;
-   `,.`$:       :$$$$$$$$$YYYYY$$$$$$$$$YYiiYYL
-    "`;$$.    .;PPb$`.,.``T$$YY$$$$YYYYYYiiiYYU:
-    ;$P$;;: ;;;;i$y$"!Y$$$b;$$$Y$YY$$YYYiiiYYiYY
-    $Fi$$ .. ``:iii.`-":YYYYY$$YY$$$$$YYYiiYiYYY
-    :Y$$rb ````  `_..;;i;YYY$YY$$$$$$$YYYYYYYiYY:
-     :$$$$$i;;iiiiidYYYYYYYYYY$$$$$$YYYYYYYiiYYYY.
-      `$$$$$$$YYYYYYYYYYYYY$$$$$$YYYYYYYYiiiYYYYYY
-      .i!$$$$$$YYYYYYYYY$$$$$$YYY$$YYiiiiiiYYYYYYY
-     :YYiii$$$$$$$YYYYYYY$$$$YY$$$$YYiiiiiYYYYYYi'
-
-        Much code -- WOW
-		Jesse B.
--->
-
 <head>
   <?php
     $pageTitle='Player Voting System';
     $pageParent='Settings';
     include_once($_SERVER[ "DOCUMENT_ROOT"] . "/lib/header.php");
   ?>
-  <script>
-    $('.gameChat').scrollTop($('.gameChat')[0].scrollHeight);
-  </script>
 </head>
-<body class="hold-transition skin-<?php echo $headerColor ?> sidebar-mini">
+<body class="hold-transition skin-<?php echo HEADER_COLOR ?> sidebar-mini">
   <div class="wrapper">
     <?php
       include_once($_SERVER[ "DOCUMENT_ROOT"] . "/lib/sidebar.php");

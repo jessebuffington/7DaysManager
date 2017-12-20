@@ -4,45 +4,14 @@
 
 <!DOCTYPE html>
 <html>
-<!--
-                Y.                      _
-                YiL                   .```.
-                Yii;                .; .;;`.
-                YY;ii._           .;`.;;;; :
-                iiYYYYYYiiiii;;;;i` ;;::;;;;
-            _.;YYYYYYiiiiiiYYYii  .;;.   ;;;
-         .YYYYYYYYYYiiYYYYYYYYYYYYii;`  ;;;;
-       .YYYYYYY$$YYiiYY$$$$iiiYYYYYY;.ii;`..
-      :YYY$!.  TYiiYY$$$$$YYYYYYYiiYYYYiYYii.
-      Y$MM$:   :YYYYYY$!"``"4YYYYYiiiYYYYiiYY.
-   `. :MM$$b.,dYY$$Yii" :'   :YYYYllYiiYYYiYY
-_.._ :`4MM$!YYYYYYYYYii,.__.diii$$YYYYYYYYYYY
-.,._ $b`P`     "4$$$$$iiiiiiii$$$$YY$$$$$$YiY;
-   `,.`$:       :$$$$$$$$$YYYYY$$$$$$$$$YYiiYYL
-    "`;$$.    .;PPb$`.,.``T$$YY$$$$YYYYYYiiiYYU:
-    ;$P$;;: ;;;;i$y$"!Y$$$b;$$$Y$YY$$YYYiiiYYiYY
-    $Fi$$ .. ``:iii.`-":YYYYY$$YY$$$$$YYYiiYiYYY
-    :Y$$rb ````  `_..;;i;YYY$YY$$$$$$$YYYYYYYiYY:
-     :$$$$$i;;iiiiidYYYYYYYYYY$$$$$$YYYYYYYiiYYYY.
-      `$$$$$$$YYYYYYYYYYYYY$$$$$$YYYYYYYYiiiYYYYYY
-      .i!$$$$$$YYYYYYYYY$$$$$$YYY$$YYiiiiiiYYYYYYY
-     :YYiii$$$$$$$YYYYYYY$$$$YY$$$$YYiiiiiYYYYYYi'
-
-        Much code -- WOW
-		Jesse B.
--->
-
 <head>
   <?php
     $pageTitle='Server Utilization';
     $pageParent='Reports';
     include_once($_SERVER[ "DOCUMENT_ROOT"] . "/lib/header.php");
   ?>
-  <script>
-    $('.gameChat').scrollTop($('.gameChat')[0].scrollHeight);
-  </script>
 </head>
-<body class="hold-transition skin-<?php echo $headerColor ?> sidebar-mini">
+<body class="hold-transition skin-<?php echo HEADER_COLOR ?> sidebar-mini">
   <div class="wrapper">
     <?php
       include_once($_SERVER[ "DOCUMENT_ROOT"] . "/lib/sidebar.php");
@@ -68,17 +37,13 @@ _.._ :`4MM$!YYYYYYYYYii,.__.diii$$YYYYYYYYYYY
           </li>
         </ol>
       </section>
-    <!-- Main content -->
     <section class="content">
       <div class="row">
         <div class="col-xs-12">
-          <!-- interactive chart -->
           <div class="box box-primary">
             <div class="box-header with-border">
               <i class="fa fa-bar-chart-o"></i>
-
               <h3 class="box-title">CPU Utilization</h3>
-
               <div class="box-tools pull-right">
                 Real time
                 <div class="btn-group" id="realtime" data-toggle="btn-toggle">
@@ -90,24 +55,15 @@ _.._ :`4MM$!YYYYYYYYYii,.__.diii$$YYYYYYYYYYY
             <div class="box-body">
               <div id="interactive" style="height: 300px;"></div>
             </div>
-            <!-- /.box-body-->
           </div>
-          <!-- /.box -->
-
         </div>
-        <!-- /.col -->
       </div>
-      <!-- /.row -->
-
       <div class="row">
         <div class="col-md-6">
-          <!-- Line chart -->
           <div class="box box-primary">
             <div class="box-header with-border">
               <i class="fa fa-bar-chart-o"></i>
-
               <h3 class="box-title">Line Chart</h3>
-
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                 </button>
@@ -117,17 +73,11 @@ _.._ :`4MM$!YYYYYYYYYii,.__.diii$$YYYYYYYYYYY
             <div class="box-body">
               <div id="line-chart" style="height: 300px;"></div>
             </div>
-            <!-- /.box-body-->
           </div>
-          <!-- /.box -->
-
-          <!-- Area chart -->
           <div class="box box-primary">
             <div class="box-header with-border">
               <i class="fa fa-bar-chart-o"></i>
-
               <h3 class="box-title">Full Width Area Chart</h3>
-
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                 </button>
@@ -137,21 +87,13 @@ _.._ :`4MM$!YYYYYYYYYii,.__.diii$$YYYYYYYYYYY
             <div class="box-body">
               <div id="area-chart" style="height: 338px;" class="full-width-chart"></div>
             </div>
-            <!-- /.box-body-->
           </div>
-          <!-- /.box -->
-
         </div>
-        <!-- /.col -->
-
         <div class="col-md-6">
-          <!-- Bar chart -->
           <div class="box box-primary">
             <div class="box-header with-border">
               <i class="fa fa-bar-chart-o"></i>
-
               <h3 class="box-title">Bar Chart</h3>
-
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                 </button>
@@ -161,17 +103,11 @@ _.._ :`4MM$!YYYYYYYYYii,.__.diii$$YYYYYYYYYYY
             <div class="box-body">
               <div id="bar-chart" style="height: 300px;"></div>
             </div>
-            <!-- /.box-body-->
           </div>
-          <!-- /.box -->
-
-          <!-- Donut chart -->
           <div class="box box-primary">
             <div class="box-header with-border">
               <i class="fa fa-bar-chart-o"></i>
-
               <h3 class="box-title">Donut Chart</h3>
-
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                 </button>
@@ -181,40 +117,15 @@ _.._ :`4MM$!YYYYYYYYYii,.__.diii$$YYYYYYYYYYY
             <div class="box-body">
               <div id="donut-chart" style="height: 300px;"></div>
             </div>
-            <!-- /.box-body-->
           </div>
-          <!-- /.box -->
         </div>
-        <!-- /.col -->
       </div>
-      <!-- /.row -->
     </section>
-    <!-- /.content -->
-
   </div>
   <?php
     include_once($_SERVER[ "DOCUMENT_ROOT"] . "/lib/footer.php");
-  ?><!-- ./wrapper -->
+  ?>
 
-<!-- jQuery 3 -->
-<script src="../../bower_components/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- FastClick -->
-<script src="../../bower_components/fastclick/lib/fastclick.js"></script>
-<!-- AdminLTE App -->
-<script src="../../dist/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="../../dist/js/demo.js"></script>
-<!-- FLOT CHARTS -->
-<script src="../../bower_components/Flot/jquery.flot.js"></script>
-<!-- FLOT RESIZE PLUGIN - allows the chart to redraw when the window is resized -->
-<script src="../../bower_components/Flot/jquery.flot.resize.js"></script>
-<!-- FLOT PIE PLUGIN - also used to draw donut charts -->
-<script src="../../bower_components/Flot/jquery.flot.pie.js"></script>
-<!-- FLOT CATEGORIES PLUGIN - Used to draw bar charts -->
-<script src="../../bower_components/Flot/jquery.flot.categories.js"></script>
-<!-- Page script -->
 <script>
   $(function () {
     /*

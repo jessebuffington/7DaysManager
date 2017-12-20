@@ -42,4 +42,10 @@ All rights reserved.
 <script src="/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <script src="/plugins/timepicker/bootstrap-timepicker.min.js"></script>
 
+<script src="/bower_components/Flot/jquery.flot.js"></script>
+<script src="/bower_components/Flot/jquery.flot.resize.js"></script>
+<script src="/bower_components/Flot/jquery.flot.pie.js"></script>
+<script src="/bower_components/Flot/jquery.flot.categories.js"></script>
+
+
 <!--<script src="/bower_components/bootstrap/dist/css/less/input-groups.less"></script>-->
