@@ -1,3 +1,8 @@
+<?php
+  require($_SERVER["DOCUMENT_ROOT"] . "/lib/loginHeader.php");
+?>
+
+<!DOCTYPE html>
 <html>
 <!--
                 Y.                      _
