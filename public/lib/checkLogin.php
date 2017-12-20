@@ -7,7 +7,7 @@ require($_SERVER["DOCUMENT_ROOT"] . "/includes/config.php");
 require($_SERVER["DOCUMENT_ROOT"] . "/includes/functions.php");
 
 
-// Define $myusername and $mypassword
+// Define $loginUsername, $loginPassword and $loginIP
 $loginUsername=$_POST['loginUsername'];
 $loginPassword=$_POST['loginPassword'];
 $loginIP = $_SERVER['REMOTE_ADDR'];
@@ -26,7 +26,7 @@ $count=mysql_num_rows($result);
 
 // If result matched $myusername and $mypassword, table row must be 1 row
 if($count==1){
-  // Register $myusername, $mypassword and redirect to file "login_success.php"
+  // Register $loginUsername, $loginIP and redirect to file "/index.php"
   $_SESSION['loginUsername'] = $loginUsername;
   $_SESSION['loginIP'] = $loginIP;
   $sql_login = "UPDATE site_users set lastLogin = NOW(), timeout = NOW() where email = '$loginUsername'";

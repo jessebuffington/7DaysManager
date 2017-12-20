@@ -21,7 +21,7 @@
         <h1>
           Server Settings
           <small>
-            Version <?php echo $version;?>
+            Version <?php echo SITE_VERSION;?>
           </small>
         </h1>
         <ol class="breadcrumb">

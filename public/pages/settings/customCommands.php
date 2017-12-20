@@ -21,7 +21,7 @@
         <h1>
           Commands/Broadcasts
           <small>
-            Version <?php echo $version;?>
+            Version <?php echo SITE_VERSION;?>
           </small>
         </h1>
         <ol class="breadcrumb">

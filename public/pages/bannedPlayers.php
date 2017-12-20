@@ -20,7 +20,9 @@
     <section class="content-header">
       <h1>
         Banned Players
-        <small></small>
+        <small>
+          Version <?php echo SITE_VERSION;?>
+        </small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
