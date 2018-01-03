@@ -6,8 +6,7 @@
 <html>
   <head>
     <?php
-      $pageTitle='Dashboard';
-      $pageParent='Settings';
+      $pageTitle='Game Map';
       include_once($_SERVER[ "DOCUMENT_ROOT"] . "/lib/header.php");
     ?>
   </head>
