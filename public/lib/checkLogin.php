@@ -3,7 +3,7 @@
 //'true' triggers login success
 ob_start();
 session_start();
-require($_SERVER["DOCUMENT_ROOT"] . "/includes/config.php");
+require($_SERVER["DOCUMENT_ROOT"] . "/includes/siteConfig.php");
 require($_SERVER["DOCUMENT_ROOT"] . "/includes/functions.php");
 
 
