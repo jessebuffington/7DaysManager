@@ -18,15 +18,11 @@
   <div class="content-wrapper">
     <section class="content-header">
       <h1>
-        Blank page
-        <small>
-          Version <?php echo SITE_VERSION;?>
-        </small>
+        In-Game Map
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Examples</a></li>
-        <li class="active">Blank page</li>
+        <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active"><?php echo $pageTitle ?></li>
       </ol>
     </section>
     <section class="content">

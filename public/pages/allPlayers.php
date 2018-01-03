@@ -20,14 +20,11 @@
     <section class="content-header">
       <h1>
         All Players
-        <small>
-          Version <?php echo SITE_VERSION;?>
-        </small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
         <li>Players</li>
-        <li class="active">All Players</li>
+        <li class="active"><?php echo $pageTitle ?></li>
       </ol>
     </section>
     <section class="content">

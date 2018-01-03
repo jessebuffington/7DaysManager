@@ -20,21 +20,11 @@
       <section class="content-header">
         <h1>
           Commands/Broadcasts
-          <small>
-            Version <?php echo SITE_VERSION;?>
-          </small>
         </h1>
         <ol class="breadcrumb">
-          <li>
-            <a href="/">
-              <i class="fa fa-dashboard"></i>
-               Home
-            </a>
-          </li>
-          <li>Settings</li>
-          <li class="active">
-            Commands/Broadcasts
-          </li>
+          <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
+          <li> Settings</li>
+          <li class="active"><?php echo $pageTitle ?></li>
         </ol>
       </section>
     <section class="content">

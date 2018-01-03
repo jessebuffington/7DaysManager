@@ -20,21 +20,11 @@
       <section class="content-header">
         <h1>
           Player Management
-          <small>
-            Version <?php echo SITE_VERSION;?>
-          </small>
         </h1>
         <ol class="breadcrumb">
-          <li>
-            <a href="/">
-              <i class="fa fa-dashboard"></i>
-               Home
-            </a>
-          </li>
-          <li>Settings</li>
-          <li class="active">
-            Player Management
-          </li>
+          <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
+          <li> Settings</li>
+          <li class="active"><?php echo $pageTitle ?></li>
         </ol>
       </section>
     <section class="content">

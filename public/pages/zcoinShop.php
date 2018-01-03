@@ -6,7 +6,7 @@
 <html>
   <head>
     <?php
-      $pageTitle='Game Chat';
+      $pageTitle='zCoin Shop';
       include_once($_SERVER[ "DOCUMENT_ROOT"] . "/lib/header.php");
     ?>
   </head>
@@ -18,10 +18,11 @@
   <div class="content-wrapper">
     <section class="content-header">
       <h1>
-        Game Chat
+        zCoin Shop
       </h1>
       <ol class="breadcrumb">
         <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#"> Reports/Logs</a></li>
         <li class="active"><?php echo $pageTitle ?></li>
       </ol>
     </section>

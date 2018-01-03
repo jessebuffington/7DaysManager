@@ -20,14 +20,11 @@
       <section class="content-header">
         <h1>
           General Server Settings
-          <small>
-            Version <?php echo SITE_VERSION;?>
-          </small>
         </h1>
         <ol class="breadcrumb">
           <li><a href="/"><i class="fa fa-dashboard"></i>Home</a></li>
-          <li>Settings</li>
-          <li class="active">General Server Settings</li>
+          <li> Site Settings</li>
+          <li class="active"><?php echo $pageTitle ?></li>
         </ol>
       </section>
     <section class="content">

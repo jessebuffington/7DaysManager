@@ -27,7 +27,7 @@
       <ol class="breadcrumb">
         <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
         <li>Players</li>
-        <li class="active">Online Players</li>
+        <li class="active"><?php echo $pageTitle ?></li>
       </ol>
     </section>
     <section class="content">
