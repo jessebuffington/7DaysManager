@@ -19,7 +19,7 @@ function insertComment() {
     if (!$userName) {
       $userName = '---';
     }
-    $sql = "insert into gnoc_siteComments (name,rating,message,datetime,siteLocation) values('$userName','$rating','$comment',NOW(),'opslinks')";
+    $sql = "insert into site_comments (name,rating,message,datetime,siteLocation) values('$userName','$rating','$comment',NOW(),'7DaysManager')";
     //$jurisdictionErr = $rdbReplicationErr = $logErr = $operatorErr = "";
     //$jurisdiction = $rdbReplication = $genLog = $operator = "";
     $no = " no";
@@ -58,7 +58,7 @@ function getAllPlayers_List() {
 }
 
 function getBannedPlayers_List() {
-  $onlinePlayers = mysql_query("SELECT * FROM bans order by id asc");
+  $onlinePlayers = mysql_query("SELECT * FROM server_bans order by id asc");
   if (!$onlinePlayers) {
     die('Invalid query: ' . mysql_error());
   }
@@ -97,7 +97,7 @@ function getOnlinePlayers_List() {
 }
 
 function queryGameTime() {
-  $queryGameTime = mysql_query("SELECT * FROM gameTime");
+  $queryGameTime = mysql_query("SELECT * FROM server_gameTime");
   while($queryGameTime = mysql_fetch_array($queryGameTime)) {
     echo '<big>';
     echo $queryGameTime['currentTime'];
@@ -119,7 +119,7 @@ function settingsUpdateServerConnection() {
     $inputPort = $_POST['inputPort'];
     $inputEnabled = $_POST['inputEnabled'];
 
-    $sql = "replace into servers (IP, telnetPrt, password, isEnabled, dateUpdated) values ('$inputIP', '$inputPass', '$inputPort', NOW())";
+    $sql = "replace into servers (IP, telnetPort, password, isEnabled, dateUpdated) values ('$inputIP', '$inputPass', '$inputPort', NOW())";
     if (!mysql_query($sql)) {
       die('Error: ' . mysql_error());
     }
