@@ -22,11 +22,13 @@
       </form>
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
-         <li <?php if($pageTitle == 'Dashboard') {echo 'class="active"';} ?>>
+        <li <?php if($pageTitle == 'Dashboard') {echo 'class="active"';} ?>>
           <a href="/index.php">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
         </li>
+
+        <!-- Players -->
         <li <?php if($pageParent == 'Players') {echo 'class="active treeview menu open"';}else{echo 'class="treeview menu"';} ?>>
           <a href="#">
             <i class="fa fa-th"></i> <span>Players</span>
@@ -40,6 +42,28 @@
             <li <?php if($pageTitle == 'All Players') {echo 'class = "active"';} ?>><a href="/pages/allPlayers.php"><i class="fa fa-circle-o"></i> All Players</a></li>
           </ul>
         </li>
+
+        <!-- Game Chat -->
+        <li <?php if($pageTitle == 'Game Chat') {echo 'class="active"';} ?>>
+          <a href="/pages/gameChat.php">
+            <i class="fa fa-wechat "></i> <span>Game Chat</span>
+          </a>
+        </li>
+
+        <!-- Map -->
+        <li <?php if($pageTitle == 'Game Map') {echo 'class="active"';} ?>>
+          <a href="/pages/gameMap.php">
+            <i class="fa fa-map"></i> <span>Map</span>
+          </a>
+        </li>
+
+        <!-- zCoin Shop -->
+        <li <?php if($pageTitle == 'zCoin Shop') {echo 'class="active"';} ?>>
+          <a href="/pages/zcoinShop.php">
+            <i class="fa fa-shopping-cart"></i> <span>zCoin Shop</span>
+          </a>
+        </li>
+
         <!--<li class="treeview">
           <a href="#">
             <i class="fa fa-files-o"></i>
@@ -63,10 +87,12 @@
             </span>
           </a>
         </li>-->
-        <li <?php if($pageParent == 'Reports') {echo 'class="active treeview menu open"';}else{echo 'class="treeview menu"';} ?>>
+
+        <!-- Reports/Logs -->
+        <li <?php if($pageParent == 'Reports/Logs') {echo 'class="active treeview menu open"';}else{echo 'class="treeview menu"';} ?>>
           <a href="#">
             <i class="fa fa-pie-chart"></i>
-            <span>Reports</span>
+            <span>Reports/Logs</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -74,14 +100,36 @@
           <ul class="treeview-menu">
             <li <?php if($pageTitle == 'Player Report') {echo 'class = "active"';} ?>><a href="/pages/reports/playerReport.php"><i class="fa fa-circle-o"></i> Player Report</a></li>
             <li <?php if($pageTitle == 'Server Utilization') {echo 'class = "active"';} ?>><a href="/pages/reports/serverUsageReport.php"><i class="fa fa-circle-o"></i> Server Utilization</a></li>
+            <li <?php if($pageTitle == 'Game Log') {echo 'class = "active"';} ?>><a href="/pages/reports/gameLog.php"><i class="fa fa-circle-o"></i> Game Log</a></li>
+            <li <?php if($pageTitle == 'zCoin Shop Log') {echo 'class = "active"';} ?>><a href="/pages/reports/shopLog.php"><i class="fa fa-circle-o"></i> zCoin Shop Log</a></li>
+            <li <?php if($pageTitle == 'Site Access Log') {echo 'class = "active"';} ?>><a href="/pages/reports/siteAccessLog.php"><i class="fa fa-circle-o"></i> Site Access Log</a></li>
             <!--<li <?php if($pageTitle == 'PAGE') {echo 'class = "active"';} ?>><a href="/pages/reports/#"><i class="fa fa-circle-o"></i> PAGE</a></li>
             <li <?php if($pageTitle == 'PAGE') {echo 'class = "active"';} ?>><a href="/pages/reports/#"><i class="fa fa-circle-o"></i> PAGE</a></li>
             <li <?php if($pageTitle == 'PAGE') {echo 'class = "active"';} ?>><a href="/pages/reports/#"><i class="fa fa-circle-o"></i> PAGE</a></li>-->
           </ul>
         </li>
+
+        <!-- Utilities -->
+        <li <?php if($pageParent == 'Utilities') {echo 'class="active treeview menu open"';}else{echo 'class="treeview menu"';} ?>>
+          <a href="#">
+            <i class="fa fa-gears"></i>
+            <span>Utilities</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li <?php if($pageTitle == 'PAGE') {echo 'class = "active"';} ?>><a href="#"><i class="fa fa-circle-o"></i> PAGE</a></li>
+            <li <?php if($pageTitle == 'PAGE') {echo 'class = "active"';} ?>><a href="#"><i class="fa fa-circle-o"></i> PAGE</a></li>
+            <li <?php if($pageTitle == 'PAGE') {echo 'class = "active"';} ?>><a href="#"><i class="fa fa-circle-o"></i> PAGE</a></li>
+          </ul>
+        </li>
+
+        <li class="header">Site/Server Settings</li>
+        <!-- Settings -->
         <li <?php if($pageParent == 'Settings') {echo 'class="active treeview menu open"';}else{echo 'class="treeview menu"';} ?>>
           <a href="#">
-            <i class="fa fa-laptop"></i>
+            <i class="fa fa-server"></i>
             <span>Settings</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -101,6 +149,24 @@
             <li <?php if($pageTitle == 'PAGE') {echo 'class = "active"';} ?>><a href="/pages/settings/#"><i class="fa fa-circle-o"></i> PAGE</a></li>-->
           </ul>
         </li>
+
+        <!-- Site Settings -->
+        <li <?php if($pageParent == 'Site Settings') {echo 'class="active treeview menu open"';}else{echo 'class="treeview menu"';} ?>>
+          <a href="#">
+            <i class="fa fa-laptop"></i>
+            <span>Site Settings</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li <?php if($pageTitle == 'Site Settings') {echo 'class = "active"';} ?>><a href="/pages/settings/site/siteSettings.php"><i class="fa fa-circle-o"></i> Site Settings</a></li>
+            <li <?php if($pageTitle == 'Site User Management') {echo 'class = "active"';} ?>><a href="/pages/settings/site/userManagement.php"><i class="fa fa-circle-o"></i> Site User Management</a></li>
+            <li <?php if($pageTitle == 'PHP Info') {echo 'class = "active"';} ?>><a href="/pages/settings/site/phpInfo.php"><i class="fa fa-circle-o"></i> PHP Info</a></li>
+            <li <?php if($pageTitle == 'License Info') {echo 'class = "active"';} ?>><a href="/pages/settings/site/licenseInfo.php"><i class="fa fa-circle-o"></i> License Info</a></li>
+          </ul>
+        </li>
+
         <br />
         <br />
         <br />
