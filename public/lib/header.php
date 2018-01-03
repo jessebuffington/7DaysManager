@@ -28,7 +28,7 @@ _.._ :`4MM$!YYYYYYYYYii,.__.diii$$YYYYYYYYYYY
 -->
 
 <?php
-  include($_SERVER["DOCUMENT_ROOT"] . "/includes/config.php");
+  include($_SERVER["DOCUMENT_ROOT"] . "/includes/siteConfig.php");
   include($_SERVER["DOCUMENT_ROOT"] . "/includes/functions.php");
 
 
