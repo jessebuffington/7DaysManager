@@ -2,7 +2,7 @@
 date_default_timezone_set("EST");
 
 //DB Config
-if (!defined('DB_HOST')) define('DB_HOST', 'localhost');
+if (!defined('DB_HOST')) define('DB_HOST', '**DBHOST**');
 if (!defined('DB_USER')) define('DB_USER', '**USER**');
 if (!defined('DB_NAME')) define('DB_NAME', '7daysManager');
 if (!defined('DB_PASSWORD')) define('DB_PASSWORD', '**PASS**');
@@ -21,7 +21,7 @@ if (!$db_selected) {
 ///////////////////////////////////////////////////////////
 
 //Define the config from the DB!
-$result = (mysql_query("SELECT configName, configValue FROM config_site"));
+$result = (mysql_query("SELECT configName, configValue FROM site_config"));
 while ($row = mysql_Fetch_assoc($result)) {
  	if (!defined($row['configName'])) define($row['configName'], $row['configValue']);
 }
