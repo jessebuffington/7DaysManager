@@ -7,7 +7,7 @@
   <head>
     <?php
       $pageTitle='Player Report';
-      $pageParent='Reports';
+      $pageParent='Reports/Logs';
       include_once($_SERVER[ "DOCUMENT_ROOT"] . "/lib/header.php");
     ?>
   </head>
