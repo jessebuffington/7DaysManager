@@ -1,7 +1,12 @@
 <footer class="main-footer">
   <div class="pull-right hidden-xs">
     <b>
-      Version
+      App Version
+    </b>
+    <?php echo APP_VERSION;?>
+     |
+    <b>
+      Site Version
     </b>
      <?php echo SITE_VERSION;?>
   </div>
