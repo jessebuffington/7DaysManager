@@ -6,7 +6,7 @@
 <html>
 <head>
   <?php
-    $pageTitle='General Server Settings';
+    $pageTitle='Server Settings';
     $pageParent='Settings';
     include_once($_SERVER[ "DOCUMENT_ROOT"] . "/lib/header.php");
   ?>
@@ -19,15 +19,13 @@
     <div class="content-wrapper">
       <section class="content-header">
         <h1>
-          General Server Settings
-          <small>
-            Version <?php echo SITE_VERSION;?>
-          </small>
+          Server Settings
         </h1>
         <ol class="breadcrumb">
           <li><a href="/"><i class="fa fa-dashboard"></i>Home</a></li>
           <li>Settings</li>
-          <li class="active">General Server Settings</li>
+          <li class="active"><?php echo $pageTitle ?></li>
+
         </ol>
       </section>
     <section class="content">
@@ -76,15 +74,56 @@
                           }else{
                             echo '<input type="checkbox"> Enabled';
                           }
-                          echo '</label>
-                        </div>';
-                  echo '</div>';
+                          echo '</label>';
                 }
               ?>
-              <div class="box-footer">
-                <button type="submit" name="submit" id="submit" value="Submit" class="btn btn-primary">Submit</button>
-              </div>
+              <button type="submit" name="submit" id="submit" value="Submit" class="btn btn-primary pull-right">Submit</button>
+                            </div>
+                </div>
             </form>
+
+            <!-- ** Future functionality for multi-threaded environment! ** -->
+            <!--<div class="box-header with-border">
+              <h3 class="box-title">Server List</h3>
+              <div class="box-tools">
+                <div class="input-group input-group-sm" style="width: 150px;">
+                  <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+                  <div class="input-group-btn">
+                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="box-body">
+              <table id='metalDeploys' class='table table-bordered'>
+                <thead>
+                  <tr>
+                    <th>Status</th>
+                    <th>IP</th>
+                    <th>Last Modified</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php $queryServers = mysql_query("SELECT * FROM servers");
+                    while($queryServers = mysql_fetch_array($queryServers)) {
+                      echo '<tr>';
+                      if ($queryServers['isEnable'] == 1) {
+                        echo '<td><span class="label label-success">Enabled</span></td>
+                              <td>' . $queryServers['IP'] . '</td>
+                              <td>' . $queryServers['dateUpdated'] . '</td>';
+                      }elseif ($queryServers['isEnable'] == 0) {
+                        echo '<td><span class="label label-danger">Disabled</span></td>
+                              <td>' . $queryServers['IP'] . '</td>
+                              <td>' . $queryServers['dateUpdated'] . '</td>';
+                      }elseif ($queryServers['isEnable'] == NULL) {
+                        echo 'No Data Found';
+                      }
+                    }
+                  ?>
+
+                </tbody>
+              </table>
+            </div>-->
           </div>
 
           <div class="box box-success">
