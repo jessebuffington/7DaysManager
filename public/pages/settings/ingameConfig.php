@@ -6,7 +6,7 @@
 <html>
 <head>
   <?php
-    $pageTitle='Server Settings';
+    $pageTitle='In-Game Config';
     $pageParent='Settings';
     include_once($_SERVER[ "DOCUMENT_ROOT"] . "/lib/header.php");
   ?>
