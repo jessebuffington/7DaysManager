@@ -12,6 +12,31 @@
     <script>
       $('.gameChat').scrollTop($('.gameChat')[0].scrollHeight);
     </script>
+
+    <script src='/pages/scripts/jquery-latest.js'></script>
+    <script>
+      function refresh_gameTime() {
+        $("#gameTime").load(location.href + " #gameTime");
+      }
+      function refresh_playersOnline() {
+        $("#playersOnline").load(location.href + " #playersOnline");
+      }
+      function refresh_playersOverall() {
+        $("#playersOverall").load(location.href + " #playersOverall");
+      }
+      function refresh_currZombies() {
+        $("#currZombies").load(location.href + " #currZombies");
+      }
+      function refresh_currAnimals() {
+        $("#currAnimals").load(location.href + " #currAnimals");
+      }
+      setInterval('refresh_gameTime()', 5000);
+      setInterval('refresh_playersOnline()', 10000);
+      setInterval('refresh_playersOverall()', 10000);
+      setInterval('refresh_currZombies()', 10000);
+      setInterval('refresh_currAnimals()', 10000);
+    </script>
+
   </head>
   <body class="hold-transition skin-<?php echo HEADER_COLOR ?> sidebar-mini">
     <div class="wrapper">
@@ -36,11 +61,10 @@
                   <i class="ion ion-ios-clock-outline"></i>
                 </span>
                   <div class="info-box-content">
-                    <span class="info-box-number">
+                    <span id='gameTime' class="info-box-number">
                       <?php
                         echo queryGameTime();
                       ?>
-                    </span>
                     </span>
                   </div>
                 </div>
@@ -54,7 +78,7 @@
                     <span class="info-box-text">
                       Players Online
                     </span>
-                    <span class="info-box-number">
+                    <span id='playersOnline' class="info-box-number">
                       <?php
                         $queryPlayers_online = mysql_query("SELECT count(*) as onlinePlayers FROM players where onlineStatus = 1");
                         while($queryPlayers_online = mysql_fetch_array($queryPlayers_online)) {
@@ -62,7 +86,7 @@
                         }
                       ?>
                     </span>
-                    <span class="info-box-number">
+                    <span id='playersOverall' class="info-box-number">
                       <small>
                         <i>
                         <?php
@@ -84,7 +108,7 @@
                       <span class="info-box-text">
                         Zombies
                       </span>
-                      <span class="info-box-number">
+                      <span id='currZombies' class="info-box-number">
                         <?php
                           $queryZombies = mysql_query("SELECT count(*) as entityZombies FROM memEntities where type like 'EntityZombie%'");
                           while($queryZombies = mysql_fetch_array($queryZombies)) {
@@ -105,7 +129,7 @@
                       <span class="info-box-text">
                         Animals
                       </span>
-                      <span class="info-box-number">
+                      <span id='currAnimals' class="info-box-number">
                         <?php
                           $queryAnimals = mysql_query("SELECT count(*) as entityAnimals FROM memEntities where type like 'EntityAnimal%'");
                           while($queryAnimals = mysql_fetch_array($queryAnimals)) {
@@ -298,7 +322,7 @@
                         </ul>
                       </div>
                       <div class="box-footer text-center">
-                        <a href="/pages/allplayers.php" class="uppercase">
+                        <a href="/pages/allPlayers.php" class="uppercase">
                           View All Players
                         </a>
                       </div>
