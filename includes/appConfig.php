@@ -21,7 +21,7 @@ if (!$db_selected) {
 //////////////////////////////////////////////////////////
 
 //Define the config from the DB!
-$result = (mysql_query("SELECT configName, configValue FROM config_app"));
-while ($row = mysql_Fetch_assoc($result)) {
+$result = (mysql_query("SELECT configName, configValue FROM app_config"));
+while ($row = mysql_fetch_assoc($result)) {
  	if (!defined($row['configName'])) define($row['configName'], $row['configValue']);
 }
