@@ -34,20 +34,78 @@ function echos($text, $color="normal") {
     Main::$screen = null;
   }
 }
+
 //Method for displaying the help and default variables.
 function displayUsage() {
-  echo '\r\n';
-  echo 'Starting up 7daysManager';
-  echo '\r\n';
-  echo 'Usage:\r\n';
-  echo '\t7daysManager.php [options]\r\n';
-  echo '\r\n';
-  echo '\toptions:\r\n';
-  echo '\t\t--help display this help message\r\n';
-  echo '\t\t--log=<filename> The location of the log file (default $log)\r\n';
-  echo '\r\n';
+  global $APP_LOG;
+  printf(
+    "\n7daysManager\n
+    Usage:
+      7daysManager.php [options]
+      options:
+      --help      display this help message
+      --log=<filename>  The location of the log file (default: " . APP_LOG . ")\n\n");
 }
+
+
 function syncGameTime() {
+  global $API_HOST;
+  global $API_PORT;
+  global $API_USER;
+  global $API_PASS;
+  global $interval_syncGameTime;
+  global $APP_LOG;
+  global $DEBUG_LOGGING;
+
+  $url = 'http://' . API_HOST . ':' . API_PORT . '/api/getstats?adminuser=' . API_USER . '&admintoken=' . API_PASS . '';
+
+  $queryAPI = file_get_contents($url);
+  $jsonObject = json_decode($queryAPI, true);
+
+  //var_dump(json_decode($queryAPI, true));
+
+  if($jsonObject['players'] >= 0) {
+    if(DEBUG_LOGGING == 1){
+      $fh = fopen(APP_LOG, 'a') or die("Can't open file");
+      fwrite($fh, "DEBUG " . date('Y-m-d H:i:s') . " - URLOUT VAR: " . $url . "\n");
+      fwrite($fh, "DEBUG " . date('Y-m-d H:i:s') . " - REMOVE VAR: ");
+      //fwrite($fh, "DEBUG " . implode(',', $remove) . "\n");
+      fwrite($fh, "DEBUG " . date('Y-m-d H:i:s') . " - QUERYAPI VAR: ");
+      //fwrite($fh, "DEBUG " . implode(',', $jsonObject) . "\n");
+    }
+    $sql = "UPDATE server_gameTime SET currentDay='" . sprintf("%02d", $jsonObject['gametime']['days']). "', currentTime='" . sprintf("%02d", $jsonObject['gametime']['hours']) . ":" . sprintf("%02d", $jsonObject['gametime']['minutes']) . "' WHERE serverID=1";
+
+    //if (!mysql_query($sql)) {
+    //  die('Error: ' . mysql_error());
+    //}
+
+    if(DEBUG_LOGGING == 1) {
+      $fh = fopen(APP_LOG, 'a') or die("Can't open file\n" . APP_LOG . "\n");
+      fwrite($fh, "DEBUG " . date('Y-m-d H:i:s') . " - SQL VAR: " . $sql . "\n");
+    }
+    if (mysql_query($sql)) {
+      // This is the code you want to loop during the service...
+      $fh = fopen(APP_LOG, 'a') or die("Can't open file\n" . APP_LOG . "\n");
+      $stringData = date('Y-m-d H:i:s') . " - DB/Server time synced.\n";
+      fwrite($fh, $stringData);
+    } else {
+      die('Error: ' . mysql_error());
+      // This is the code you want to loop during the service...
+      $fh = fopen(APP_LOG, 'a') or die("Can't open file\n" . APP_LOG . "\n");
+      $stringData = date('Y-m-d H:i:s') . " - ERROR: COULD NOT CONNECT TO DB\n";
+      fwrite($fh, $stringData);
+    }
+  } elseif(DEBUG_LOGGING == 1) {
+    $fh = fopen(APP_LOG, 'a') or die("Can't open file\n" . APP_LOG . "\n");
+    $stringData = date('Y-m-d H:i:s') . " - NO PLAYERS -- Recheck in " . interval_syncGameTime . " seconds...\n";
+    fwrite($fh, $stringData);
+  }
+}
+
+
+
+
+/*function syncGameTime() {
   global $API_HOST;
   global $API_PORT;
   global $API_USER;
@@ -92,6 +150,167 @@ function syncGameTime() {
     fwrite($fh, $stringData);
   }
 }
+*/
+
+
+function syncGameVersion() {
+  global $API_HOST;
+  global $API_PORT;
+  global $API_USER;
+  global $API_PASS;
+  global $interval_syncGameVersion;
+  global $APP_LOG;
+  global $DEBUG_LOGGING;
+  //API Call to get game status
+  $url = 'http://' . API_HOST . ':' . API_PORT . '/api/executeconsolecommand?adminuser=' . API_USER . '&admintoken=' . API_PASS . '&command=version';
+
+  $queryAPI = file_get_contents($url);
+  $jsonObject = json_decode($queryAPI, true);
+
+  //var_dump(json_decode($queryAPI, true));
+
+  if($jsonObject['result'] >= 0) {
+    if(DEBUG_LOGGING == 1){
+      $fh = fopen(APP_LOG, 'a') or die("Can't open file");
+      fwrite($fh, "DEBUG " . date('Y-m-d H:i:s') . " - URLOUT VAR: " . $url . "\n");
+      fwrite($fh, "DEBUG " . date('Y-m-d H:i:s') . " - REMOVE VAR: ");
+      //fwrite($fh, "DEBUG " . implode(',', $remove) . "\n");
+      fwrite($fh, "DEBUG " . date('Y-m-d H:i:s') . " - QUERYAPI VAR: ");
+      fwrite($fh, "DEBUG " . implode(',', $jsonObject) . "\n");
+    }
+    $sql = "UPDATE servers SET game_version = '" . $jsonObject['result'] . "' WHERE serverID=1";
+
+    if (!mysql_query($sql)) {
+      die('Error: ' . mysql_error());
+    }
+
+    if(DEBUG_LOGGING == 1) {
+      $fh = fopen(APP_LOG, 'a') or die("Can't open file\n" . APP_LOG . "\n");
+      fwrite($fh, "DEBUG " . date('Y-m-d H:i:s') . " - SQL VAR: " . $sql . "\n");
+    }
+    if (mysql_query($sql)) {
+      // This is the code you want to loop during the service...
+      $fh = fopen(APP_LOG, 'a') or die("Can't open file\n" . APP_LOG . "\n");
+      $stringData = date('Y-m-d H:i:s') . " - DB/Server version synced.\n";
+      fwrite($fh, $stringData);
+    } else {
+      die('Error: ' . mysql_error());
+      // This is the code you want to loop during the service...
+      $fh = fopen(APP_LOG, 'a') or die("Can't open file\n" . APP_LOG . "\n");
+      $stringData = date('Y-m-d H:i:s') . " - ERROR: COULD NOT CONNECT TO DB\n";
+      fwrite($fh, $stringData);
+    }
+  } elseif(DEBUG_LOGGING == 1) {
+    $fh = fopen(APP_LOG, 'a') or die("Can't open file\n" . APP_LOG . "\n");
+    $stringData = date('Y-m-d H:i:s') . " - NO PLAYERS -- Recheck in " . interval_syncGameVersion . " seconds...\n";
+    fwrite($fh, $stringData);
+  }
+}
+
+
+
+function syncServerInfo() {
+  global $API_HOST;
+  global $API_PORT;
+  global $API_USER;
+  global $API_PASS;
+  global $interval_syncServerInfo;
+  global $APP_LOG;
+  global $DEBUG_LOGGING;
+  //API Call to get game status
+  $url = 'http://' . API_HOST . ':' . API_PORT . '/api/getserverinfo?adminuser=' . API_USER . '&admintoken=' . API_PASS . '';
+
+  $queryAPI = file_get_contents($url);
+  $jsonObject = json_decode($queryAPI, true);
+
+  var_dump(json_decode($queryAPI, true));
+
+  if($jsonObject['IP']['value'] >= 0) {
+
+    $sql = "UPDATE server_info SET
+      gameType = '" . $jsonObject['GameType']['value'] . "',
+      gameName = '" . $jsonObject['GameName']['value'] . "',
+      levelName = '" . $jsonObject['LevelName']['value'] . "',
+      gameMode = '" . $jsonObject['GameMode']['value'] . "',
+      version = '" . $jsonObject['Version']['value'] . "',
+      serverWebsiteURL = '" . $jsonObject['ServerWebsiteURL']['value'] . "',
+      ip = '" . $jsonObject['IP']['value'] . "',
+      countryCode = '" . $jsonObject['CountryCode']['value'] . "',
+      steamID = '" . $jsonObject['SteamID']['value'] . "',
+      compatibilityVersion = '" . $jsonObject['CompatibilityVersion']['value'] . "',
+      platform = '" . $jsonObject['Platform']['value'] . "',
+      port = '" . $jsonObject['Port']['value'] . "',
+      currentPlayers = '" . $jsonObject['CurrentPlayers']['value'] . "',
+      maxPlayers = '" . $jsonObject['MaxPlayers']['value'] . "',
+      gameDifficulty = '" . $jsonObject['GameDifficulty']['value'] . "',
+      dayNightLength = '" . $jsonObject['DayNightLength']['value'] . "',
+      zombiesRun = '" . $jsonObject['ZombiesRun']['value'] . "',
+      dayCount = '" . $jsonObject['DayCount']['value'] . "',
+      ping = '" . $jsonObject['Ping']['value'] . "',
+      dropOnDeath = '" . $jsonObject['DropOnDeath']['value'] . "',
+      dropOnQuit = '" . $jsonObject['DropOnQuit']['value'] . "',
+      bloodMoonEnemyCount = '" . $jsonObject['BloodMoonEnemyCount']['value'] . "',
+      enemyDifficulty = '" . $jsonObject['EnemyDifficulty']['value'] . "',
+      playerKillingMode = '" . $jsonObject['PlayerKillingMode']['value'] . "',
+      currentServertime = '" . $jsonObject['CurrentServerTime']['value'] . "',
+      dayLightLength = '" . $jsonObject['DayLightLength']['value'] . "',
+      blockDurabilityModifier = '" . $jsonObject['BlockDurabilityModifier']['value'] . "',
+      airDropFrequency = '" . $jsonObject['AirDropFrequency']['value'] . "',
+      lootAbundance = '" . $jsonObject['LootAbundance']['value'] . "',
+      lootRespawnDays = '" . $jsonObject['LootRespawnDays']['value'] . "',
+      maxSpawnedZombies = '" . $jsonObject['MaxSpawnedZombies']['value'] . "',
+      landClaimSize = '" . $jsonObject['LandClaimSize']['value'] . "',
+      landClaimDeadZone = '" . $jsonObject['LandClaimDeadZone']['value'] . "',
+      landClaimExpiryTime = '" . $jsonObject['LandClaimExpiryTime']['value'] . "',
+      landClaimDecayMode = '" . $jsonObject['LandClaimDecayMode']['value'] . "',
+      LandClaimOnlineDurabilityModifier = '" . $jsonObject['LandClaimOnlineDurabilityModifier']['value'] . "',
+      LandClaimOfflineDurabilityModifier = '" . $jsonObject['LandClaimOfflineDurabilityModifier']['value'] . "',
+      maxSpawnedAnimals = '" . $jsonObject['MaxSpawnedAnimals']['value'] . "',
+      isDedicated = '" . $jsonObject['IsDedicated']['value'] . "',
+      isPasswordProtected = '" . $jsonObject['IsPasswordProtected']['value'] . "',
+      showFriendPlayerOnMap = '" . $jsonObject['ShowFriendPlayerOnMap']['value'] . "',
+      buildCreate = '" . $jsonObject['BuildCreate']['value'] . "',
+      eacEnabled = '" . $jsonObject['EACEnabled']['value'] . "',
+      architecture64 = '" . $jsonObject['Architecture64']['value'] . "',
+      stockSettings = '" . $jsonObject['StockSettings']['value'] . "',
+      stockFiles = '" . $jsonObject['StockFiles']['value'] . "',
+      requiresMod = '" . $jsonObject['RequiresMod']['value'] . "',
+      airDropMarker = '" . $jsonObject['AirDropMarker']['value'] . "',
+      enemySpawnMode = '" . $jsonObject['EnemySpawnMode']['value'] . "',
+      isPublic = '" . $jsonObject['IsPublic']['value'] . "'
+      WHERE serverID=1";
+
+//printf($jsonObject['result']);
+
+    //if (!mysql_query($sql)) {
+    //  die('Error: ' . mysql_error());
+    //}
+
+    if(DEBUG_LOGGING == 1) {
+      $fh = fopen(APP_LOG, 'a') or die("Can't open file\n" . APP_LOG . "\n");
+      fwrite($fh, "DEBUG " . date('Y-m-d H:i:s') . " - SQL VAR: " . $sql . "\n");
+    }
+    if (mysql_query($sql)) {
+      // This is the code you want to loop during the service...
+      $fh = fopen(APP_LOG, 'a') or die("Can't open file\n" . APP_LOG . "\n");
+      $stringData = date('Y-m-d H:i:s') . " - DB/Server info synced.\n";
+      fwrite($fh, $stringData);
+    } else {
+      die('Error: ' . mysql_error());
+      // This is the code you want to loop during the service...
+      $fh = fopen(APP_LOG, 'a') or die("Can't open file\n" . APP_LOG . "\n");
+      $stringData = date('Y-m-d H:i:s') . " - ERROR: COULD NOT CONNECT TO DB\n";
+      fwrite($fh, $stringData);
+    }
+  } elseif(DEBUG_LOGGING == 1) {
+    $fh = fopen(APP_LOG, 'a') or die("Can't open file\n" . APP_LOG . "\n");
+    $stringData = date('Y-m-d H:i:s') . " - NO PLAYERS -- Recheck in " . interval_syncServerInfo . " seconds...\n";
+    fwrite($fh, $stringData);
+  }
+}
+
+
+
 function syncOnlinePlayers() {
   global $API_HOST;
   global $API_PORT;
@@ -110,4 +329,17 @@ function syncOnlinePlayers() {
     }
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 ?>
