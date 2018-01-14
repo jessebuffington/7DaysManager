@@ -32,8 +32,8 @@
 . /etc/init.d/functions
 
 #startup values
-dir=/home/steam/Steam/servers/7daysManager/
-log=/home/steam/Steam/servers/7daysManager/log/7daysManager.log
+dir=/usr/local/etc/7daysManager/
+log=/usr/local/etc/7daysManager/var/log/7daysManager.log
 
 #verify that the executable exists
 test -x 7daysManager.php || exit 0RETVAL=0

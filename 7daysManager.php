@@ -1,7 +1,5 @@
 #!/bin/php
-
 <?php
-
 //
 //                  Y.                      _
 //                  YiL                   .```.
@@ -30,57 +28,40 @@
 //  		Jesse B.
 //
 
-require 'includes/appConfig.php';
+  include 'includes/appConfig.php';
+  include 'includes/functions.php';
 
-
-//Method for displaying the help and default variables.
-function displayUsage(){
-  global $APP_LOG;
-
-  echo '\r\n';
-  echo 'Starting up 7daysManager';
-  echo '\r\n';
-  echo 'Usage:\r\n';
-  echo '\t7daysManager.php [options]\r\n';
-  echo '\r\n';
-  echo '\toptions:\r\n';
-  echo '\t\t--help display this help message\r\n';
-  echo '\t\t--log=<filename> The location of the log file (default $log)\r\n';
-  echo '\r\n';
-}
-
-//configure command line arguments
-if($argc > 0){
-  foreach($argv as $arg){
-    $args = explode('=',$arg);
-    switch($args[0]){
-      case '--help':
-      return displayUsage();
-      case '--log':
-      $APP_LOG = $args[1];
-      break;
+  //configure command line arguments
+  if($argc > 0){
+    foreach($argv as $arg){
+      $args = explode('=',$arg);
+      switch($args[0]){
+        case '--help':
+        return displayUsage();
+        case '--log':
+        $log = $args[1];
+        break;
+      }
     }
   }
-}
 
-//fork the process to work in a daemonized environment
-file_put_contents($APP_LOG, 'Status: starting up.\n', FILE_APPEND);
-$APP_PID = pcntl_fork();
-if($APP_PID == -1){
-  file_put_contents($APP_LOG, 'Error: could not daemonize process.\n', FILE_APPEND);
-  return 1; //error
-}
-else if($APP_PID){
-	return 0; //success
-}
-else{
-  //the main process
-  while(true){
-    file_put_contents($APP_LOG, 'Running...\n', FILE_APPEND);
-    sleep(5);
-    exec('lib/listPlayers.php');
-    sleep 30
+  while(true) {
+    while(true) {
+      return syncGameTime();
+      usleep(interval_syncGameTime);
+    }
+    while(true) {
+      return syncGameVersion();
+      usleep(interval_syncGameVersion);
+    }
+    while(true) {
+      return syncServerInfo();
+      usleep(interval_syncServerInfo);
+    }
+    while(true) {
+      return syncOnlinePlayers();
+      usleep(interval_syncOnlinePlayers);
+    }
   }
-}
 
 ?>
