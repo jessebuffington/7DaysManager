@@ -57,6 +57,13 @@
           </a>
         </li>
 
+        <!-- 7DM App Log -->
+        <li <?php if($pageTitle == '7Days App Log') {echo 'class="active"';} ?>>
+          <a href="/pages/appLog.php">
+            <i class="fa fa-list-alt"></i> <span>7DM App Log</span>
+          </a>
+        </li>
+
         <!-- zCoin Shop -->
         <li <?php if($pageTitle == 'zCoin Shop') {echo 'class="active"';} ?>>
           <a href="/pages/zcoinShop.php">

@@ -128,4 +128,18 @@ function settingsUpdateServerConnection() {
   }
 }
 
+function getAppLog() {
+  $getAppLog = mysql_query("SELECT * FROM app_log order by datetime desc");
+  if (!$getAppLog) {
+    die('Invalid query: ' . mysql_error());
+  }
+  while($row = mysql_fetch_array($getAppLog)) {
+    echo '<tr>';
+    echo '<td class="text-left">' . $row['datetime'] . '</td>';
+    echo '<td class="text-left">' . $row['logLevel'] . '</td>';
+    echo '<td class="text-left">' . $row['message'] . '</td>';
+    echo '</tr>';
+  }
+}
+
 ?>
