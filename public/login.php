@@ -3,9 +3,9 @@
   <head>
     <?php
       $pageTitle='Login';
-      include_once($_SERVER[ "DOCUMENT_ROOT"] . "/lib/header.php");
-      include_once($_SERVER[ "DOCUMENT_ROOT"] . "/includes/siteConfig.php");
-      include_once($_SERVER[ "DOCUMENT_ROOT"] . "/includes/functions.php");
+      include_once($_SERVER["DOCUMENT_ROOT"] . "/lib/header.php");
+      include_once($_SERVER["DOCUMENT_ROOT"] . "/includes/siteConfig.php");
+      include_once($_SERVER["DOCUMENT_ROOT"] . "/includes/functions.php");
     ?>
   </head>
   <body class="hold-transition login-page">
