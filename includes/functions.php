@@ -64,41 +64,59 @@ function syncGameTime() {
 
   //var_dump(json_decode($queryAPI, true));
 
-  if($jsonObject['players'] >= 0) {
-    if(DEBUG_LOGGING == 1){
-      $fh = fopen(APP_LOG, 'a') or die("Can't open file");
-      fwrite($fh, "DEBUG " . date('Y-m-d H:i:s') . " - URLOUT VAR: " . $url . "\n");
-      fwrite($fh, "DEBUG " . date('Y-m-d H:i:s') . " - REMOVE VAR: ");
-      //fwrite($fh, "DEBUG " . implode(',', $remove) . "\n");
-      fwrite($fh, "DEBUG " . date('Y-m-d H:i:s') . " - QUERYAPI VAR: ");
-      //fwrite($fh, "DEBUG " . implode(',', $jsonObject) . "\n");
+  if($jsonObject['players'] >= 1) {
+    if(APP_LOG_LEVEL >= 4) {
+      //$fh = fopen(APP_LOG, 'a') or die("Can't open file");
+      //fwrite($fh, "DEBUG " . date('Y-m-d H:i:s') . " - URLOUT VAR: " . $url . "\n");
+      $log = "insert into app_log (datetime, logLevel, message) values ('" . date('Y-m-d H:i:s') . "', 'DEBUG', 'URLOUT VAR: " . $url . "')";
     }
     $sql = "UPDATE server_gameTime SET currentDay='" . sprintf("%02d", $jsonObject['gametime']['days']). "', currentTime='" . sprintf("%02d", $jsonObject['gametime']['hours']) . ":" . sprintf("%02d", $jsonObject['gametime']['minutes']) . "' WHERE serverID=1";
-
-    //if (!mysql_query($sql)) {
-    //  die('Error: ' . mysql_error());
-    //}
-
-    if(DEBUG_LOGGING == 1) {
-      $fh = fopen(APP_LOG, 'a') or die("Can't open file\n" . APP_LOG . "\n");
-      fwrite($fh, "DEBUG " . date('Y-m-d H:i:s') . " - SQL VAR: " . $sql . "\n");
-    }
-    if (mysql_query($sql)) {
-      // This is the code you want to loop during the service...
-      $fh = fopen(APP_LOG, 'a') or die("Can't open file\n" . APP_LOG . "\n");
-      $stringData = date('Y-m-d H:i:s') . " - DB/Server time synced.\n";
-      fwrite($fh, $stringData);
-    } else {
+    if (!mysql_query($sql)) {
       die('Error: ' . mysql_error());
-      // This is the code you want to loop during the service...
-      $fh = fopen(APP_LOG, 'a') or die("Can't open file\n" . APP_LOG . "\n");
-      $stringData = date('Y-m-d H:i:s') . " - ERROR: COULD NOT CONNECT TO DB\n";
-      fwrite($fh, $stringData);
+      if(APP_LOG_LEVEL >= 1) {
+        //$fh = fopen(APP_LOG, 'a') or die("Can't open file\n" . APP_LOG . "\n");
+        //$stringData = date('Y-m-d H:i:s') . " - ERROR: COULD NOT CONNECT TO DB\n";
+        //fwrite($fh, $stringData);
+        $log = "insert into app_log (datetime, logLevel, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'ERROR: COULD NOT CONNECT TO DB')";
+        if (!mysql_query($log)) {
+          die('Error: ' . mysql_error());
+        }
+      }
     }
-  } elseif(DEBUG_LOGGING == 1) {
-    $fh = fopen(APP_LOG, 'a') or die("Can't open file\n" . APP_LOG . "\n");
-    $stringData = date('Y-m-d H:i:s') . " - NO PLAYERS -- Recheck in " . interval_syncGameTime . " seconds...\n";
-    fwrite($fh, $stringData);
+    if(APP_LOG_LEVEL >= 3) {
+      $log = "insert into app_log (datetime, logLevel, message) values ('" . date('Y-m-d H:i:s') . "', 'INFO', 'DB/Server time synced.')";
+      if(!mysql_query($log)) {
+        die('Error: ' . mysql_error());
+        if(APP_LOG_LEVEL >= 1) {
+          //$fh = fopen(APP_LOG, 'a') or die("Can't open file\n" . APP_LOG . "\n");
+          //$stringData = date('Y-m-d H:i:s') . " - ERROR: COULD NOT CONNECT TO DB\n";
+          //fwrite($fh, $stringData);
+          $log = "insert into app_log (datetime, logLevel, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'ERROR: COULD NOT CONNECT TO DB')";
+          if (!mysql_query($log)) {
+            die('Error: ' . mysql_error());
+          }
+        }
+      }
+    }
+  } elseif ($jsonObject['players'] == 0) {
+    if (APP_LOG_LEVEL >= 2) {
+      //$fh = fopen(APP_LOG, 'a') or die("Can't open file\n" . APP_LOG . "\n");
+      //$stringData = date('Y-m-d H:i:s') . " - NO PLAYERS -- Recheck in " . interval_syncGameTime . " seconds...\n";
+      //fwrite($fh, $stringData);
+      $log = "insert into app_log (datetime, logLevel, message) values ('" . date('Y-m-d H:i:s') . "', 'WARN', 'NO PLAYERS -- Recheck in " . interval_syncGameTime . " seconds...')";
+      if(!mysql_query($log)) {
+        die('Error: ' . mysql_error());
+        if(APP_LOG_LEVEL >= 1) {
+          //$fh = fopen(APP_LOG, 'a') or die("Can't open file\n" . APP_LOG . "\n");
+          //$stringData = date('Y-m-d H:i:s') . " - ERROR: COULD NOT CONNECT TO DB\n";
+          //fwrite($fh, $stringData);
+          $log = "insert into app_log (datetime, logLevel, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'ERROR: COULD NOT CONNECT TO DB')";
+          if (!mysql_query($log)) {
+            die('Error: ' . mysql_error());
+          }
+        }
+      }
+    }
   }
 }
 
@@ -160,7 +178,7 @@ function syncGameVersion() {
   global $API_PASS;
   global $interval_syncGameVersion;
   global $APP_LOG;
-  global $DEBUG_LOGGING;
+  global $APP_LOG_LEVEL;
   //API Call to get game status
   $url = 'http://' . API_HOST . ':' . API_PORT . '/api/executeconsolecommand?adminuser=' . API_USER . '&admintoken=' . API_PASS . '&command=version';
 
@@ -171,12 +189,28 @@ function syncGameVersion() {
 
   if($jsonObject['result'] >= 0) {
     if(DEBUG_LOGGING == 1){
-      $fh = fopen(APP_LOG, 'a') or die("Can't open file");
-      fwrite($fh, "DEBUG " . date('Y-m-d H:i:s') . " - URLOUT VAR: " . $url . "\n");
-      fwrite($fh, "DEBUG " . date('Y-m-d H:i:s') . " - REMOVE VAR: ");
+      //$fh = fopen(APP_LOG, 'a') or die("Can't open file");
+      //fwrite($fh, "DEBUG " . date('Y-m-d H:i:s') . " - URLOUT VAR: " . $url . "\n");
+      $log = "insert into app_log (datetime, logLevel, message) values ('" . date('Y-m-d H:i:s') . "', 'DEBUG', 'URLOUT VAR: " . $url . "')";
+      if (!mysql_query($log)) {
+        die('Error: ' . mysql_error());
+      }
+      //fwrite($fh, "DEBUG " . date('Y-m-d H:i:s') . " - REMOVE VAR: ");
+      $log = "insert into app_log (datetime, logLevel, message) values ('" . date('Y-m-d H:i:s') . "', 'DEBUG', 'REMOVE VAR: ')";
+      if (!mysql_query($log)) {
+        die('Error: ' . mysql_error());
+      }
       //fwrite($fh, "DEBUG " . implode(',', $remove) . "\n");
-      fwrite($fh, "DEBUG " . date('Y-m-d H:i:s') . " - QUERYAPI VAR: ");
-      fwrite($fh, "DEBUG " . implode(',', $jsonObject) . "\n");
+      //fwrite($fh, "DEBUG " . date('Y-m-d H:i:s') . " - QUERYAPI VAR: ");
+      $log = "insert into app_log (datetime, logLevel, message) values ('" . date('Y-m-d H:i:s') . "', 'DEBUG', 'QUERYAPI VAR: ')";
+      if (!mysql_query($log)) {
+        die('Error: ' . mysql_error());
+      }
+      //fwrite($fh, "DEBUG " . implode(',', $jsonObject) . "\n");
+      $log = "insert into app_log (datetime, logLevel, message) values ('" . date('Y-m-d H:i:s') . "', 'DEBUG', '" . implode(',', $jsonObject) . "')";
+      if (!mysql_query($log)) {
+        die('Error: ' . mysql_error());
+      }
     }
     $sql = "UPDATE servers SET game_version = '" . $jsonObject['result'] . "' WHERE serverID=1";
 
@@ -185,25 +219,41 @@ function syncGameVersion() {
     }
 
     if(DEBUG_LOGGING == 1) {
-      $fh = fopen(APP_LOG, 'a') or die("Can't open file\n" . APP_LOG . "\n");
-      fwrite($fh, "DEBUG " . date('Y-m-d H:i:s') . " - SQL VAR: " . $sql . "\n");
+      //$fh = fopen(APP_LOG, 'a') or die("Can't open file\n" . APP_LOG . "\n");
+      //fwrite($fh, "DEBUG " . date('Y-m-d H:i:s') . " - SQL VAR: " . $sql . "\n");
+      $log = "insert into app_log (datetime, logLevel, message) values ('" . date('Y-m-d H:i:s') . "', 'DEBUG', 'SQL VAR: " . $sql . "')";
+      if (!mysql_query($log)) {
+        die('Error: ' . mysql_error());
+      }
     }
     if (mysql_query($sql)) {
       // This is the code you want to loop during the service...
-      $fh = fopen(APP_LOG, 'a') or die("Can't open file\n" . APP_LOG . "\n");
-      $stringData = date('Y-m-d H:i:s') . " - DB/Server version synced.\n";
-      fwrite($fh, $stringData);
+      //$fh = fopen(APP_LOG, 'a') or die("Can't open file\n" . APP_LOG . "\n");
+      //$stringData = date('Y-m-d H:i:s') . " - DB/Server version synced.\n";
+      //fwrite($fh, $stringData);
+      $log = "insert into app_log (datetime, logLevel, message) values ('" . date('Y-m-d H:i:s') . "', 'DEBUG', 'DB/Server version synced.')";
+      if (!mysql_query($log)) {
+        die('Error: ' . mysql_error());
+      }
     } else {
       die('Error: ' . mysql_error());
       // This is the code you want to loop during the service...
-      $fh = fopen(APP_LOG, 'a') or die("Can't open file\n" . APP_LOG . "\n");
-      $stringData = date('Y-m-d H:i:s') . " - ERROR: COULD NOT CONNECT TO DB\n";
-      fwrite($fh, $stringData);
+      //$fh = fopen(APP_LOG, 'a') or die("Can't open file\n" . APP_LOG . "\n");
+      //$stringData = date('Y-m-d H:i:s') . " - ERROR: COULD NOT CONNECT TO DB\n";
+      //fwrite($fh, $stringData);
+      $log = "insert into app_log (datetime, logLevel, message) values ('" . date('Y-m-d H:i:s') . "', 'DEBUG', 'ERROR: COULD NOT CONNECT TO DB')";
+      if (!mysql_query($log)) {
+        die('Error: ' . mysql_error());
+      }
     }
   } elseif(DEBUG_LOGGING == 1) {
-    $fh = fopen(APP_LOG, 'a') or die("Can't open file\n" . APP_LOG . "\n");
-    $stringData = date('Y-m-d H:i:s') . " - NO PLAYERS -- Recheck in " . interval_syncGameVersion . " seconds...\n";
-    fwrite($fh, $stringData);
+    //$fh = fopen(APP_LOG, 'a') or die("Can't open file\n" . APP_LOG . "\n");
+    //$stringData = date('Y-m-d H:i:s') . " - NO PLAYERS -- Recheck in " . interval_syncGameVersion . " seconds...\n";
+    //fwrite($fh, $stringData);
+    $log = "insert into app_log (datetime, logLevel, message) values ('" . date('Y-m-d H:i:s') . "', 'DEBUG', 'NO PLAYERS -- Recheck in " . interval_syncGameVersion . " seconds...')";
+    if (!mysql_query($log)) {
+      die('Error: ' . mysql_error());
+    }
   }
 }
 
@@ -223,7 +273,7 @@ function syncServerInfo() {
   $queryAPI = file_get_contents($url);
   $jsonObject = json_decode($queryAPI, true);
 
-  var_dump(json_decode($queryAPI, true));
+  //var_dump(json_decode($queryAPI, true));
 
   if($jsonObject['IP']['value'] >= 0) {
 
@@ -287,30 +337,47 @@ function syncServerInfo() {
     //}
 
     if(DEBUG_LOGGING == 1) {
-      $fh = fopen(APP_LOG, 'a') or die("Can't open file\n" . APP_LOG . "\n");
-      fwrite($fh, "DEBUG " . date('Y-m-d H:i:s') . " - SQL VAR: " . $sql . "\n");
+      //$fh = fopen(APP_LOG, 'a') or die("Can't open file\n" . APP_LOG . "\n");
+      //fwrite($fh, "DEBUG " . date('Y-m-d H:i:s') . " - SQL VAR: " . $sql . "\n");
     }
     if (mysql_query($sql)) {
       // This is the code you want to loop during the service...
-      $fh = fopen(APP_LOG, 'a') or die("Can't open file\n" . APP_LOG . "\n");
-      $stringData = date('Y-m-d H:i:s') . " - DB/Server info synced.\n";
-      fwrite($fh, $stringData);
+      //$fh = fopen(APP_LOG, 'a') or die("Can't open file\n" . APP_LOG . "\n");
+      //$stringData = date('Y-m-d H:i:s') . " - DB/Server info synced.\n";
+      //fwrite($fh, $stringData);
+      $log = "insert into app_log (datetime, logLevel, message) values ('" . date('Y-m-d H:i:s') . "', 'DEBUG', 'DB/Server info synced.')";
+      if (!mysql_query($log)) {
+        die('Error: ' . mysql_error());
+      }
     } else {
       die('Error: ' . mysql_error());
       // This is the code you want to loop during the service...
-      $fh = fopen(APP_LOG, 'a') or die("Can't open file\n" . APP_LOG . "\n");
-      $stringData = date('Y-m-d H:i:s') . " - ERROR: COULD NOT CONNECT TO DB\n";
-      fwrite($fh, $stringData);
+      //$fh = fopen(APP_LOG, 'a') or die("Can't open file\n" . APP_LOG . "\n");
+      //$stringData = date('Y-m-d H:i:s') . " - ERROR: COULD NOT CONNECT TO DB\n";
+      //fwrite($fh, $stringData);
+      $log = "insert into app_log (datetime, logLevel, message) values ('" . date('Y-m-d H:i:s') . "', 'DEBUG', 'ERROR: COULD NOT CONNECT TO DB')";
+      if (!mysql_query($log)) {
+        die('Error: ' . mysql_error());
+      }
     }
   } elseif(DEBUG_LOGGING == 1) {
-    $fh = fopen(APP_LOG, 'a') or die("Can't open file\n" . APP_LOG . "\n");
-    $stringData = date('Y-m-d H:i:s') . " - NO PLAYERS -- Recheck in " . interval_syncServerInfo . " seconds...\n";
-    fwrite($fh, $stringData);
+    //$fh = fopen(APP_LOG, 'a') or die("Can't open file\n" . APP_LOG . "\n");
+    //$stringData = date('Y-m-d H:i:s') . " - NO PLAYERS -- Recheck in " . interval_syncServerInfo . " seconds...\n";
+    //fwrite($fh, $stringData);
+    $log = "insert into app_log (datetime, logLevel, message) values ('" . date('Y-m-d H:i:s') . "', 'DEBUG', 'NO PLAYERS -- Recheck in " . interval_syncServerInfo . " seconds...')";
+    if (!mysql_query($log)) {
+      die('Error: ' . mysql_error());
+    }
   }
 }
 
 
 
+//
+//
+//NEED TO FIX
+//
+//
 function syncOnlinePlayers() {
   global $API_HOST;
   global $API_PORT;
@@ -318,18 +385,68 @@ function syncOnlinePlayers() {
   global $API_PASS;
   global $syncOnlinePlayers;
   global $APP_LOG;
-  global $DEBUG_LOGGING;
-  //API Call to get game status
-  $data = json_decode(file_get_contents('http://' . $API_HOST . ':' . $API_PORT . '/api/executeconsolecommand?adminuser=' . $API_USER . '&admintoken=' . $API_PASS . '&command=lkp%20-online'));
-  //{"command":"lkp","parameters":"-online","result":"1. NuTcAsE, id=190, steamid=76561197976204251, online=True, ip=216.143.242.112, playtime=1591 m, seen=2017-09-10 17:06\nTotal of 269 known\n"}
-  if($DEBUG_LOGGING == 2){
-    foreach($data as $steamid -> steamid) {
-      $fh = fopen($APP_LOG, 'a') or die("Can't open file");
-      fwrite($fh, "DEBUG " . date('Y-m-d H:i:s') . " - PLAYER OUT: " . $steamid['score'] . "\n");
+  global $APP_LOG_LEVEL;
+
+  $url = 'http://' . $API_HOST . ':' . $API_PORT . '/api/executeconsolecommand?adminuser=' . $API_USER . '&admintoken=' . $API_PASS . '&command=lkp%20-online';
+
+  $queryAPI = file_get_contents($url);
+  $jsonObject = json_decode($queryAPI, true);
+
+  if($jsonObject['result'] >= 1) {
+    if(APP_LOG_LEVEL >= 3) {
+      //$fh = fopen(APP_LOG, 'a') or die("Can't open file");
+      //fwrite($fh, "DEBUG " . date('Y-m-d H:i:s') . " - URLOUT VAR: " . $url . "\n");
+      $log = "insert into app_log (datetime, logLevel, message) values ('" . date('Y-m-d H:i:s') . "', 'DEBUG', 'URLOUT VAR: " . $url . "')";
+    }
+    $sql = "UPDATE players SET onlineStatus='1' WHERE playerid = '" . $jsonObject['result']['id'] . "'";
+    if (!mysql_query($sql)) {
+      die('Error: ' . mysql_error());
+      if(APP_LOG_LEVEL >= 1) {
+        //$fh = fopen(APP_LOG, 'a') or die("Can't open file\n" . APP_LOG . "\n");
+        //$stringData = date('Y-m-d H:i:s') . " - ERROR: COULD NOT CONNECT TO DB\n";
+        //fwrite($fh, $stringData);
+        $log = "insert into app_log (datetime, logLevel, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'ERROR: COULD NOT CONNECT TO DB')";
+        if (!mysql_query($log)) {
+          die('Error: ' . mysql_error());
+        }
+      }
+    }
+    if(APP_LOG_LEVEL >= 3) {
+      $log = "insert into app_log (datetime, logLevel, message) values ('" . date('Y-m-d H:i:s') . "', 'INFO', 'Syncing online users')";
+      if(!mysql_query($log)) {
+        die('Error: ' . mysql_error());
+        if(APP_LOG_LEVEL >= 1) {
+          //$fh = fopen(APP_LOG, 'a') or die("Can't open file\n" . APP_LOG . "\n");
+          //$stringData = date('Y-m-d H:i:s') . " - ERROR: COULD NOT CONNECT TO DB\n";
+          //fwrite($fh, $stringData);
+          $log = "insert into app_log (datetime, logLevel, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'ERROR: COULD NOT CONNECT TO DB')";
+          if (!mysql_query($log)) {
+            die('Error: ' . mysql_error());
+          }
+        }
+      }
+    }
+  } elseif ($jsonObject['result'] == 0) {
+    if (APP_LOG_LEVEL >= 2) {
+      //$fh = fopen(APP_LOG, 'a') or die("Can't open file\n" . APP_LOG . "\n");
+      //$stringData = date('Y-m-d H:i:s') . " - NO PLAYERS -- Recheck in " . interval_syncOnlinePlayers . " seconds...\n";
+      //fwrite($fh, $stringData);
+      $log = "insert into app_log (datetime, logLevel, message) values ('" . date('Y-m-d H:i:s') . "', 'WARN', 'NO PLAYERS -- Recheck in " . interval_syncOnlinePlayers . " seconds...')";
+      if(!mysql_query($log)) {
+        die('Error: ' . mysql_error());
+        if(APP_LOG_LEVEL >= 1) {
+          //$fh = fopen(APP_LOG, 'a') or die("Can't open file\n" . APP_LOG . "\n");
+          //$stringData = date('Y-m-d H:i:s') . " - ERROR: COULD NOT CONNECT TO DB\n";
+          //fwrite($fh, $stringData);
+          $log = "insert into app_log (datetime, logLevel, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'ERROR: COULD NOT CONNECT TO DB')";
+          if (!mysql_query($log)) {
+            die('Error: ' . mysql_error());
+          }
+        }
+      }
     }
   }
 }
-
 
 
 
