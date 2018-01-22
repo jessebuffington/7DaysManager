@@ -110,6 +110,8 @@ function queryGameTime() {
 }
 
 function settingsUpdateServerConnection() {
+  global $APP_LOG_LIMIT;
+
   if (!$_POST['inputIP']) {
     unset($_POST);
     header('location:/pages/settings/serverSettings.php');
@@ -129,7 +131,7 @@ function settingsUpdateServerConnection() {
 }
 
 function getAppLog() {
-  $getAppLog = mysql_query("SELECT * FROM app_log order by datetime desc");
+  $getAppLog = mysql_query("SELECT * FROM app_log order by datetime desc limit " . APP_LOG_LIMIT . "");
   if (!$getAppLog) {
     die('Invalid query: ' . mysql_error());
   }

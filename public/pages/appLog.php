@@ -26,6 +26,7 @@
       <h1>
         7DaysManager Log
       </h1>
+      <small>Limit <?php echo APP_LOG_LIMIT ?> rows</small>
       <ol class="breadcrumb">
         <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active"><?php echo $pageTitle ?></li>
