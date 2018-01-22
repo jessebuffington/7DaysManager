@@ -37,7 +37,7 @@ function insertComment() {
 //////////////////
 
 function getAllPlayers_List() {
-  $onlinePlayers = mysql_query("SELECT * FROM players order by id asc");
+  $onlinePlayers = mysql_query("SELECT * FROM players order by playerid asc");
   if (!$onlinePlayers) {
     die('Invalid query: ' . mysql_error());
   }
@@ -58,7 +58,7 @@ function getAllPlayers_List() {
 }
 
 function getBannedPlayers_List() {
-  $onlinePlayers = mysql_query("SELECT * FROM server_bans order by id asc");
+  $onlinePlayers = mysql_query("SELECT * FROM server_bans order by playerid asc");
   if (!$onlinePlayers) {
     die('Invalid query: ' . mysql_error());
   }
