@@ -10,6 +10,7 @@
     $pageParent='Players';
     include_once($_SERVER[ "DOCUMENT_ROOT"] . "/lib/header.php");
   ?>
+  <meta http-equiv="refresh" content="120" />
 </head>
 <body class="hold-transition skin-<?php echo HEADER_COLOR ?> sidebar-mini">
 <div class="wrapper">
