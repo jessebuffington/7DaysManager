@@ -32,40 +32,144 @@
 . /etc/init.d/functions
 
 #startup values
-dir=/usr/local/etc/7daysManager/
-log=/usr/local/etc/7daysManager/var/log/7daysManager.log
-
-#verify that the executable exists
-test -x 7daysManager.php || exit 0RETVAL=0
+dir="/usr/local/etc/7daysManager/"
+log="var/log/7daysManager.log"
 
 #
 #	Set daemon variables
 #
-prog="7daysManager"
-proc=7daysManager.lock
-bin=$dir/7daysManager.php
+prog1="syncGameTime"
+phpJob1="lib/syncGameTime.php"
+phpProc1="var/run/syncGameTime.lock"
+
+prog2="syncServerInfo"
+phpJob2="lib/syncServerInfo.php"
+phpProc2="var/run/syncServerInfo.lock"
+
+#prog3="syncGameVersion"
+#phpJob3="lib/syncGameVersion.php"
+#phpProc3="var/run/syncGameVersion.lock"
+
+#prog4="syncOnlinePlayers"
+#phpJob4="lib/syncOnlinePlayers.php"
+#phpProc4="var/run/syncOnlinePlayers.lock"
+
+prog5=""
+phpJob5=""
+phpProc5=""
+
+prog6=""
+phpJob6=""
+phpProc6=""
+
+#verify that the executables exists
+#test -x $phpJob1 || exit 0RETVAL1=0
+#test -x $phpJob2 || exit 0RETVAL2=0
+#test -x $phpJob3 || exit 0RETVAL3=0
+#test -x $phpJob4 || exit 0RETVAL4=0
+#test -x $phpJob5 || exit 0RETVAL5=0
+#test -x $phpJob6 || exit 0RETVAL6=0
 
 start() {
 # Check if 7daysManager is already running
-  if [ ! -f $proc ]; then
-    echo -n $"Starting $prog: "
-    daemon $bin --log=$log
-    RETVAL=$?
-    [ $RETVAL -eq 0 ] && touch $proc
+  if [ ! -f $phpProc1 ]; then
+    echo -n $"Starting $prog1: "
+    daemon $phpJob1 --log=$log
+    RETVAL1=$?
+    [ $RETVAL1 -eq 0 ] && touch $phpProc1
     echo
   fi
+  return $RETVAL1
 
-  return $RETVAL
+  if [ ! -f $phpProc2 ]; then
+    echo -n $"Starting $prog2: "
+    daemon $phpJob2 --log=$log
+    RETVAL2=$?
+    [ $RETVAL2 -eq 0 ] && touch $phpProc2
+    echo
+  fi
+  return $RETVAL2
+
+  if [ ! -f $phpProc3 ]; then
+    echo -n $"Starting $prog3: "
+    daemon $phpJob3 --log=$log
+    RETVAL3=$?
+    [ $RETVAL3 -eq 0 ] && touch $phpProc3
+    echo
+  fi
+  return $RETVAL3
+
+  if [ ! -f $phpProc4 ]; then
+    echo -n $"Starting $prog4: "
+    daemon $phpJob4 --log=$log
+    RETVAL4=$?
+    [ $RETVAL4 -eq 0 ] && touch $phpProc4
+    echo
+  fi
+  return $RETVAL4
+
+  if [ ! -f $phpProc5 ]; then
+    echo -n $"Starting $prog5: "
+    daemon $phpJob5 --log=$log
+    RETVAL5=$?
+    [ $RETVAL5 -eq 0 ] && touch $phpProc5
+    echo
+  fi
+  return $RETVAL5
+
+  if [ ! -f $phpProc6 ]; then
+    echo -n $"Starting $prog6: "
+    daemon $phpJob6 --log=$log
+    RETVAL6=$?
+    [ $RETVAL6 -eq 0 ] && touch $phpProc6
+    echo
+  fi
+  return $RETVAL6
+
 }
 
 stop() {
-  echo -n $"Stopping $prog: "
-  ps -ef | grep $prog | grep [p]hp | awk '{print $2}' | xargs kill -9
-  RETVAL=$?
-  [ $RETVAL -eq 0 ] && rm -f $proc
+  echo -n $"Stopping $prog1: "
+  ps -ef | grep $prog1 | grep [p]hp | awk '{print $2}' | xargs kill -9
+  RETVAL1=$?
+  [ $RETVAL1 -eq 0 ] && rm -f $phpProc1
   echo
+  return $RETVAL1
 
-  return $RETVAL
+  echo -n $"Stopping $prog2: "
+  ps -ef | grep $prog2 | grep [p]hp | awk '{print $2}' | xargs kill -9
+  RETVAL2=$?
+  [ $RETVAL2 -eq 0 ] && rm -f $phpProc2
+  echo
+  return $RETVAL2
+
+  echo -n $"Stopping $prog3: "
+  ps -ef | grep $prog3 | grep [p]hp | awk '{print $2}' | xargs kill -9
+  RETVAL3=$?
+  [ $RETVAL3 -eq 0 ] && rm -f $phpProc3
+  echo
+  return $RETVAL3
+
+  echo -n $"Stopping $prog4: "
+  ps -ef | grep $prog4 | grep [p]hp | awk '{print $2}' | xargs kill -9
+  RETVAL4=$?
+  [ $RETVAL4 -eq 0 ] && rm -f $phpProc4
+  echo
+  return $RETVAL4
+
+  echo -n $"Stopping $prog5: "
+  ps -ef | grep $prog5 | grep [p]hp | awk '{print $2}' | xargs kill -9
+  RETVAL5=$?
+  [ $RETVAL5 -eq 0 ] && rm -f $phpProc5
+  echo
+  return $RETVAL5
+
+  echo -n $"Stopping $prog6: "
+  ps -ef | grep $prog6 | grep [p]hp | awk '{print $2}' | xargs kill -9
+  RETVAL6=$?
+  [ $RETVAL6 -eq 0 ] && rm -f $phpProc6
+  echo
+  return $RETVAL6
 }
 
 restart() {
@@ -78,7 +182,12 @@ reload() {
 }
 
 status_at() {
-  status $bin
+  status $phpProc1
+  status $phpProc2
+  status $phpProc3
+  status $phpProc4
+  status $phpProc5
+  status $phpProc6
 }
 
 case "$1" in
@@ -92,7 +201,22 @@ reload|restart)
   restart
   ;;
 condrestart)
-  if [ -f $proc ]; then
+  if [ -f $phpProc1 ]; then
+    restart
+  fi
+  if [ -f $phpProc2 ]; then
+    restart
+  fi
+  if [ -f $phpProc3 ]; then
+    restart
+  fi
+  if [ -f $phpProc4 ]; then
+    restart
+  fi
+  if [ -f $phpProc5 ]; then
+    restart
+  fi
+  if [ -f $phpProc6]; then
     restart
   fi
   ;;
