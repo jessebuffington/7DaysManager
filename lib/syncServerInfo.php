@@ -46,8 +46,8 @@ if($argc > 0){
 }
 
 while(true) {
-  exec(syncGameTime());
-  sleep(interval_syncGameTime);
+  exec(syncServerInfo());
+  sleep(interval_syncServerInfo);
 }
 
 
