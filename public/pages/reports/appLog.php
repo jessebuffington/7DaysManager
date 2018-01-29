@@ -41,9 +41,10 @@
               <table id="appLog" class="table table-bordered table-striped">
                 <thead>
                   <tr>
-                    <th class="text-left">Date/time</th>
+                    <th class="text-left">Date/Time</th>
                     <th class="text-left">Log Level</th>
-                    <th class="text-left">message</th>
+                    <th class="text-left">Run Name</th>
+                    <th class="text-left">Message</th>
                   </tr>
                 </thead>
                 <tbody>

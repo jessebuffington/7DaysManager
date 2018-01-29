@@ -139,6 +139,7 @@ function getAppLog() {
     echo '<tr>';
     echo '<td class="text-left">' . $row['datetime'] . '</td>';
     echo '<td class="text-left">' . $row['logLevel'] . '</td>';
+    echo '<td class="text-left">' . $row['runName'] . '</td>';
     echo '<td class="text-left">' . $row['message'] . '</td>';
     echo '</tr>';
   }
