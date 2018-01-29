@@ -57,13 +57,6 @@
           </a>
         </li>
 
-        <!-- 7DM App Log -->
-        <li <?php if($pageTitle == '7Days App Log') {echo 'class="active"';} ?>>
-          <a href="/pages/appLog.php">
-            <i class="fa fa-list-alt"></i> <span>7DM App Log</span>
-          </a>
-        </li>
-
         <!-- zCoin Shop -->
         <li <?php if($pageTitle == 'zCoin Shop') {echo 'class="active"';} ?>>
           <a href="/pages/zcoinShop.php">
@@ -110,11 +103,11 @@
             <li <?php if($pageTitle == 'Game Log') {echo 'class = "active"';} ?>><a href="/pages/reports/gameLog.php"><i class="fa fa-circle-o"></i> Game Log</a></li>
             <li <?php if($pageTitle == 'zCoin Shop Log') {echo 'class = "active"';} ?>><a href="/pages/reports/shopLog.php"><i class="fa fa-circle-o"></i> zCoin Shop Log</a></li>
             <li <?php if($pageTitle == 'Site Access Log') {echo 'class = "active"';} ?>><a href="/pages/reports/siteAccessLog.php"><i class="fa fa-circle-o"></i> Site Access Log</a></li>
+            <li <?php if($pageTitle == '7Days App Log') {echo 'class = "active"';} ?>><a href="/pages/reports/appLog.php"><i class="fa fa-circle-o"></i> 7Days App Log</a></li>
             <!--<li <?php if($pageTitle == 'PAGE') {echo 'class = "active"';} ?>><a href="/pages/reports/#"><i class="fa fa-circle-o"></i> PAGE</a></li>
-            <li <?php if($pageTitle == 'PAGE') {echo 'class = "active"';} ?>><a href="/pages/reports/#"><i class="fa fa-circle-o"></i> PAGE</a></li>
             <li <?php if($pageTitle == 'PAGE') {echo 'class = "active"';} ?>><a href="/pages/reports/#"><i class="fa fa-circle-o"></i> PAGE</a></li>-->
           </ul>
-        </li>
+        </li>        
 
         <!-- Utilities -->
         <li <?php if($pageParent == 'Utilities') {echo 'class="active treeview menu open"';}else{echo 'class="treeview menu"';} ?>>

@@ -7,6 +7,7 @@
 <head>
   <?php
     $pageTitle='7Days App Log';
+    $pageParent='Reports/Logs';
     include_once($_SERVER[ "DOCUMENT_ROOT"] . "/lib/header.php");
   ?>
   <script>
