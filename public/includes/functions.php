@@ -75,7 +75,7 @@ function getBannedPlayers_List() {
 }
 
 function getOnlinePlayers_List() {
-  $onlinePlayers = mysql_query("SELECT * FROM players where onlineStatus = '1' order by id asc");
+  $onlinePlayers = mysql_query("SELECT * FROM players where onlineStatus = '1' order by playerid asc");
   if (!$onlinePlayers) {
     die('Invalid query: ' . mysql_error());
   }
