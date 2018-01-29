@@ -298,13 +298,15 @@ function syncOnlinePlayers() {
   global $APP_LOG;
   global $APP_LOG_LEVEL;
 
-  $url = 'http://' . $API_HOST . ':' . $API_PORT . '/api/executeconsolecommand?adminuser=' . $API_USER . '&admintoken=' . $API_PASS . '&command=lkp%20-online';
+  $url = 'http://' . API_HOST . ':' . API_PORT . '/api/getplayersonline?adminuser=' . API_USER . '&admintoken=' . API_PASS . '';
 
   $queryAPI = file_get_contents($url);
   $jsonObject = json_decode($queryAPI, true);
 
-  if($jsonObject['result'] >= 1) {
-    if(APP_LOG_LEVEL >= 3) {
+  //var_dump(json_decode($queryAPI, true));
+
+  if($jsonObject != NULL) {
+    if(APP_LOG_LEVEL >= 4) {
       $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'DEBUG', 'syncOnlinePlayers', 'URLOUT VAR: " . $url . "')";
       if(!mysql_query($log)) {
         die('Error: ' . mysql_error());
@@ -316,7 +318,17 @@ function syncOnlinePlayers() {
         }
       }
     }
-    $sql = "UPDATE players SET onlineStatus='1' WHERE playerid = '" . $jsonObject['result']['id'] . "'";
+    $sql = "UPDATE players SET onlineStatus='0'";
+    if (!mysql_query($sql)) {
+      die('Error: ' . mysql_error());
+      if(APP_LOG_LEVEL >= 1) {
+        $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'syncOnlinePlayers', 'ERROR: COULD NOT CONNECT TO DB')";
+        if (!mysql_query($log)) {
+          die('Error: ' . mysql_error());
+        }
+      }
+    }
+    $sql = "UPDATE players SET onlineStatus='1' WHERE playerid = '" . $jsonObject['0']['entityid'] . "'";
     if (!mysql_query($sql)) {
       die('Error: ' . mysql_error());
       if(APP_LOG_LEVEL >= 1) {
@@ -338,7 +350,7 @@ function syncOnlinePlayers() {
         }
       }
     }
-  } elseif ($jsonObject['result'] == 0) {
+  } else {
     if (APP_LOG_LEVEL >= 3) {
       $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'INFO', 'syncOnlinePlayers', 'NO PLAYERS -- Recheck in " . interval_syncOnlinePlayers . " seconds...')";
       if(!mysql_query($log)) {
@@ -355,10 +367,96 @@ function syncOnlinePlayers() {
 }
 
 
+function syncLandclaims() {
+  global $API_HOST;
+  global $API_PORT;
+  global $API_USER;
+  global $API_PASS;
+  global $interval_syncLandclaims;
+  global $APP_LOG;
+  global $DEBUG_LOGGING;
+  //API Call to get game status
+  $url = 'http://' . API_HOST . ':' . API_PORT . '/api/getlandclaims?adminuser=' . API_USER . '&admintoken=' . API_PASS . '';
+
+  $queryAPI = file_get_contents($url);
+  $jsonObject = json_decode($queryAPI, true);
+
+  //var_dump(json_decode($queryAPI, true));
+
+  if($jsonObject['IP']['value'] >= 0) {
+
+    $sql = "UPDATE server_info SET
+      steamid = '" . $jsonObject['claimowners']['steamid'] . "',
+      claimactive = '" . $jsonObject['claimowners']['claimactive'] . "',
+      claims = '" . $jsonObject['claimowners']['claims']['x']['y']['z'] . "'
+      WHERE serverID=1";
+
+//printf($jsonObject['result']);
+
+    //if (!mysql_query($sql)) {
+    //  die('Error: ' . mysql_error());
+    //}
+
+    if (APP_LOG_LEVEL >= 3) {
+      $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'INFO', 'syncServerInfo', 'DB/Server info synced.')";
+      if (!mysql_query($log)) {
+        die('Error: ' . mysql_error());
+        if(APP_LOG_LEVEL >= 1) {
+          $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'syncServerInfo', 'ERROR: COULD NOT CONNECT TO DB')";
+          if (!mysql_query($log)) {
+            die('Error: ' . mysql_error());
+          }
+        }
+      }
+    }
+  }
+}
 
 
+function syncEntities() {
+  global $API_HOST;
+  global $API_PORT;
+  global $API_USER;
+  global $API_PASS;
+  global $interval_syncLandclaims;
+  global $APP_LOG;
+  global $DEBUG_LOGGING;
+  //API Call to get game status
+  $url = 'http://' . API_HOST . ':' . API_PORT . '/api/getlandclaims?adminuser=' . API_USER . '&admintoken=' . API_PASS . '';
 
+  $queryAPI = file_get_contents($url);
+  $jsonObject = json_decode($queryAPI, true);
 
+  //var_dump(json_decode($queryAPI, true));
+
+  if($jsonObject['IP']['value'] >= 0) {
+
+    $sql = "UPDATE server_info SET
+      steamid = '" . $jsonObject['claimowners']['steamid'] . "',
+      claimactive = '" . $jsonObject['claimowners']['claimactive'] . "',
+      claims = '" . $jsonObject['claimowners']['claims']['x']['y']['z'] . "'
+      WHERE serverID=1";
+
+//printf($jsonObject['result']);
+
+    //if (!mysql_query($sql)) {
+    //  die('Error: ' . mysql_error());
+    //}
+
+    if (APP_LOG_LEVEL >= 3) {
+      $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'INFO', 'syncServerInfo', 'DB/Server info synced.')";
+      if (!mysql_query($log)) {
+        die('Error: ' . mysql_error());
+        if(APP_LOG_LEVEL >= 1) {
+          $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'syncServerInfo', 'ERROR: COULD NOT CONNECT TO DB')";
+          if (!mysql_query($log)) {
+            die('Error: ' . mysql_error());
+          }
+        }
+      }
+    }
+  }
+}
 
 
 
