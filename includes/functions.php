@@ -140,14 +140,32 @@ function syncGameVersion() {
       $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'DEBUG', 'syncGameVersion', 'REMOVE VAR: ')";
       if (!mysql_query($log)) {
         die('Error: ' . mysql_error());
+        if(APP_LOG_LEVEL >= 1) {
+          $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'syncGameVersion', 'ERROR: COULD NOT CONNECT TO DB')";
+          if (!mysql_query($log)) {
+            die('Error: ' . mysql_error());
+          }
+        }
       }
       $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'DEBUG', 'syncGameVersion', 'QUERYAPI VAR: ')";
       if (!mysql_query($log)) {
         die('Error: ' . mysql_error());
+        if(APP_LOG_LEVEL >= 1) {
+          $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'syncGameVersion', 'ERROR: COULD NOT CONNECT TO DB')";
+          if (!mysql_query($log)) {
+            die('Error: ' . mysql_error());
+          }
+        }
       }
       $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'DEBUG', 'syncGameVersion', '" . implode(',', $jsonObject) . "')";
       if (!mysql_query($log)) {
         die('Error: ' . mysql_error());
+        if(APP_LOG_LEVEL >= 1) {
+          $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'syncGameVersion', 'ERROR: COULD NOT CONNECT TO DB')";
+          if (!mysql_query($log)) {
+            die('Error: ' . mysql_error());
+          }
+        }
       }
     }
     $sql = "UPDATE servers SET game_version = '" . $jsonObject['result'] . "' WHERE serverID=1";
