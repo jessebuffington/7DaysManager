@@ -68,17 +68,12 @@ function syncGameTime() {
 
   if($jsonObject['players'] >= 1) {
     if(APP_LOG_LEVEL >= 4) {
-      //$fh = fopen(APP_LOG, 'a') or die("Can't open file");
-      //fwrite($fh, "DEBUG " . date('Y-m-d H:i:s') . " - URLOUT VAR: " . $url . "\n");
       $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'DEBUG', 'syncGameTime', 'URLOUT VAR: " . $url . "')";
     }
     $sql = "UPDATE server_gameTime SET currentDay='" . sprintf("%02d", $jsonObject['gametime']['days']). "', currentTime='" . sprintf("%02d", $jsonObject['gametime']['hours']) . ":" . sprintf("%02d", $jsonObject['gametime']['minutes']) . "' WHERE serverID=1";
     if (!mysql_query($sql)) {
       die('Error: ' . mysql_error());
       if(APP_LOG_LEVEL >= 1) {
-        //$fh = fopen(APP_LOG, 'a') or die("Can't open file\n" . APP_LOG . "\n");
-        //$stringData = date('Y-m-d H:i:s') . " - ERROR: COULD NOT CONNECT TO DB\n";
-        //fwrite($fh, $stringData);
         $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'syncGameTime', 'ERROR: COULD NOT CONNECT TO DB')";
         if (!mysql_query($log)) {
           die('Error: ' . mysql_error());
@@ -102,16 +97,10 @@ function syncGameTime() {
     }
   } elseif ($jsonObject['players'] == 0) {
     if (APP_LOG_LEVEL >= 2) {
-      //$fh = fopen(APP_LOG, 'a') or die("Can't open file\n" . APP_LOG . "\n");
-      //$stringData = date('Y-m-d H:i:s') . " - NO PLAYERS -- Recheck in " . interval_syncGameTime . " seconds...\n";
-      //fwrite($fh, $stringData);
       $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'WARN', 'syncGameTime', 'NO PLAYERS -- Recheck in " . interval_syncGameTime . " seconds...')";
       if(!mysql_query($log)) {
         die('Error: ' . mysql_error());
         if(APP_LOG_LEVEL >= 1) {
-          //$fh = fopen(APP_LOG, 'a') or die("Can't open file\n" . APP_LOG . "\n");
-          //$stringData = date('Y-m-d H:i:s') . " - ERROR: COULD NOT CONNECT TO DB\n";
-          //fwrite($fh, $stringData);
           $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'syncGameTime', 'ERROR: COULD NOT CONNECT TO DB')";
           if (!mysql_query($log)) {
             die('Error: ' . mysql_error());
@@ -391,11 +380,6 @@ function syncLandclaims() {
       claims = '" . $jsonObject['claimowners']['claims']['x']['y']['z'] . "'
       WHERE serverID=1";
 
-//printf($jsonObject['result']);
-
-    //if (!mysql_query($sql)) {
-    //  die('Error: ' . mysql_error());
-    //}
 
     if (APP_LOG_LEVEL >= 3) {
       $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'INFO', 'syncServerInfo', 'DB/Server info synced.')";
