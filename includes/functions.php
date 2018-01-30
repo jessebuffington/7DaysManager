@@ -294,8 +294,22 @@ function syncOnlinePlayers() {
 
   //var_dump(json_decode($queryAPI, true));
 
+  $sql = "UPDATE players SET onlineStatus='0'";
+  if (APP_LOG_LEVEL >= 3) {
+    if (!mysql_query($sql)) {
+      die('Error: ' . mysql_error());
+      if(APP_LOG_LEVEL >= 1) {
+        $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'syncOnlinePlayers', 'ERROR: COULD NOT CONNECT TO DB')";
+        if (!mysql_query($log)) {
+          die('Error: ' . mysql_error());
+        }
+      }
+    }
+  }
   if($jsonObject != NULL) {
     if(APP_LOG_LEVEL >= 4) {
+      var_dump(json_decode($queryAPI, true));
+
       $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'DEBUG', 'syncOnlinePlayers', 'URLOUT VAR: " . $url . "')";
       if(!mysql_query($log)) {
         die('Error: ' . mysql_error());
@@ -304,16 +318,6 @@ function syncOnlinePlayers() {
           if (!mysql_query($log)) {
             die('Error: ' . mysql_error());
           }
-        }
-      }
-    }
-    $sql = "UPDATE players SET onlineStatus='0'";
-    if (!mysql_query($sql)) {
-      die('Error: ' . mysql_error());
-      if(APP_LOG_LEVEL >= 1) {
-        $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'syncOnlinePlayers', 'ERROR: COULD NOT CONNECT TO DB')";
-        if (!mysql_query($log)) {
-          die('Error: ' . mysql_error());
         }
       }
     }
