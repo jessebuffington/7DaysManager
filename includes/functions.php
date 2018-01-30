@@ -336,7 +336,7 @@ function syncOnlinePlayers() {
           }
         }
       }
-    }
+    }*/
     if(APP_LOG_LEVEL >= 3) {
       $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'INFO', 'syncOnlinePlayers', 'Syncing online users')";
       if(!mysql_query($log)) {
@@ -371,7 +371,7 @@ function syncAllPlayers() {
   global $API_PORT;
   global $API_USER;
   global $API_PASS;
-  global $syncOnlinePlayers;
+  global $syncAllPlayers;
   global $APP_LOG;
   global $APP_LOG_LEVEL;
 
@@ -380,7 +380,7 @@ function syncAllPlayers() {
   $queryAPI = file_get_contents($url);
   $jsonObject = json_decode($queryAPI, true);
 
-  var_dump($jsonObject);
+  //var_dump($jsonObject);
 
   if($jsonObject != NULL) {
     if(APP_LOG_LEVEL >= 4) {
@@ -397,34 +397,18 @@ function syncAllPlayers() {
         }
       }
     }
-
-
-
-
     foreach($jsonObject as $item) {
-      var_dump($item);
-    	$columns = implode(", ",array_keys($item));
-    	$escaped_values = array_map('mysql_real_escape_string', array_values($item));
-    	$values  = "'".implode("', '", $escaped_values)."'";
-    	$sql = "UPDATE `players`($columns) VALUES ($values)";
-    	mysql_query($sql);
-    }
-
-
-
-
-  /*  foreach($jsonObject->players as $players) {
-      foreach($array as $key => $value) {
-        $sql = "UPDATE players SET
-        playerid='" . $array['entityid'] . "',
-        ip='" . $array['ip']. "',
-        playerName='" . $array['name'] . "',
-        onlineStatus='" . $array['online']. "',
-        currentPosition='" . $array['position'] . "',
-        playtime='" . $array['totalplaytime'] . "',
-        lastSeen='" . $array['lastonline'] . "',
-        ping='" . $array['ping'] . "'
-        WHERE steamid = '" . $array['steamid'] . "'";
+      foreach($item as $object) {
+        //var_dump($object);
+        $columns = implode(", ",array_keys($object));
+        //var_dump($columns);
+        $escaped_values = array_map('mysql_real_escape_string', array_values($object));
+        //var_dump($escaped_values);
+        $values  = "'" . implode("', '", $escaped_values) . "'";
+        //var_dump($values);
+        $sql = "replace into players (steamid, playerid, ip, playerName, onlineStatus, currentPosition, playtime, lastSeen, ping, banned) values ($values)";
+        //var_dump($sql);
+        mysql_query($sql);
         if (!mysql_query($sql)) {
           die('Error: ' . mysql_error());
           if(APP_LOG_LEVEL >= 1) {
@@ -435,7 +419,7 @@ function syncAllPlayers() {
           }
         }
       }
-    }*/
+    }
     if(APP_LOG_LEVEL >= 3) {
       $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'INFO', 'syncAllPlayers', 'Syncing ALL users')";
       if(!mysql_query($log)) {
