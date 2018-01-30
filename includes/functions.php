@@ -265,11 +265,6 @@ function syncServerInfo() {
       isPublic = '" . $jsonObject['IsPublic']['value'] . "'
       WHERE serverID=1";
 
-//printf($jsonObject['result']);
-
-    //if (!mysql_query($sql)) {
-    //  die('Error: ' . mysql_error());
-    //}
 
     if (APP_LOG_LEVEL >= 3) {
       $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'INFO', 'syncServerInfo', 'DB/Server info synced.')";
@@ -287,12 +282,6 @@ function syncServerInfo() {
 }
 
 
-
-//
-//
-//NEED TO FIX -- DISREGARD BELOW PLS
-//
-//
 function syncOnlinePlayers() {
   global $API_HOST;
   global $API_PORT;
@@ -523,7 +512,6 @@ function syncEntities() {
   global $API_PORT;
   global $API_USER;
   global $API_PASS;
-  global $interval_syncLandclaims;
   global $APP_LOG;
   global $APP_LOG_LEVEL;
   //API Call to get game status
@@ -542,12 +530,6 @@ function syncEntities() {
       claims = '" . $jsonObject['claimowners']['claims']['x']['y']['z'] . "'
       WHERE serverID=1";
 
-//printf($jsonObject['result']);
-
-    //if (!mysql_query($sql)) {
-    //  die('Error: ' . mysql_error());
-    //}
-
     if (APP_LOG_LEVEL >= 3) {
       $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'INFO', 'syncServerInfo', 'DB/Server info synced.')";
       if (!mysql_query($log)) {
@@ -562,10 +544,6 @@ function syncEntities() {
     }
   }
 }
-
-
-
-
 
 
 ?>
