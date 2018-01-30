@@ -363,7 +363,7 @@ function syncLandclaims() {
   global $API_PASS;
   global $interval_syncLandclaims;
   global $APP_LOG;
-  global $DEBUG_LOGGING;
+  global $APP_LOG_LEVEL;
   //API Call to get game status
   $url = 'http://' . API_HOST . ':' . API_PORT . '/api/getlandclaims?adminuser=' . API_USER . '&admintoken=' . API_PASS . '';
 
@@ -404,7 +404,7 @@ function syncEntities() {
   global $API_PASS;
   global $interval_syncLandclaims;
   global $APP_LOG;
-  global $DEBUG_LOGGING;
+  global $APP_LOG_LEVEL;
   //API Call to get game status
   $url = 'http://' . API_HOST . ':' . API_PORT . '/api/getlandclaims?adminuser=' . API_USER . '&admintoken=' . API_PASS . '';
 
