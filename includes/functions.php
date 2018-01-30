@@ -290,7 +290,7 @@ function syncServerInfo() {
 
 //
 //
-//NEED TO FIX
+//NEED TO FIX -- DISREGARD BELOW PLS
 //
 //
 function syncOnlinePlayers() {
@@ -336,13 +336,15 @@ function syncOnlinePlayers() {
         }
       }
     }
-    $sql = "UPDATE players SET onlineStatus='1' WHERE playerid = '" . $jsonObject['0']['entityid'] . "'";
-    if (!mysql_query($sql)) {
-      die('Error: ' . mysql_error());
-      if(APP_LOG_LEVEL >= 1) {
-        $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'syncOnlinePlayers', 'ERROR: COULD NOT CONNECT TO DB')";
-        if (!mysql_query($log)) {
-          die('Error: ' . mysql_error());
+    foreach($jsonObject as $loop) {
+      $sql = "UPDATE players SET onlineStatus='1' WHERE playerid = '" . $jsonObject['0']['entityid'] . "'";
+      if (!mysql_query($sql)) {
+        die('Error: ' . mysql_error());
+        if(APP_LOG_LEVEL >= 1) {
+          $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'syncOnlinePlayers', 'ERROR: COULD NOT CONNECT TO DB')";
+          if (!mysql_query($log)) {
+            die('Error: ' . mysql_error());
+          }
         }
       }
     }
@@ -375,6 +377,106 @@ function syncOnlinePlayers() {
 }
 
 
+function syncAllPlayers() {
+  global $API_HOST;
+  global $API_PORT;
+  global $API_USER;
+  global $API_PASS;
+  global $syncOnlinePlayers;
+  global $APP_LOG;
+  global $APP_LOG_LEVEL;
+
+  $url = 'http://' . API_HOST . ':' . API_PORT . '/api/getplayerlist?adminuser=' . API_USER . '&admintoken=' . API_PASS . '';
+
+  $queryAPI = file_get_contents($url);
+  $jsonObject = json_decode($queryAPI, true);
+
+  var_dump($jsonObject);
+
+  if($jsonObject != NULL) {
+    if(APP_LOG_LEVEL >= 4) {
+      var_dump(json_decode($queryAPI, true));
+
+      $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'DEBUG', 'syncAllPlayers', 'URLOUT VAR: " . $url . "')";
+      if(!mysql_query($log)) {
+        die('Error: ' . mysql_error());
+        if(APP_LOG_LEVEL >= 1) {
+          $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'syncAllPlayers', 'ERROR: COULD NOT CONNECT TO DB')";
+          if (!mysql_query($log)) {
+            die('Error: ' . mysql_error());
+          }
+        }
+      }
+    }
+
+
+
+
+    foreach($jsonObject as $item) {
+      var_dump($item);
+    	$columns = implode(", ",array_keys($item));
+    	$escaped_values = array_map('mysql_real_escape_string', array_values($item));
+    	$values  = "'".implode("', '", $escaped_values)."'";
+    	$sql = "UPDATE `players`($columns) VALUES ($values)";
+    	mysql_query($sql);
+    }
+
+
+
+
+  /*  foreach($jsonObject->players as $players) {
+      foreach($array as $key => $value) {
+        $sql = "UPDATE players SET
+        playerid='" . $array['entityid'] . "',
+        ip='" . $array['ip']. "',
+        playerName='" . $array['name'] . "',
+        onlineStatus='" . $array['online']. "',
+        currentPosition='" . $array['position'] . "',
+        playtime='" . $array['totalplaytime'] . "',
+        lastSeen='" . $array['lastonline'] . "',
+        ping='" . $array['ping'] . "'
+        WHERE steamid = '" . $array['steamid'] . "'";
+        if (!mysql_query($sql)) {
+          die('Error: ' . mysql_error());
+          if(APP_LOG_LEVEL >= 1) {
+            $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'syncAllPlayers', 'ERROR: COULD NOT CONNECT TO DB')";
+            if (!mysql_query($log)) {
+              die('Error: ' . mysql_error());
+            }
+          }
+        }
+      }
+    }*/
+    if(APP_LOG_LEVEL >= 3) {
+      $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'INFO', 'syncAllPlayers', 'Syncing ALL users')";
+      if(!mysql_query($log)) {
+        die('Error: ' . mysql_error());
+        if(APP_LOG_LEVEL >= 1) {
+          $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'syncAllPlayers', 'ERROR: COULD NOT CONNECT TO DB')";
+          if (!mysql_query($log)) {
+            die('Error: ' . mysql_error());
+          }
+        }
+      }
+    }
+  } else {
+    if (APP_LOG_LEVEL >= 3) {
+      $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'INFO', 'syncAllPlayers', 'No players have EVER played in this server -- Recheck in " . interval_syncAllPlayers . " seconds...')";
+      if(!mysql_query($log)) {
+        die('Error: ' . mysql_error());
+        if(APP_LOG_LEVEL >= 1) {
+          $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'syncAllPlayers', 'ERROR: COULD NOT CONNECT TO DB')";
+          if (!mysql_query($log)) {
+            die('Error: ' . mysql_error());
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
 function syncLandclaims() {
   global $API_HOST;
   global $API_PORT;
@@ -393,7 +495,7 @@ function syncLandclaims() {
 
   if($jsonObject['IP']['value'] >= 0) {
 
-    $sql = "UPDATE landclaims SET
+    $sql = "UPDATE server_landclaims SET
       steamid = '" . $jsonObject['claimowners']['steamid'] . "',
       claimactive = '" . $jsonObject['claimowners']['claimactive'] . "',
       claims = '" . $jsonObject['claimowners']['claims']['x']['y']['z'] . "'
@@ -425,7 +527,7 @@ function syncEntities() {
   global $APP_LOG;
   global $APP_LOG_LEVEL;
   //API Call to get game status
-  $url = 'http://' . API_HOST . ':' . API_PORT . '/api/getlandclaims?adminuser=' . API_USER . '&admintoken=' . API_PASS . '';
+  $url = 'http://' . API_HOST . ':' . API_PORT . '/api/executeconsolecommand?adminuser=' . API_USER . '&admintoken=' . API_PASS . '&command=le';
 
   $queryAPI = file_get_contents($url);
   $jsonObject = json_decode($queryAPI, true);
@@ -434,7 +536,7 @@ function syncEntities() {
 
   if($jsonObject['IP']['value'] >= 0) {
 
-    $sql = "UPDATE server_info SET
+    $sql = "UPDATE server_entities SET
       steamid = '" . $jsonObject['claimowners']['steamid'] . "',
       claimactive = '" . $jsonObject['claimowners']['claimactive'] . "',
       claims = '" . $jsonObject['claimowners']['claims']['x']['y']['z'] . "'
