@@ -85,9 +85,6 @@ function syncGameTime() {
       if(!mysql_query($log)) {
         die('Error: ' . mysql_error());
         if(APP_LOG_LEVEL >= 1) {
-          //$fh = fopen(APP_LOG, 'a') or die("Can't open file\n" . APP_LOG . "\n");
-          //$stringData = date('Y-m-d H:i:s') . " - ERROR: COULD NOT CONNECT TO DB\n";
-          //fwrite($fh, $stringData);
           $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'syncGameTime', 'ERROR: COULD NOT CONNECT TO DB')";
           if (!mysql_query($log)) {
             die('Error: ' . mysql_error());
