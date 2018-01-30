@@ -371,11 +371,11 @@ function syncLandclaims() {
   $queryAPI = file_get_contents($url);
   $jsonObject = json_decode($queryAPI, true);
 
-  //var_dump(json_decode($queryAPI, true));
+  var_dump(json_decode($queryAPI, true));
 
   if($jsonObject['IP']['value'] >= 0) {
 
-    $sql = "UPDATE server_info SET
+    $sql = "UPDATE landclaims SET
       steamid = '" . $jsonObject['claimowners']['steamid'] . "',
       claimactive = '" . $jsonObject['claimowners']['claimactive'] . "',
       claims = '" . $jsonObject['claimowners']['claims']['x']['y']['z'] . "'
@@ -383,11 +383,11 @@ function syncLandclaims() {
 
 
     if (APP_LOG_LEVEL >= 3) {
-      $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'INFO', 'syncServerInfo', 'DB/Server info synced.')";
+      $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'INFO', 'syncLandclaims', 'ALL Landclaim location synced.')";
       if (!mysql_query($log)) {
         die('Error: ' . mysql_error());
         if(APP_LOG_LEVEL >= 1) {
-          $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'syncServerInfo', 'ERROR: COULD NOT CONNECT TO DB')";
+          $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'syncLandclaims', 'ERROR: COULD NOT CONNECT TO DB')";
           if (!mysql_query($log)) {
             die('Error: ' . mysql_error());
           }
