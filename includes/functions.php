@@ -81,7 +81,7 @@ function syncGameTime() {
       }
     }
     if(APP_LOG_LEVEL >= 3) {
-      $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'INFO', 'syncGameTime', 'DB/Server time synced.')";
+      $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'INFO', 'syncGameTime', 'DB/Server time synced. Day-" . $jsonObject['gametime']['days'] . " | Time-" . sprintf("%02d", $jsonObject['gametime']['hours']) . ":" . sprintf("%02d", $jsonObject['gametime']['minutes']) . "')";
       if(!mysql_query($log)) {
         die('Error: ' . mysql_error());
         if(APP_LOG_LEVEL >= 1) {
@@ -93,8 +93,8 @@ function syncGameTime() {
       }
     }
   } elseif ($jsonObject['players'] == 0) {
-    if (APP_LOG_LEVEL >= 2) {
-      $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'WARN', 'syncGameTime', 'NO PLAYERS -- Recheck in " . interval_syncGameTime . " seconds...')";
+    if (APP_LOG_LEVEL >= 3) {
+      $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'INFO', 'syncGameTime', 'NO PLAYERS -- Recheck in " . interval_syncGameTime . " seconds...')";
       if(!mysql_query($log)) {
         die('Error: ' . mysql_error());
         if(APP_LOG_LEVEL >= 1) {
