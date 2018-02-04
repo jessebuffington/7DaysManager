@@ -25,11 +25,12 @@
   <div class="content-wrapper">
     <section class="content-header">
       <h1>
-        7DaysManager Log
+        <?php echo $pageTitle ?>
       </h1>
       <small>Limit <?php echo APP_LOG_LIMIT ?> rows</small>
       <ol class="breadcrumb">
         <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li></i> Reports/Logs</li>
         <li class="active"><?php echo $pageTitle ?></li>
       </ol>
     </section>

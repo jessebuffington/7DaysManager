@@ -145,4 +145,20 @@ function getAppLog() {
   }
 }
 
+function getSiteLoginAttempts() {
+  $getSiteLoginAttempts = mysql_query("SELECT * FROM site_loginAttempts order by id desc limit " . SITE_LOGIN_ATTEMPT_LIMIT . "");
+  if (!$getSiteLoginAttempts) {
+    die('Invalid query: ' . mysql_error());
+  }
+  while($row = mysql_fetch_array($getSiteLoginAttempts)) {
+    echo '<tr>';
+    echo '<td class="text-left">' . $row['username'] . '</td>';
+    echo '<td class="text-left">' . $row['ip'] . '</td>';
+    echo '<td class="text-left">' . $row['failedAttempts'] . '</td>';
+    echo '<td class="text-left">' . $row['lastLogin'] . '</td>';
+    echo '<td class="text-left">' . $row['lastFailedLoginAttempt'] . '</td>';
+    echo '</tr>';
+  }
+}
+
 ?>

@@ -6,15 +6,15 @@
 <html>
 <head>
   <?php
-    $pageTitle='Site Access Log';
+    $pageTitle='Site Login Attempts';
     $pageParent='Reports/Logs';
     include_once($_SERVER[ "DOCUMENT_ROOT"] . "/lib/header.php");
   ?>
   <script>
-    function refresh_appLog() {
-      $("#appLog").load(location.href + " #appLog");
+    function refresh_siteLoginAttempts() {
+      $("#siteLoginAttempts").load(location.href + " #siteLoginAttempts");
     }
-    setInterval('refresh_appLog()', 1000);
+    setInterval('refresh_siteLoginAttempts()', 10000);
   </script>
 </head>
 <body class="hold-transition skin-<?php echo HEADER_COLOR ?> sidebar-mini">
@@ -27,7 +27,7 @@
       <h1>
         <?php echo $pageTitle ?>
       </h1>
-      <small>Limit <?php echo APP_LOG_LIMIT ?> rows</small>
+      <small>Limit <?php echo SITE_LOGIN_ATTEMPT_LIMIT ?> rows</small>
       <ol class="breadcrumb">
         <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
         <li></i> Reports/Logs</li>
@@ -39,18 +39,19 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-body">
-              <table id="appLog" class="table table-bordered table-striped">
+              <table id="siteLoginAttempts" class="table table-bordered table-striped">
                 <thead>
                   <tr>
-                    <th class="text-left">Date/Time</th>
-                    <th class="text-left">Log Level</th>
-                    <th class="text-left">Run Name</th>
-                    <th class="text-left">Message</th>
+                    <th class="text-left">Username</th>
+                    <th class="text-left">IP</th>
+                    <th class="text-left">Failed Attempts</th>
+                    <th class="text-left">Last Successful Login</th>
+                    <th class="text-left">Last Failed Attempt</th>
                   </tr>
                 </thead>
                 <tbody>
                   <?php
-                    echo getSiteAccessLog();
+                    echo getSiteLoginAttempts();
                   ?>
                 </tfoot>
               </table>
