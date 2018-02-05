@@ -30,11 +30,23 @@
       function refresh_currAnimals() {
         $("#currAnimals").load(location.href + " #currAnimals");
       }
+      function refresh_activePlayers() {
+        $("#activePlayers").load(location.href + " #activePlayers");
+      }
+      function refresh_gameChat() {
+        $("#gameChat").load(location.href + " #gameChat");
+      }
+      function refresh_playersThisWeek() {
+        $("#playersThisWeek").load(location.href + " #playersThisWeek");
+      }
       setInterval('refresh_gameTime()', 5000);
       setInterval('refresh_playersOnline()', 10000);
       setInterval('refresh_playersOverall()', 10000);
       setInterval('refresh_currZombies()', 10000);
       setInterval('refresh_currAnimals()', 10000);
+      setInterval('refresh_activePlayers()', 10000);
+      setInterval('refresh_gameChat()', 100);
+      setInterval('refresh_playersThisWeek()', 100);
     </script>
 
   </head>
@@ -46,7 +58,7 @@
       <div class="content-wrapper">
         <section class="content-header">
           <h1>
-            Dashboard
+            <?php echo $pageTitle ?>
           </h1>
           <ol class="breadcrumb">
             <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -434,7 +446,12 @@
                   Players (This Week)
                 </span>
                 <span class="info-box-number">
-                  60
+                  <?php
+                    $queryPlayersThisWeek=mysql_query('select count(*) as playerWeekCount from players where lastSeen >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)');
+                    while($countPlayersThisWeek=mysql_fetch_array($queryPlayersThisWeek)) {
+                      echo $countPlayersThisWeek['playerWeekCount'];
+                    }
+                  ?>
                 </span>
                 <div class="progress">
                   <div class="progress-bar" style="width: 20%"></div>
