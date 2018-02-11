@@ -19,11 +19,11 @@
     <div class="content-wrapper">
       <section class="content-header">
         <h1>
-          Map Config
+          <?php echo $pageTitle ?>
         </h1>
         <ol class="breadcrumb">
           <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
-          <li> Settings</li>
+          <?php if($pageParent) {echo "<li></i> " . $pageParent . "</li>";} ?>
           <li class="active"><?php echo $pageTitle ?></li>
         </ol>
       </section>

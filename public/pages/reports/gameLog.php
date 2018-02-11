@@ -29,7 +29,7 @@
       </h1>
       <ol class="breadcrumb">
         <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li> Reports/Logs</li>
+        <?php if($pageParent) {echo "<li></i> " . $pageParent . "</li>";} ?>
         <li class="active"><?php echo $pageTitle ?></li>
       </ol>
     </section>

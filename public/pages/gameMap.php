@@ -6,7 +6,7 @@
 <html>
   <head>
     <?php
-      $pageTitle='Game Map';
+      $pageTitle='In-Game Map';
       include_once($_SERVER[ "DOCUMENT_ROOT"] . "/lib/header.php");
     ?>
   </head>
@@ -18,7 +18,7 @@
   <div class="content-wrapper">
     <section class="content-header">
       <h1>
-        In-Game Map
+        <?php echo $pageTitle ?>
       </h1>
       <ol class="breadcrumb">
         <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>

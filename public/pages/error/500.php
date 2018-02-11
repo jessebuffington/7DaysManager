@@ -34,7 +34,7 @@ _.._ :`4MM$!YYYYYYYYYii,.__.diii$$YYYYYYYYYYY
 
   <head>
     <?php
-      $pageTitle='*SERVER ERROR*';
+      $pageTitle='*500 - SERVER ERROR*';
       include_once($_SERVER[ "DOCUMENT_ROOT"] . "/lib/header.php");
     ?>
   </head>
@@ -46,11 +46,11 @@ _.._ :`4MM$!YYYYYYYYYii,.__.diii$$YYYYYYYYYYY
     <div class="content-wrapper">
       <section class="content-header">
         <h1>
-          500 Error Page
+          <?php echo $pageTitle ?>
         </h1>
         <ol class="breadcrumb">
           <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-          <li class="active">500 error</li>
+          <li class="active"><?php echo $pageTitle ?></li>
         </ol>
       </section>
       <section class="content">

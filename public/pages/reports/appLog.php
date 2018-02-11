@@ -30,7 +30,7 @@
       <small>Limit <?php echo APP_LOG_LIMIT ?> rows</small>
       <ol class="breadcrumb">
         <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li></i> Reports/Logs</li>
+        <?php if($pageParent) {echo "<li></i> " . $pageParent . "</li>";} ?>
         <li class="active"><?php echo $pageTitle ?></li>
       </ol>
     </section>
