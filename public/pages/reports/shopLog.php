@@ -39,7 +39,7 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-body">
-              <table id="appLog" class="table table-bordered table-striped">
+              <table id="shopLog" class="table table-bordered table-striped">
                 <thead>
                   <tr>
                     <th class="text-left">Steam ID</th>
