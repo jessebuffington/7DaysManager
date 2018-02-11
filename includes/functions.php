@@ -37,6 +37,7 @@ function echos($text, $color="normal") {
   }
 }
 
+
 //Method for displaying the help and default variables.
 function displayUsage() {
   global $APP_LOG;
@@ -471,6 +472,75 @@ function syncAllPlayers() {
 }
 
 
+function syncGameLog() {
+  global $TELNET_HOST;
+  global $TELNET_PORT;
+  global $TELNET_PASS;
+  global $interval_syncGameLog;
+  global $APP_LOG;
+  global $APP_LOG_LEVEL;
+
+  $telnet = fsockopen(TELNET_HOST, TELNET_PORT, $errno, $errstr, 10);
+  if($telnet) {
+    fputs($telnet, TELNET_PASS."\r\n");
+  }
+
+  if(APP_LOG_LEVEL >= 2) {
+    $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'WARN', 'syncGameLog', '***Telnet connection starting up!***')";
+    if (!mysql_query($log)) {
+      die('Error: ' . mysql_error());
+      if(APP_LOG_LEVEL >= 1) {
+        $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'syncGameLog', 'ERROR: COULD NOT CONNECT TO DB')";
+        if(!mysql_query($log)) {
+          die('Error: ' . mysql_error());
+        }
+      }
+    }
+  }
+  while ($line = fgets($telnet)) {
+    $line = trim($line);
+    $_line = mysql_real_escape_string($line);
+    //echo $line."\n";
+    if(APP_LOG_LEVEL >= 4) {
+      $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'DEBUG', 'syncGameLog', 'TELNET CONNECT STRING: " . $telnet . "')";
+      if (!mysql_query($log)) {
+        die('Error: ' . mysql_error());
+        if(APP_LOG_LEVEL >= 1) {
+          $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'syncGameLog', 'ERROR: COULD NOT CONNECT TO DB')";
+          if(!mysql_query($log)) {
+            die('Error: ' . mysql_error());
+          }
+        }
+      }
+    }
+    $gameLog = "insert into server_log (message) values ('$_line')";
+    if(!mysql_query($gameLog)) {
+      die('Error: ' . mysql_error());
+      if(APP_LOG_LEVEL >= 1) {
+        $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'syncGameLog', 'ERROR: COULD NOT CONNECT TO DB')";
+        if(!mysql_query($log)) {
+          die('Error: ' . mysql_error());
+        }
+      }
+    }
+    if(APP_LOG_LEVEL >= 4) {
+      $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'DEBUG', 'syncGameLog', 'Game log synced to DB')";
+      if (!mysql_query($log)) {
+        die('Error: ' . mysql_error());
+        if(APP_LOG_LEVEL >= 1) {
+          $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'syncGameLog', 'ERROR: COULD NOT CONNECT TO DB')";
+          if(!mysql_query($log)) {
+            die('Error: ' . mysql_error());
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+
 
 //
 //
@@ -598,6 +668,5 @@ function syncEntities() {
     }
   }
 }
-
 
 ?>
