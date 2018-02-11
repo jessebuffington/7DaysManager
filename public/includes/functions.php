@@ -145,6 +145,18 @@ function getAppLog() {
   }
 }
 
+function getGameLog() {
+  $getGameLog = mysql_query("SELECT * FROM server_log order by id asc limit " . GAME_LOG_LIMIT . "");
+  if (!$getGameLog) {
+    die('Invalid query: ' . mysql_error());
+  }
+  while($row = mysql_fetch_array($getGameLog)) {
+    echo '<tr>';
+    echo '<td class="text-left">' . $row['message'] . '</td>';
+    echo '</tr>';
+  }
+}
+
 function getShopLog() {
   $getAppLog = mysql_query("SELECT * FROM shop_log order by datetime desc limit " . SHOP_LOG_LIMIT . "");
   if (!$getAppLog) {
