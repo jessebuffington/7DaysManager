@@ -146,7 +146,7 @@ function getAppLog() {
 }
 
 function getGameLog() {
-  $getGameLog = mysql_query("SELECT * FROM server_log order by id asc limit " . GAME_LOG_LIMIT . "");
+  $getGameLog = mysql_query("SELECT * FROM server_log order by id desc limit " . GAME_LOG_LIMIT . "");
   if (!$getGameLog) {
     die('Invalid query: ' . mysql_error());
   }
