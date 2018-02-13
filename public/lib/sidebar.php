@@ -119,7 +119,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li <?php if($pageTitle == 'PAGE') {echo 'class = "active"';} ?>><a href="#"><i class="fa fa-circle-o"></i> PAGE</a></li>
+            <li <?php if($pageTitle == 'Web Console') {echo 'class = "active"';} ?>><a href="/pages/util/webConsole.php"><i class="fa fa-circle-o"></i> Web Console</a></li>
             <li <?php if($pageTitle == 'PAGE') {echo 'class = "active"';} ?>><a href="#"><i class="fa fa-circle-o"></i> PAGE</a></li>
             <li <?php if($pageTitle == 'PAGE') {echo 'class = "active"';} ?>><a href="#"><i class="fa fa-circle-o"></i> PAGE</a></li>
           </ul>
