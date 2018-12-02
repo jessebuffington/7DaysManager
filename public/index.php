@@ -39,6 +39,9 @@
       function refresh_playersThisWeek() {
         $("#playersThisWeek").load(location.href + " #playersThisWeek");
       }
+      function refresh_appStatus() {
+        $("#appStatus").load(location.href + " #appStatus");
+      }
       setInterval('refresh_gameTime()', 5000);
       setInterval('refresh_playersOnline()', 10000);
       setInterval('refresh_playersOverall()', 10000);
@@ -47,6 +50,7 @@
       setInterval('refresh_activePlayers()', 10000);
       setInterval('refresh_gameChat()', 100);
       setInterval('refresh_playersThisWeek()', 100);
+      setInterval('refresh_appStatus()', 10000);
     </script>
 
   </head>
@@ -224,20 +228,6 @@
                           <h3 class="box-title">
                             Game Chat
                           </h3>
-                          <div class="box-tools pull-right">
-                            <!--<span data-toggle="tooltip" title="3 New Messages" class="badge bg-yellow">
-                              3
-                            </span>-->
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                              <i class="fa fa-minus"></i>
-                            </button>
-                            <!--<button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="Contacts" data-widget="chat-pane-toggle">
-                              <i class="fa fa-comments"></i>
-                            </button>-->
-                            <button type="button" class="btn btn-box-tool" data-widget="remove">
-                              <i class="fa fa-times"></i>
-                            </button>
-                          </div>
                         </div>
                         <div class="box-body">
                           <div class="direct-chat-messages">
@@ -311,12 +301,6 @@
                               ?>
                               Total Players
                             </span>
-                            <type="button" class="btn btn-box-tool" data-widget="collapse">
-                            <i class="fa fa-minus"></i>
-                          </button>
-                          <button type="button" class="btn btn-box-tool" data-widget="remove">
-                            <i class="fa fa-times"></i>
-                          </button>
                         </div>
                       </div>
                       <div class="box-body no-padding">
@@ -325,9 +309,9 @@
                             $queryPlayers=mysql_query('SELECT * FROM players order by score desc limit 12');
                             while($queryAllPlayers=mysql_fetch_array($queryPlayers)) {
                               echo '<li>';
-                              echo '<a class="users-list-name" href="http://steamidfinder.com/lookup/' . $queryAllPlayersID = $queryAllPlayers[ 'steamid'] . '" target="_blank"><img src="/bower_components/Ionicons/png/512/ios7-contact.png" alt="User Image"></a>';
-                              echo '<a class="users-list-name" href="http://steamidfinder.com/lookup/' . $queryAllPlayersID = $queryAllPlayers[ 'steamid'] . '" target="_blank">' . $queryAllPlayers['playerName'] . '</a>';
-                              echo '<span class="users-list-date"' . $queryAllPlayers[ 'lastSeen'] . '</span>';
+                              echo '<a class="users-list-name" href="http://steamidfinder.com/lookup/' . $queryAllPlayersID = $queryAllPlayers['steamid'] . '" target="_blank"><img src="/bower_components/Ionicons/png/512/ios7-contact.png" alt="User Image"></a>';
+                              echo '<a class="users-list-name" href="http://steamidfinder.com/lookup/' . $queryAllPlayersID = $queryAllPlayers['steamid'] . '" target="_blank">' . $queryAllPlayers['playerName'] . '</a>';
+                              echo '<span class="users-list-date"' . $queryAllPlayers['lastSeen'] . '</span>';
                               echo '</li>';
                             }
                           ?>
@@ -344,75 +328,46 @@
                 <div class="box box-info">
                   <div class="box-header with-border">
                     <h3 class="box-title">
-                      Latest Orders
+                      App Status
                     </h3>
-                    <div class="box-tools pull-right">
-                      <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                        <i class="fa fa-minus"></i>
-                      </button>
-                      <button type="button" class="btn btn-box-tool" data-widget="remove">
-                        <i class="fa fa-times"></i>
-                      </button>
-                    </div>
                   </div>
                   <div class="box-body">
                     <div class="table-responsive">
-                      <table class="table no-margin">
+                      <table id='appStatus' class="table no-margin">
                         <thead>
                           <tr>
-                            <th>Order ID</th>
-                            <th>Item</th>
+                            <th>Name</th>
                             <th>Status</th>
-                            <th>Popularity</th>
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td><a href="pages/examples/invoice.html">
-                              OR9842
-                            </a>
-                          </td>
-                          <td>Call of Duty IV</td>
-                          <td><span class="label label-success">
-                            Shipped
-                          </span>
-                        </td>
-                        <td>
-                          <div class="sparkbar" data-color="#00a65a" data-height="20">
-                            90,80,90,-70,61,-83,63
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <a href="pages/examples/invoice.html">
-                            OR1848
-                          </a>
-                        </td>
-                        <td>
-                          Samsung Smart TV
-                        </td>
-                        <td>
-                          <span class="label label-warning">
-                            Pending
-                          </span>
-                        </td>
-                        <td>
-                          <div class="sparkbar" data-color="#f39c12" data-height="20">
-                            90,80,-90,70,61,-83,68
-                          </div>
-                        </td>
-                      </tr>
+                          <?php
+                            $queryAppStatus=mysql_query('SELECT * FROM app_status order by id asc');
+                            while($appStatus=mysql_fetch_array($queryAppStatus)) {
+                              echo '<tr>';
+                              echo '<td>';
+                              echo $appStatus['name'];
+                              echo '</td>';
+                              echo '<td>';
+                              if ($appStatus['status'] == 'Active') {
+                                echo '<span class="label label-success">Active</span>';
+                              } else {
+                                echo '<span class="label label-danger">InActive</span>';
+                              }
+                              echo '</td>';
+                              echo '</tr>';
+                            }
+                          ?>
                     </tbody>
                   </table>
                 </div>
               </div>
               <div class="box-footer clearfix">
-                <a href="javascript:void(0)" class="btn btn-sm btn-info btn-flat pull-left">
-                  Place New Order
+                <a href="/pages/reports/appLog.php" class="btn btn-sm btn-info btn-flat pull-left">
+                  View App Log
                 </a>
                 <a href="javascript:void(0)" class="btn btn-sm btn-default btn-flat pull-right">
-                  View All Orders
+                  View App Processes
                 </a>
               </div>
             </div>
