@@ -213,61 +213,74 @@ function syncServerInfo() {
 
   if($jsonObject['IP']['value'] >= 0) {
 
-    $sql = "UPDATE server_info SET
-      gameType = '" . $jsonObject['GameType']['value'] . "',
-      gameName = '" . $jsonObject['GameName']['value'] . "',
-      levelName = '" . $jsonObject['LevelName']['value'] . "',
-      gameMode = '" . $jsonObject['GameMode']['value'] . "',
-      version = '" . $jsonObject['Version']['value'] . "',
-      serverWebsiteURL = '" . $jsonObject['ServerWebsiteURL']['value'] . "',
-      ip = '" . $jsonObject['IP']['value'] . "',
-      countryCode = '" . $jsonObject['CountryCode']['value'] . "',
-      steamID = '" . $jsonObject['SteamID']['value'] . "',
-      compatibilityVersion = '" . $jsonObject['CompatibilityVersion']['value'] . "',
-      platform = '" . $jsonObject['Platform']['value'] . "',
-      port = '" . $jsonObject['Port']['value'] . "',
-      currentPlayers = '" . $jsonObject['CurrentPlayers']['value'] . "',
-      maxPlayers = '" . $jsonObject['MaxPlayers']['value'] . "',
-      gameDifficulty = '" . $jsonObject['GameDifficulty']['value'] . "',
-      dayNightLength = '" . $jsonObject['DayNightLength']['value'] . "',
-      zombiesRun = '" . $jsonObject['ZombiesRun']['value'] . "',
-      dayCount = '" . $jsonObject['DayCount']['value'] . "',
-      ping = '" . $jsonObject['Ping']['value'] . "',
-      dropOnDeath = '" . $jsonObject['DropOnDeath']['value'] . "',
-      dropOnQuit = '" . $jsonObject['DropOnQuit']['value'] . "',
-      bloodMoonEnemyCount = '" . $jsonObject['BloodMoonEnemyCount']['value'] . "',
-      enemyDifficulty = '" . $jsonObject['EnemyDifficulty']['value'] . "',
-      playerKillingMode = '" . $jsonObject['PlayerKillingMode']['value'] . "',
-      currentServertime = '" . $jsonObject['CurrentServerTime']['value'] . "',
-      dayLightLength = '" . $jsonObject['DayLightLength']['value'] . "',
-      blockDurabilityModifier = '" . $jsonObject['BlockDurabilityModifier']['value'] . "',
-      airDropFrequency = '" . $jsonObject['AirDropFrequency']['value'] . "',
-      lootAbundance = '" . $jsonObject['LootAbundance']['value'] . "',
-      lootRespawnDays = '" . $jsonObject['LootRespawnDays']['value'] . "',
-      maxSpawnedZombies = '" . $jsonObject['MaxSpawnedZombies']['value'] . "',
-      landClaimSize = '" . $jsonObject['LandClaimSize']['value'] . "',
-      landClaimDeadZone = '" . $jsonObject['LandClaimDeadZone']['value'] . "',
-      landClaimExpiryTime = '" . $jsonObject['LandClaimExpiryTime']['value'] . "',
-      landClaimDecayMode = '" . $jsonObject['LandClaimDecayMode']['value'] . "',
-      LandClaimOnlineDurabilityModifier = '" . $jsonObject['LandClaimOnlineDurabilityModifier']['value'] . "',
-      LandClaimOfflineDurabilityModifier = '" . $jsonObject['LandClaimOfflineDurabilityModifier']['value'] . "',
-      maxSpawnedAnimals = '" . $jsonObject['MaxSpawnedAnimals']['value'] . "',
-      isDedicated = '" . $jsonObject['IsDedicated']['value'] . "',
-      isPasswordProtected = '" . $jsonObject['IsPasswordProtected']['value'] . "',
-      showFriendPlayerOnMap = '" . $jsonObject['ShowFriendPlayerOnMap']['value'] . "',
-      buildCreate = '" . $jsonObject['BuildCreate']['value'] . "',
-      eacEnabled = '" . $jsonObject['EACEnabled']['value'] . "',
-      architecture64 = '" . $jsonObject['Architecture64']['value'] . "',
-      stockSettings = '" . $jsonObject['StockSettings']['value'] . "',
-      stockFiles = '" . $jsonObject['StockFiles']['value'] . "',
-      requiresMod = '" . $jsonObject['RequiresMod']['value'] . "',
-      airDropMarker = '" . $jsonObject['AirDropMarker']['value'] . "',
-      enemySpawnMode = '" . $jsonObject['EnemySpawnMode']['value'] . "',
-      isPublic = '" . $jsonObject['IsPublic']['value'] . "'
-      WHERE serverID=1";
-
-
-    if (APP_LOG_LEVEL >= 3) {
+    $sql = "REPLACE into server_info
+      (gameType, gameName, gameHost, serverDescription, serverWebsiteURL, levelName, gameMode, version, ip, countryCode, steamID,
+        compatibilityVersion, platform, ServerLoginConfirmationText, port, currentPlayers, maxPlayers, gameDifficulty, dayNightLength,
+        zombiesRun, dayCount, ping, dropOnDeath, dropOnQuit, bloodMoonEnemyCount, enemyDifficulty, playerKillingMode, currentServertime,
+        dayLightLength, blockDurabilityModifier, airDropFrequency, lootRespawnDays, lootAbundance, maxSpawnedZombies, landClaimSize,
+        landClaimDeadZone, landClaimExpiryTime, landClaimDecayMode, LandClaimOnlineDurabilityModifier, LandClaimOfflineDurabilityModifier,
+        PartySharedKillRange, maxSpawnedAnimals, ServerVisibility, isDedicated, isPasswordProtected, showFriendPlayerOnMap, buildCreate,
+        eacEnabled, architecture64, stockSettings, stockFiles, requiresMod, airDropMarker, enemySpawnMode, isPublic)
+      values (
+        '" . $jsonObject['GameType']['value'] . "',
+        '" . $jsonObject['GameName']['value'] . "',
+        '" . $jsonObject['GameHost']['value'] . "',
+        '" . $jsonObject['ServerDescription']['value'] . "',
+        '" . $jsonObject['ServerWebsiteURL']['value'] . "',
+        '" . $jsonObject['LevelName']['value'] . "',
+        '" . $jsonObject['GameMode']['value'] . "',
+        '" . $jsonObject['Version']['value'] . "',
+        '" . $jsonObject['IP']['value'] . "',
+        '" . $jsonObject['CountryCode']['value'] . "',
+        '" . $jsonObject['SteamID']['value'] . "',
+        '" . $jsonObject['CompatibilityVersion']['value'] . "',
+        '" . $jsonObject['Platform']['value'] . "',
+        '" . $jsonObject['ServerLoginConfirmationText']['value'] . "',
+        '" . $jsonObject['Port']['value'] . "',
+        '" . $jsonObject['CurrentPlayers']['value'] . "',
+        '" . $jsonObject['MaxPlayers']['value'] . "',
+        '" . $jsonObject['GameDifficulty']['value'] . "',
+        '" . $jsonObject['DayNightLength']['value'] . "',
+        '" . $jsonObject['ZombiesRun']['value'] . "',
+        '" . $jsonObject['DayCount']['value'] . "',
+        '" . $jsonObject['Ping']['value'] . "',
+        '" . $jsonObject['DropOnDeath']['value'] . "',
+        '" . $jsonObject['DropOnQuit']['value'] . "',
+        '" . $jsonObject['BloodMoonEnemyCount']['value'] . "',
+        '" . $jsonObject['EnemyDifficulty']['value'] . "',
+        '" . $jsonObject['PlayerKillingMode']['value'] . "',
+        '" . $jsonObject['CurrentServerTime']['value'] . "',
+        '" . $jsonObject['DayLightLength']['value'] . "',
+        '" . $jsonObject['BlockDurabilityModifier']['value'] . "',
+        '" . $jsonObject['AirDropFrequency']['value'] . "',
+        '" . $jsonObject['LootRespawnDays']['value'] . "',
+        '" . $jsonObject['LootAbundance']['value'] . "',
+        '" . $jsonObject['MaxSpawnedZombies']['value'] . "',
+        '" . $jsonObject['LandClaimSize']['value'] . "',
+        '" . $jsonObject['LandClaimDeadZone']['value'] . "',
+        '" . $jsonObject['LandClaimExpiryTime']['value'] . "',
+        '" . $jsonObject['LandClaimDecayMode']['value'] . "',
+        '" . $jsonObject['LandClaimOnlineDurabilityModifier']['value'] . "',
+        '" . $jsonObject['LandClaimOfflineDurabilityModifier']['value'] . "',
+        '" . $jsonObject['PartySharedKillRange']['value'] . "',
+        '" . $jsonObject['MaxSpawnedAnimals']['value'] . "',
+        '" . $jsonObject['ServerVisibility']['value'] . "',
+        '" . $jsonObject['IsDedicated']['value'] . "',
+        '" . $jsonObject['IsPasswordProtected']['value'] . "',
+        '" . $jsonObject['ShowFriendPlayerOnMap']['value'] . "',
+        '" . $jsonObject['BuildCreate']['value'] . "',
+        '" . $jsonObject['EACEnabled']['value'] . "',
+        '" . $jsonObject['Architecture64']['value'] . "',
+        '" . $jsonObject['StockSettings']['value'] . "',
+        '" . $jsonObject['StockFiles']['value'] . "',
+        '" . $jsonObject['RequiresMod']['value'] . "',
+        '" . $jsonObject['AirDropMarker']['value'] . "',
+        '" . $jsonObject['EnemySpawnMode']['value'] . "',
+        '" . $jsonObject['IsPublic']['value'] . "'
+     )";
+     if (!mysql_query($sql)) {
+       die('Error: ' . mysql_error());
+       if (APP_LOG_LEVEL >= 3) {
       $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'INFO', 'syncServerInfo', 'DB/Server info synced.')";
       if (!mysql_query($log)) {
         die('Error: ' . mysql_error());
@@ -281,7 +294,7 @@ function syncServerInfo() {
     }
   }
 }
-
+}
 
 function syncOnlinePlayers() {
   global $API_HOST;
@@ -339,7 +352,7 @@ function syncOnlinePlayers() {
         if (!mysql_query($sql)) {
           die('Error: ' . mysql_error());
           if(APP_LOG_LEVEL >= 1) {
-            $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'syncAllPlayers', 'ERROR: COULD NOT CONNECT TO DB')";
+            $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'syncOnlinePlayers', 'ERROR: COULD NOT CONNECT TO DB')";
             if (!mysql_query($log)) {
               die('Error: ' . mysql_error());
             }
@@ -556,7 +569,7 @@ function syncLandclaims() {
   global $APP_LOG;
   global $APP_LOG_LEVEL;
 
-  $url = 'http://' . API_HOST . ':' . API_PORT . '/api/getplayerlist?adminuser=' . API_USER . '&admintoken=' . API_PASS . '';
+  $url = 'http://' . API_HOST . ':' . API_PORT . '/api/executeconsolecommand?adminuser=' . API_USER . '&admintoken=' . API_PASS . '&command=llp';
 
   $queryAPI = file_get_contents($url);
   $jsonObject = json_decode($queryAPI, true);
@@ -567,11 +580,11 @@ function syncLandclaims() {
     if(APP_LOG_LEVEL >= 4) {
       var_dump(json_decode($queryAPI, true));
 
-      $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'DEBUG', 'syncAllPlayers', 'URLOUT VAR: " . $url . "')";
+      $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'DEBUG', 'syncLandclaims', 'URLOUT VAR: " . $url . "')";
       if(!mysql_query($log)) {
         die('Error: ' . mysql_error());
         if(APP_LOG_LEVEL >= 1) {
-          $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'syncAllPlayers', 'ERROR: COULD NOT CONNECT TO DB')";
+          $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'syncLandclaims', 'ERROR: COULD NOT CONNECT TO DB')";
           if (!mysql_query($log)) {
             die('Error: ' . mysql_error());
           }
@@ -588,13 +601,18 @@ function syncLandclaims() {
         //var_dump($escaped_values);
         $values  = "'" . implode("', '", $escaped_values) . "'";
         //var_dump($values);
-        $sql = "replace into players (steamid, playerid, ip, playerName, onlineStatus, currentPosition, playtime, lastSeen, ping, banned) values ($values)";
-        //var_dump($sql);
+        //$sql = "replace into players (steam, x, y, z, claimActive) values ($values)";
+        var_dump($sql);
+        $sql = "replace into server_landclaims SET
+          steam = '" . $jsonObject['claimowners']['steamid'] . "',
+          claimactive = '" . $jsonObject['claimowners']['claimactive'] . "',
+          claims = '" . $jsonObject['claimowners']['claims']['x']['y']['z'] . "'
+          WHERE serverID=1";
         mysql_query($sql);
         if (!mysql_query($sql)) {
           die('Error: ' . mysql_error());
           if(APP_LOG_LEVEL >= 1) {
-            $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'syncAllPlayers', 'ERROR: COULD NOT CONNECT TO DB')";
+            $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'syncLandclaims', 'ERROR: COULD NOT CONNECT TO DB')";
             if (!mysql_query($log)) {
               die('Error: ' . mysql_error());
             }
@@ -603,11 +621,11 @@ function syncLandclaims() {
       }
     }
     if(APP_LOG_LEVEL >= 3) {
-      $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'INFO', 'syncAllPlayers', 'Syncing ALL users')";
+      $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'INFO', 'syncLandclaims', 'Syncing current landclaims')";
       if(!mysql_query($log)) {
         die('Error: ' . mysql_error());
         if(APP_LOG_LEVEL >= 1) {
-          $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'syncAllPlayers', 'ERROR: COULD NOT CONNECT TO DB')";
+          $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'syncLandclaims', 'ERROR: COULD NOT CONNECT TO DB')";
           if (!mysql_query($log)) {
             die('Error: ' . mysql_error());
           }
@@ -616,11 +634,11 @@ function syncLandclaims() {
     }
   } else {
     if (APP_LOG_LEVEL >= 3) {
-      $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'INFO', 'syncAllPlayers', 'No players have EVER played in this server -- Recheck in " . interval_syncAllPlayers . " seconds...')";
+      $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'INFO', 'syncLandclaims', 'No landclaims have been placed in-game -- Recheck in " . interval_syncAllPlayers . " seconds...')";
       if(!mysql_query($log)) {
         die('Error: ' . mysql_error());
         if(APP_LOG_LEVEL >= 1) {
-          $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'syncAllPlayers', 'ERROR: COULD NOT CONNECT TO DB')";
+          $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'syncLandclaims', 'ERROR: COULD NOT CONNECT TO DB')";
           if (!mysql_query($log)) {
             die('Error: ' . mysql_error());
           }
@@ -655,11 +673,11 @@ function syncEntities() {
       WHERE serverID=1";
 
     if (APP_LOG_LEVEL >= 3) {
-      $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'INFO', 'syncServerInfo', 'DB/Server info synced.')";
+      $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'INFO', 'syncEntities', 'DB/Server info synced.')";
       if (!mysql_query($log)) {
         die('Error: ' . mysql_error());
         if(APP_LOG_LEVEL >= 1) {
-          $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'syncServerInfo', 'ERROR: COULD NOT CONNECT TO DB')";
+          $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'syncEntities', 'ERROR: COULD NOT CONNECT TO DB')";
           if (!mysql_query($log)) {
             die('Error: ' . mysql_error());
           }
