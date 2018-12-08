@@ -358,6 +358,18 @@ function syncOnlinePlayers() {
             }
           }
         }
+        $sql2 = "insert into playerHistory (steamid, playerid, ip, playerName, onlineStatus, currentPosition, experience, level, health, stamina, zombiesKilled, playersKilled, deaths, score, playtime, lastSeen, ping) values ($values)";
+        //var_dump($sql);
+        mysql_query($sql2);
+        if (!mysql_query($sql2)) {
+          die('Error: ' . mysql_error());
+          if(APP_LOG_LEVEL >= 1) {
+            $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'insertPlayerHistory', 'ERROR: COULD NOT CONNECT TO DB')";
+            if (!mysql_query($log)) {
+              die('Error: ' . mysql_error());
+            }
+          }
+        }
       }
     //}
 /*
@@ -420,7 +432,7 @@ function syncAllPlayers() {
 
   if($jsonObject != NULL) {
     if(APP_LOG_LEVEL >= 4) {
-      var_dump(json_decode($queryAPI, true));
+      //var_dump(json_decode($queryAPI, true));
 
       $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'DEBUG', 'syncAllPlayers', 'URLOUT VAR: " . $url . "')";
       if(!mysql_query($log)) {
