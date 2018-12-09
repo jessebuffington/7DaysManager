@@ -124,15 +124,15 @@
   }
 */
 
-shell_exec('nohup php -f lib/syncAllPlayers.php > /dev/null 2>/dev/null &');
-//shell_exec('nohup php -f lib/syncEntities.php > /dev/null 2>/dev/null  &');
-//shell_exec('nohup php -f lib/syncGameLog.php > /dev/null 2>/dev/null  &');
-shell_exec('nohup php -f lib/syncGameTime.php > /dev/null 2>/dev/null  &');
-shell_exec('nohup php -f lib/syncGameVersion.php > /dev/null 2>/dev/null  &');
-//shell_exec('nohup php -f lib/syncLandclaims.php > /dev/null 2>/dev/null  &');
-shell_exec('nohup php -f lib/syncOnlinePlayers.php > /dev/null 2>/dev/null  &');
-shell_exec('nohup php -f lib/syncServerInfo.php > /dev/null 2>/dev/null  &');
-shell_exec('nohup php -f lib/insertPlayerHistory.php > /dev/null 2>/dev/null  &');
-shell_exec('nohup php -f lib/syncGameChat.php > /dev/null 2>/dev/null  &');
+shell_exec('nohup php -f lib/syncAllPlayers.php >> var/log/syncAllPlayers.log 2>&1 &');
+//shell_exec('nohup php -f lib/syncEntities.php >> var/log/syncEntities.log 2>&1 &');
+//shell_exec('nohup php -f lib/syncGameLog.php >> var/log/syncGameLog.log 2>&1 &');
+shell_exec('nohup php -f lib/syncGameTime.php >> var/log/syncGameTime.log 2>&1 &');
+shell_exec('nohup php -f lib/syncGameVersion.php >> var/log/syncGameVersion.log 2>&1 &');
+//shell_exec('nohup php -f lib/syncLandclaims.php >> var/log/syncLandClaims.log 2>&1 &');
+shell_exec('nohup php -f lib/syncOnlinePlayers.php >> var/log/syncOnlinePlayers.log 2>&1 &');
+shell_exec('nohup php -f lib/syncServerInfo.php >> var/log/syncServerInfo.log 2>&1 &');
+shell_exec('nohup php -f lib/insertPlayerHistory.php > var/log/insertPlayerHistory.log 2>&1 &');
+shell_exec('nohup php -f lib/syncGameChat.php > var/log/syncGameChat.log 2>&1 &');
 
 ?>
