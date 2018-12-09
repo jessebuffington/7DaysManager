@@ -684,11 +684,14 @@ function syncGameChat() {
     // Parse Game Chat //
     /////////////////////
     if(in_array('Chat', $string)) {
+      echo "Found Chat Message";
+      print_r($string);
       if($string[11] == 'Server') {
         $gameChat = "insert into chatLog (timestamp, playerName, message, inGame) values (NOW(), '" . $string[11] . "', '" . $string[12] . "', '0')";
       } else {
-        $gameChat = "insert into chatLog (timestamp, playerName, message, inGame) values ('" . $string[0] . "', '" . $string[11] . "', '" . $string[12] . "', '1')";
+        $gameChat = "insert into chatLog (timestamp, playerName, message, inGame) values (NOW(), '" . $string[11] . "', '" . $string[12] . "', '1')";
       }
+      print_r($gameChat);
       if(!mysql_query($gameChat)) {
         die('Error: ' . mysql_error());
         if(APP_LOG_LEVEL >= 1) {
@@ -710,9 +713,9 @@ function syncGameChat() {
           }
         }
       }
-    } /*else {
+    } else {
       echo "Not a chat message\n\n";
-    }*/
+    }
   }
 }
 
