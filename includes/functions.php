@@ -278,22 +278,22 @@ function syncServerInfo() {
         '" . $jsonObject['EnemySpawnMode']['value'] . "',
         '" . $jsonObject['IsPublic']['value'] . "'
      )";
-     if (!mysql_query($sql)) {
-       die('Error: ' . mysql_error());
-       if (APP_LOG_LEVEL >= 3) {
-      $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'INFO', 'syncServerInfo', 'DB/Server info synced.')";
-      if (!mysql_query($log)) {
-        die('Error: ' . mysql_error());
-        if(APP_LOG_LEVEL >= 1) {
-          $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'syncServerInfo', 'ERROR: COULD NOT CONNECT TO DB')";
-          if (!mysql_query($log)) {
-            die('Error: ' . mysql_error());
+    if (!mysql_query($sql)) {
+      die('Error: ' . mysql_error());
+      if (APP_LOG_LEVEL >= 3) {
+        $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'INFO', 'syncServerInfo', 'DB/Server info synced.')";
+        if (!mysql_query($log)) {
+          die('Error: ' . mysql_error());
+          if(APP_LOG_LEVEL >= 1) {
+            $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'syncServerInfo', 'ERROR: COULD NOT CONNECT TO DB')";
+            if (!mysql_query($log)) {
+              die('Error: ' . mysql_error());
+            }
           }
         }
       }
     }
   }
-}
 }
 
 function syncOnlinePlayers() {
@@ -310,8 +310,6 @@ function syncOnlinePlayers() {
   $queryAPI = file_get_contents($url);
   $jsonObject = json_decode($queryAPI, true);
 
-  //var_dump(json_decode($queryAPI, true));
-
   $sql = "UPDATE players SET onlineStatus='0'";
   if (!mysql_query($sql)) {
     die('Error: ' . mysql_error());
@@ -324,7 +322,7 @@ function syncOnlinePlayers() {
   }
   if($jsonObject != NULL) {
     if(APP_LOG_LEVEL >= 4) {
-      var_dump(json_decode($queryAPI, true));
+      //var_dump(json_decode($queryAPI, true));
 
       $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'DEBUG', 'syncOnlinePlayers', 'URLOUT VAR: " . $url . "')";
       if(!mysql_query($log)) {
@@ -413,6 +411,80 @@ function syncOnlinePlayers() {
   }
 }
 
+function insertPlayerHistory() {
+  global $API_HOST;
+  global $API_PORT;
+  global $API_USER;
+  global $API_PASS;
+  global $insertPlayerHistory;
+  global $APP_LOG;
+  global $APP_LOG_LEVEL;
+
+  $url = 'http://' . API_HOST . ':' . API_PORT . '/api/getplayersonline?adminuser=' . API_USER . '&admintoken=' . API_PASS . '';
+
+  $queryAPI = file_get_contents($url);
+  $jsonObject = json_decode($queryAPI, true);
+
+  //var_dump(json_decode($queryAPI, true));
+
+  if($jsonObject != NULL) {
+    if(APP_LOG_LEVEL >= 4) {
+      $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'DEBUG', 'insertPlayerHistory', 'URLOUT VAR: " . $url . "')";
+      if(!mysql_query($log)) {
+        die('Error: ' . mysql_error());
+        if(APP_LOG_LEVEL >= 1) {
+          $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'insertPlayerHistory', 'ERROR: COULD NOT CONNECT TO DB')";
+          if (!mysql_query($log)) {
+            die('Error: ' . mysql_error());
+          }
+        }
+      }
+    }
+    while($jsonObject = $item) {
+      $escaped_values = array_map('mysql_real_escape_string', array_values($item));
+      //var_dump($escaped_values);
+      $values  = "'" . implode("', '", $escaped_values) . "'";
+      //var_dump($values);
+      $sql = "insert into playerHistory (steamid, playerid, ip, playerName, onlineStatus, currentPosition, experience, level, health, stamina, zombiesKilled, playersKilled, deaths, score, playtime, lastSeen, ping) values ($values)";
+      //var_dump($sql);
+      mysql_query($sql);
+      if (!mysql_query($sql)) {
+        die('Error: ' . mysql_error());
+        if(APP_LOG_LEVEL >= 1) {
+          $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'insertPlayerHistory', 'ERROR: COULD NOT CONNECT TO DB')";
+          if (!mysql_query($log)) {
+            die('Error: ' . mysql_error());
+          }
+        }
+      }
+    }
+    if(APP_LOG_LEVEL >= 3) {
+      $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'INFO', 'insertPlayerHistory', 'Adding online players to playerHistory table.')";
+      if(!mysql_query($log)) {
+        die('Error: ' . mysql_error());
+        if(APP_LOG_LEVEL >= 1) {
+          $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'insertPlayerHistory', 'ERROR: COULD NOT CONNECT TO DB')";
+          if (!mysql_query($log)) {
+            die('Error: ' . mysql_error());
+          }
+        }
+      }
+    }
+  } else {
+    if (APP_LOG_LEVEL >= 3) {
+      $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'INFO', 'insertPlayerHistory', 'NO PLAYERS -- Recheck in " . interval_insertPlayerHistory . " seconds...')";
+      if(!mysql_query($log)) {
+        die('Error: ' . mysql_error());
+        if(APP_LOG_LEVEL >= 1) {
+          $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'insertPlayerHistory', 'ERROR: COULD NOT CONNECT TO DB')";
+          if (!mysql_query($log)) {
+            die('Error: ' . mysql_error());
+          }
+        }
+      }
+    }
+  }
+}
 
 function syncAllPlayers() {
   global $API_HOST;
