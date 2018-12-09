@@ -635,8 +635,86 @@ function syncGameLog() {
   }
 }
 
+function syncGameChat() {
+  global $TELNET_HOST;
+  global $TELNET_PORT;
+  global $TELNET_PASS;
+  global $interval_syncGameChat;
+  global $APP_LOG;
+  global $APP_LOG_LEVEL;
 
+  $telnet = fsockopen(TELNET_HOST, TELNET_PORT, $errno, $errstr, 10);
+  if($telnet) {
+    fputs($telnet, TELNET_PASS."\r\n");
+  }
 
+  if(APP_LOG_LEVEL >= 2) {
+    $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'WARN', 'syncGameChat', '***Telnet connection starting up!***')";
+    if (!mysql_query($log)) {
+      die('Error: ' . mysql_error());
+      if(APP_LOG_LEVEL >= 1) {
+        $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'syncGameChat', 'ERROR: COULD NOT CONNECT TO DB')";
+        if(!mysql_query($log)) {
+          die('Error: ' . mysql_error());
+        }
+      }
+    }
+  }
+  //2018-12-08T21:36:32 63345.176 INF Chat (from '76561198040479184', entity id '4407', to 'Global'): 'Luggistics': /day7
+  while ($line = fgets($telnet)) {
+    $line = trim($line);
+    $_line = mysql_real_escape_string($line);
+    $string = str_replace(array( '\'', ':' ), '', $line);
+    $string = explode(" ", $string, 13);
+    //print_r($string);
+    //echo $line."\n";
+    if(APP_LOG_LEVEL >= 4) {
+      $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'DEBUG', 'syncGameChat', 'TELNET CONNECT STRING: " . $telnet . "')";
+      if (!mysql_query($log)) {
+        die('Error: ' . mysql_error());
+        if(APP_LOG_LEVEL >= 1) {
+          $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'syncGameChat', 'ERROR: COULD NOT CONNECT TO DB')";
+          if(!mysql_query($log)) {
+            die('Error: ' . mysql_error());
+          }
+        }
+      }
+    }
+    /////////////////////
+    // Parse Game Chat //
+    /////////////////////
+    if(in_array('Chat', $string)) {
+      if($string[11] == 'Server') {
+        $gameChat = "insert into chatLog (timestamp, playerName, message, inGame) values (NOW(), '" . $string[11] . "', '" . $string[12] . "', '0')";
+      } else {
+        $gameChat = "insert into chatLog (timestamp, playerName, message, inGame) values ('" . $string[0] . "', '" . $string[11] . "', '" . $string[12] . "', '1')";
+      }
+      if(!mysql_query($gameChat)) {
+        die('Error: ' . mysql_error());
+        if(APP_LOG_LEVEL >= 1) {
+          $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'syncGameChat', 'ERROR: COULD NOT CONNECT TO DB')";
+          if(!mysql_query($log)) {
+            die('Error: ' . mysql_error());
+          }
+        }
+      }
+      if(APP_LOG_LEVEL >= 4) {
+        $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'DEBUG', 'syncGameChat', 'Game Chat synced to DB')";
+        if (!mysql_query($log)) {
+          die('Error: ' . mysql_error());
+          if(APP_LOG_LEVEL >= 1) {
+            $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'syncGameChat', 'ERROR: COULD NOT CONNECT TO DB')";
+            if(!mysql_query($log)) {
+              die('Error: ' . mysql_error());
+            }
+          }
+        }
+      }
+    } /*else {
+      echo "Not a chat message\n\n";
+    }*/
+  }
+}
 
 
 //

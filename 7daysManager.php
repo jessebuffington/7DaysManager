@@ -126,12 +126,13 @@
 
 shell_exec('nohup php -f lib/syncAllPlayers.php > /dev/null 2>/dev/null &');
 //shell_exec('nohup php -f lib/syncEntities.php > /dev/null 2>/dev/null  &');
-shell_exec('nohup php -f lib/syncGameLog.php > /dev/null 2>/dev/null  &');
+//shell_exec('nohup php -f lib/syncGameLog.php > /dev/null 2>/dev/null  &');
 shell_exec('nohup php -f lib/syncGameTime.php > /dev/null 2>/dev/null  &');
 shell_exec('nohup php -f lib/syncGameVersion.php > /dev/null 2>/dev/null  &');
 //shell_exec('nohup php -f lib/syncLandclaims.php > /dev/null 2>/dev/null  &');
 shell_exec('nohup php -f lib/syncOnlinePlayers.php > /dev/null 2>/dev/null  &');
 shell_exec('nohup php -f lib/syncServerInfo.php > /dev/null 2>/dev/null  &');
 shell_exec('nohup php -f lib/insertPlayerHistory.php > /dev/null 2>/dev/null  &');
+shell_exec('nohup php -f lib/syncGameChat.php > /dev/null 2>/dev/null  &');
 
 ?>
