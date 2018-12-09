@@ -28,8 +28,8 @@
 //  		Jesse B.
 //
 
-include '../includes/appConfig.php';
-include '../includes/functions.php';
+include 'includes/appConfig.php';
+include 'includes/functions.php';
 
 //configure command line arguments
 if($argc > 0){
