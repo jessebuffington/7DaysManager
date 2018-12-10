@@ -306,7 +306,7 @@
                       <div class="box-body no-padding">
                         <ul class="users-list clearfix">
                           <?php
-                            $queryPlayers=mysql_query('SELECT * FROM players order by score desc limit 12');
+                            $queryPlayers=mysql_query('SELECT * FROM players where not playerid = "0" order by score desc limit 12');
                             while($queryAllPlayers=mysql_fetch_array($queryPlayers)) {
                               echo '<li>';
                               echo '<a class="users-list-name" href="http://steamidfinder.com/lookup/' . $queryAllPlayersID = $queryAllPlayers['steamid'] . '" target="_blank"><img src="/bower_components/Ionicons/png/512/ios7-contact.png" alt="User Image"></a>';
