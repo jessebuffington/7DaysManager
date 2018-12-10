@@ -203,6 +203,9 @@ function syncServerInfo() {
   global $interval_syncServerInfo;
   global $APP_LOG;
   global $APP_LOG_LEVEL;
+
+  $serverID = "1";
+
   //API Call to get game status
   $url = 'http://' . API_HOST . ':' . API_PORT . '/api/getserverinfo?adminuser=' . API_USER . '&admintoken=' . API_PASS . '';
 
@@ -214,7 +217,7 @@ function syncServerInfo() {
   if($jsonObject['IP']['value'] >= 0) {
 
     $sql = "REPLACE into server_info
-      (gameType, gameName, gameHost, serverDescription, serverWebsiteURL, levelName, gameMode, version, ip, countryCode, steamID,
+      (serverID, gameType, gameName, gameHost, serverDescription, serverWebsiteURL, levelName, gameMode, version, ip, countryCode, steamID,
         compatibilityVersion, platform, ServerLoginConfirmationText, port, currentPlayers, maxPlayers, gameDifficulty, dayNightLength,
         zombiesRun, dayCount, ping, dropOnDeath, dropOnQuit, bloodMoonEnemyCount, enemyDifficulty, playerKillingMode, currentServertime,
         dayLightLength, blockDurabilityModifier, airDropFrequency, lootRespawnDays, lootAbundance, maxSpawnedZombies, landClaimSize,
@@ -222,6 +225,7 @@ function syncServerInfo() {
         PartySharedKillRange, maxSpawnedAnimals, ServerVisibility, isDedicated, isPasswordProtected, showFriendPlayerOnMap, buildCreate,
         eacEnabled, architecture64, stockSettings, stockFiles, requiresMod, airDropMarker, enemySpawnMode, isPublic)
       values (
+        '".$serverID."',
         '" . $jsonObject['GameType']['value'] . "',
         '" . $jsonObject['GameName']['value'] . "',
         '" . $jsonObject['GameHost']['value'] . "',
@@ -278,6 +282,7 @@ function syncServerInfo() {
         '" . $jsonObject['EnemySpawnMode']['value'] . "',
         '" . $jsonObject['IsPublic']['value'] . "'
      )";
+     print_r($sql);
     if (!mysql_query($sql)) {
       die('Error: ' . mysql_error());
       if (APP_LOG_LEVEL >= 3) {
