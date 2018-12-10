@@ -282,7 +282,6 @@ function syncServerInfo() {
         '" . $jsonObject['EnemySpawnMode']['value'] . "',
         '" . $jsonObject['IsPublic']['value'] . "'
      )";
-     print_r($sql);
     if (!mysql_query($sql)) {
       die('Error: ' . mysql_error());
       if (APP_LOG_LEVEL >= 3) {
