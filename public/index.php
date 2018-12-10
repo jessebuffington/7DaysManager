@@ -231,47 +231,49 @@
                         </div>
                         <div class="box-body">
                           <div class="direct-chat-messages">
-                            <?php
-                              $queryGameChat100=mysql_query('SELECT * FROM chatLog order by timestamp asc limit 100');
-                              while($queryGameChat=mysql_fetch_array($queryGameChat100)) {
-                                echo '<div class="direct-chat-msg ';
-                                if($queryGameChat['inGame'] == 1) {
-                                  echo 'left';
-                                } else {
-                                  echo 'right';
+                            <span id="gameChat">
+                              <?php
+                                $queryGameChat100=mysql_query('SELECT * FROM (SELECT * FROM chatLog ORDER BY timestamp DESC LIMIT 100)sub ORDER BY timestamp ASC');
+                                while($queryGameChat=mysql_fetch_array($queryGameChat100)) {
+                                  echo '<div class="direct-chat-msg ';
+                                  if($queryGameChat['inGame'] == 1) {
+                                    echo 'left';
+                                  } else {
+                                    echo 'right';
+                                  }
+                                  echo '">';
+                                  echo '<div class="direct-chat-info clearfix">';
+                                  echo '<span class="direct-chat-name pull-';
+                                  if($queryGameChat['inGame'] == 1) {
+                                    echo 'left';
+                                  } else {
+                                    echo 'right';
+                                  }
+                                  echo '">';
+                                  //echo '<a class="users-list-name" href="http://steamidfinder.com/lookup/' . $queryAllPlayersID[ 'steamid'] . '" target="_blank">';
+                                  echo $queryGameChat['playerName'];
+                                  echo '</a>';
+                                  echo '</span>';
+                                  echo '<span class="direct-chat-timestamp pull-';
+                                  if($queryGameChat['inGame'] == 0) {
+                                    echo 'left';
+                                  } else {
+                                    echo 'right';
+                                  }
+                                  echo '">' . $queryGameChat['timestamp'] . '</span>';
+                                  echo '</div>';
+                                  //echo '<a href="http://steamidfinder.com/lookup/' . $queryAllPlayersID['steamid'] . '" target="_blank">';
+                                  if($queryGameChat['inGame'] == 0) {
+                                    echo '<img class="direct-chat-img" src="/lib/img/icon.png" alt="message user image">';
+                                  } else {
+                                    echo '<img class="direct-chat-img" src="/bower_components/Ionicons/png/512/ios7-contact.png" alt="message user image">';
+                                  }
+                                  //echo '</a>';
+                                  echo '<div class="direct-chat-text">' . $queryGameChat['message']  . '</div>';
+                                  echo '</div>';
                                 }
-                                echo '">';
-                                echo '<div class="direct-chat-info clearfix">';
-                                echo '<span class="direct-chat-name pull-';
-                                if($queryGameChat['inGame'] == 1) {
-                                  echo 'left';
-                                } else {
-                                  echo 'right';
-                                }
-                                echo '">';
-                                //echo '<a class="users-list-name" href="http://steamidfinder.com/lookup/' . $queryAllPlayersID[ 'steamid'] . '" target="_blank">';
-                                echo $queryGameChat['playerName'];
-                                echo '</a>';
-                                echo '</span>';
-                                echo '<span class="direct-chat-timestamp pull-';
-                                if($queryGameChat['inGame'] == 0) {
-                                  echo 'left';
-                                } else {
-                                  echo 'right';
-                                }
-                                echo '">' . $queryGameChat['timestamp'] . '</span>';
-                                echo '</div>';
-                                //echo '<a href="http://steamidfinder.com/lookup/' . $queryAllPlayersID['steamid'] . '" target="_blank">';
-                                if($queryGameChat['inGame'] == 0) {
-                                  echo '<img class="direct-chat-img" src="/lib/img/icon.png" alt="message user image">';
-                                } else {
-                                  echo '<img class="direct-chat-img" src="/bower_components/Ionicons/png/512/ios7-contact.png" alt="message user image">';
-                                }
-                                //echo '</a>';
-                                echo '<div class="direct-chat-text">' . $queryGameChat['message']  . '</div>';
-                                echo '</div>';
-                              }
-                            ?>
+                              ?>
+                            </span>
                           </div>
                         </div>
                         <div class="box-footer">
