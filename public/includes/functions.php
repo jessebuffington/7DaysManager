@@ -37,7 +37,7 @@ function insertComment() {
 //////////////////
 
 function getAllPlayers_List() {
-  $onlinePlayers = mysql_query("SELECT * FROM players where not playerid = "0" order by playerid asc");
+  $onlinePlayers = mysql_query("SELECT * FROM players where not playerid = '0' order by playerid asc");
   if (!$onlinePlayers) {
     die('Invalid query: ' . mysql_error());
   }
