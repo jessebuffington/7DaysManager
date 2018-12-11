@@ -191,7 +191,7 @@ function sendGameChat() {
     unset($_POST);
     header('location:/');
   } else {
-    $userName = "\[cc0000\]7DM:\[f2f3f4\]";
+    $userName = "[cc0000]7DM:[f2f3f4]";
     $chatMessage = $_POST['message'];
     /*if (!$userName) {
       $userName = '\[cc0000\]7DM:%20\[f2f3f4\]';
