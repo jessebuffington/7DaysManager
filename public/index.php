@@ -9,11 +9,13 @@
       $pageTitle='Dashboard';
       include($_SERVER[ "DOCUMENT_ROOT"] . "/lib/header.php");
     ?>
-    <script>
-      $('.gameChat').scrollTop($('.gameChat')[0].scrollHeight);
-    </script>
-
     <script src='/pages/scripts/jquery-latest.js'></script>
+    <script>
+      window.onload=function () {
+        var objDiv = document.getElementById("direct-chat-messages");
+        objDiv.scrollTop = objDiv.scrollHeight;
+      }
+    </script>
     <script>
       function refresh_gameTime() {
         $("#gameTime").load(location.href + " #gameTime");
@@ -48,8 +50,8 @@
       setInterval('refresh_currZombies()', 10000);
       setInterval('refresh_currAnimals()', 10000);
       setInterval('refresh_activePlayers()', 10000);
-      setInterval('refresh_gameChat()', 100);
-      setInterval('refresh_playersThisWeek()', 100);
+      setInterval('refresh_gameChat()', 2000);
+      setInterval('refresh_playersThisWeek()', 10000);
       setInterval('refresh_appStatus()', 10000);
     </script>
 
@@ -230,7 +232,7 @@
                           </h3>
                         </div>
                         <div class="box-body">
-                          <div class="direct-chat-messages">
+                          <div id="direct-chat-messages" class="direct-chat-messages">
                             <span id="gameChat">
                               <?php
                                 $queryGameChat100=mysql_query('SELECT * FROM (SELECT * FROM chatLog ORDER BY timestamp DESC LIMIT 100)sub ORDER BY timestamp ASC');
