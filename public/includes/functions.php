@@ -186,4 +186,25 @@ function getSiteLoginAttempts() {
   }
 }
 
+function sendGameChat() {
+  if (!$_POST['message']) {
+    unset($_POST);
+    header('location:/');
+  } else {
+    $userName = "\[cc0000\]7DM:\[f2f3f4\]";
+    $chatMessage = $_POST['message'];
+    /*if (!$userName) {
+      $userName = '\[cc0000\]7DM:%20\[f2f3f4\]';
+    }*/
+    $chatMessage = str_replace(array(' '), '%20', $chatMessage);
+    $url = 'http://' . API_HOST . ':' . API_PORT . '/api/executeconsolecommand?adminuser=' . API_USER . '&admintoken=' . API_PASS . '&command=say%20"' . $userName . '%20' . $chatMessage . '"';
+    $queryAPI = file_get_contents($url);
+    echo $queryAPI;
+
+    unset($_POST['message']);
+  }
+  unset($_POST['message']);
+  header('Refresh: 2; URL = /index.php');
+}
+
 ?>

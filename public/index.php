@@ -233,7 +233,7 @@
                         </div>
                         <div class="box-body">
                           <div id="direct-chat-messages" class="direct-chat-messages">
-                            <span id="gameChat">
+                            <div id="gameChat">
                               <?php
                                 $queryGameChat100=mysql_query('SELECT * FROM (SELECT * FROM chatLog ORDER BY timestamp DESC LIMIT 100)sub ORDER BY timestamp ASC');
                                 while($queryGameChat=mysql_fetch_array($queryGameChat100)) {
@@ -275,17 +275,15 @@
                                   echo '</div>';
                                 }
                               ?>
-                            </span>
+                            </div>
                           </div>
                         </div>
                         <div class="box-footer">
-                          <form action="#" method="post">
+                          <form action="<?php sendGameChat();?>" method="post">
                             <div class="input-group">
-                              <input type="text" name="message" placeholder="Type Message ..." class="form-control">
+                              <input type="text" id=message name="message" placeholder="Type Message ..." class="form-control">
                               <span class="input-group-btn">
-                                <button type="button" class="btn btn-warning btn-flat">
-                                  Send
-                                </button>
+                                <button type="submit" class="btn btn-warning btn-flat">Send</button>
                               </span>
                             </div>
                           </form>
