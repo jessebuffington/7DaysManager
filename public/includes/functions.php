@@ -20,8 +20,6 @@ function insertComment() {
       $userName = '---';
     }
     $sql = "insert into site_comments (name,rating,message,datetime,siteLocation) values('$userName','$rating','$comment',NOW(),'7DaysManager')";
-    //$jurisdictionErr = $rdbReplicationErr = $logErr = $operatorErr = "";
-    //$jurisdiction = $rdbReplication = $genLog = $operator = "";
     $no = " no";
     if (!mysql_query($sql)) {
       die('Error: ' . mysql_error());
