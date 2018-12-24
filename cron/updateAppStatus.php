@@ -46,7 +46,7 @@
   }
 
 // Get app names from app_status table
-  $queryAppStatus = mysql_query('SELECT name FROM app_status order by id asc');
+  $queryAppStatus = mysql_query('SELECT name FROM app_status where enabled = "1" order by id asc');
   if (!$queryAppStatus) {
     die('Invalid query: ' . mysql_error());
     if(APP_LOG_LEVEL >= 1) {

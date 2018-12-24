@@ -344,7 +344,7 @@
                         </thead>
                         <tbody>
                           <?php
-                            $queryAppStatus=mysql_query('SELECT * FROM app_status order by id asc');
+                            $queryAppStatus=mysql_query('SELECT * FROM app_status where enabled = "1" order by id asc');
                             while($appStatus=mysql_fetch_array($queryAppStatus)) {
                               echo '<tr>';
                               echo '<td>';
