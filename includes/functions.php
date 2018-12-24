@@ -67,11 +67,25 @@ function syncGameTime() {
 
   //var_dump(json_decode($queryAPI, true));
 
+  $currDay = $jsonObject['gametime']['days'];
+  $currTime =  $jsonObject['gametime']['hours'] . ":" . $jsonObject['gametime']['minutes'];
+
   if($jsonObject['players'] >= 1) {
-    if(APP_LOG_LEVEL >= 4) {
+    if(APP_LOG_LEVEL >= 1) {
       $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'DEBUG', 'syncGameTime', 'URLOUT VAR: " . $url . "')";
     }
-    $sql = "UPDATE server_gameTime SET currentDay='" . sprintf("%02d", $jsonObject['gametime']['days']). "', currentTime='" . sprintf("%02d", $jsonObject['gametime']['hours']) . ":" . sprintf("%02d", $jsonObject['gametime']['minutes']) . "' WHERE serverID=1";
+    // 7days Real-time Calculation
+    $val1 = floor($currDay / 7);
+    $val2 = $val1 + 1;
+    $val3 = $val2 * 7;
+    $daysLeft = $val3 - $currDay;
+    //Dump to log
+    echo "Current In-Game Time: " . $currTime . "\n";
+    echo "Current In-Game Day: " . $currDay . "\n";
+    echo "Days Left: " . $daysLeft . "\n";
+
+    $sql = "UPDATE server_gameTime SET currentDay='" . $currDay . "', currentTime = '" . $currTime . "', daysLeft = '" . $daysLeft . "' WHERE serverID=1";
+
     if (!mysql_query($sql)) {
       die('Error: ' . mysql_error());
       if(APP_LOG_LEVEL >= 1) {
@@ -82,7 +96,7 @@ function syncGameTime() {
       }
     }
     if(APP_LOG_LEVEL >= 3) {
-      $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'INFO', 'syncGameTime', 'DB/Server time synced. Day-" . $jsonObject['gametime']['days'] . " | Time-" . sprintf("%02d", $jsonObject['gametime']['hours']) . ":" . sprintf("%02d", $jsonObject['gametime']['minutes']) . "')";
+      $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'INFO', 'syncGameTime', 'DB/Server time synced. Day-" . $currDay . " | Time-" . $currTime . " | DaysLeft-" . $daysLeft . "')";
       if(!mysql_query($log)) {
         die('Error: ' . mysql_error());
         if(APP_LOG_LEVEL >= 1) {
@@ -714,6 +728,50 @@ function syncGameChat() {
             if(!mysql_query($log)) {
               die('Error: ' . mysql_error());
             }
+          }
+        }
+      }*/
+      /////////////////////////////
+      // Execute Player Commands //
+      /////////////////////////////
+      if((substr($string[12], 0, 1) === '/')) {
+        echo "User: " . $string[11] . " executed a command.\n";
+        echo "Command: " . $string[12] . "\n";
+        $command = ltrim($string[12], '/');
+        $getCustomCommand = mysql_query("select * from customCommands where command = '" . $command . "'");
+        if(!$getCustomCommand) {
+          die('Error: ' . mysql_error());
+        }
+        $sqlOut = mysql_fetch_array($getCustomCommand);
+        $customCommand = $sqlOut['command'];
+        echo "SQL Output: " . $customCommand . "\n\n";
+        if($command != $customCommand) {
+          $errorMessage = "**Not a custom command!**";
+          echo $errorMessage . "\n";
+          /*$url = 'http://' . API_HOST . ':' . API_PORT . '/api/executeconsolecommand?adminuser=' . API_USER . '&admintoken=' . API_PASS . '&command=say%20"**Not%20a%20custom%20command!**"';
+          $queryAPI = file_get_contents($url);*/
+        } else {
+          if($command == 'day7'){
+            $getDay7 = mysql_query("select daysLeft from server_gameTime where serverID = '1'");
+            if(!$getDay7) {
+              die('Error: ' . mysql_error());
+            }
+            $nextBloodmoon = mysql_fetch_array($getDay7);
+            $nextBloodmoon = $nextBloodmoon['daysLeft'];
+            if ($nextBloodmoon == 0) {
+              $url = 'http://' . API_HOST . ':' . API_PORT . '/api/executeconsolecommand?adminuser=' . API_USER . '&admintoken=' . API_PASS . '&command=say%20"[cc0000]7DM:[f2f3f4]%20Next%20Bloodmoon%20is%20tonight!!!"';
+              $queryAPI = file_get_contents($url);
+            } else {
+              $url = 'http://' . API_HOST . ':' . API_PORT . '/api/executeconsolecommand?adminuser=' . API_USER . '&admintoken=' . API_PASS . '&command=say%20"[cc0000]7DM:[f2f3f4]%20Next%20Bloodmoon%20in%20' . $nextBloodmoon['daysLeft'] . '%20days!"';
+              $queryAPI = file_get_contents($url);
+            }
+          }
+          if($command == 'buy'|'shop') {
+            echo "Execute store logic here\n";
+          }
+          if($command == 'suicide') {
+            $url = 'http://' . API_HOST . ':' . API_PORT . '/api/executeconsolecommand?adminuser=' . API_USER . '&admintoken=' . API_PASS . '&command="kill ' . $string[8] . '"';
+            $queryAPI = file_get_contents($url);
           }
         }
       }

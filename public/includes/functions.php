@@ -102,7 +102,8 @@ function queryGameTime() {
     echo '</big></span>'; echo '<span class="info-box-number">Day ';
     echo $gameCurrentDay = $queryGameTime['currentDay'];
     echo '</span>'; echo '<span class="info-box-number"><small><i>(Next Bloodmoon: ';
-    $gameCurrentDay = ceil($gameCurrentDay / 7) * 7;
+    //$gameCurrentDay = ceil($gameCurrentDay / 7) * 7;
+    echo $queryGameTime['daysLeft'];
     echo ')</i></small>';
   }
 }
