@@ -703,8 +703,8 @@ function syncGameChat() {
     // Parse Game Chat //
     /////////////////////
     if(in_array('Chat', $string)) {
-      echo "Found Chat Message";
-      print_r($string);
+      echo "Found Chat Message \n";
+      //print_r($string);
       if($string[11] == 'Server') {
         $gameChat = "insert into chatLog (timestamp, playerName, message, inGame) values (NOW(), '" . $string[11] . "', '" . $string[12] . "', '0')";
       } else {
