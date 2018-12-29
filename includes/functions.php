@@ -67,8 +67,8 @@ function syncGameTime() {
 
   //var_dump(json_decode($queryAPI, true));
 
-  $currDay = $jsonObject['gametime']['days'];
-  $currTime =  $jsonObject['gametime']['hours'] . ":" . $jsonObject['gametime']['minutes'];
+  $currDay = sprintf("%02d", $jsonObject['gametime']['days']);
+  $currTime =  sprintf("%02d", $jsonObject['gametime']['hours']) . ":" . sprintf("%02d", $jsonObject['gametime']['minutes']);
 
   if($jsonObject['players'] >= 1) {
     if(APP_LOG_LEVEL >= 1) {
