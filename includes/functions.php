@@ -744,6 +744,15 @@ function syncGameChat() {
       $commandStrip = ltrim($string[12], '/');
 
       if((substr($string[12], 0, 1) === '/')) {
+        echo "User: " . $playerName . " executed a command.\n";
+        echo "Command: " . $command . "\n";
+        if(APP_LOG_LEVEL >= 2) {
+          $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'WARN', 'executePlayerCommand', 'Player - " . $playerName . " - executed command: " . $commandStrip . "')";
+          if(!mysql_query($log)) {
+            die('Error: ' . mysql_error());
+          }
+        }
+        $getCustomCommand = mysql_query("select * from customCommands where command = '" . $commandStrip . "'");
         if(!$getCustomCommand) {
           die('Error: ' . mysql_error());
         }
