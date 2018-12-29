@@ -767,7 +767,7 @@ function syncGameChat() {
               die('Error: ' . mysql_error());
             }
           }
-          /*$url = 'http://' . API_HOST . ':' . API_PORT . '/api/executeconsolecommand?adminuser=' . API_USER . '&admintoken=' . API_PASS . '&command=say%20"**Not%20a%20custom%20command!**"';
+          /*$url = 'http://' . API_HOST . ':' . API_PORT . '/api/executeconsolecommand?adminuser=' . API_USER . '&admintoken=' . API_PASS . '&command=say "[' . APP_NAME_COLOR . ']\[' . APP_SHORTNAME . '\] [' . APP_CHAT_COLOR . '] **Not a custom command!**"';
           $queryAPI = file_get_contents($url);*/
         } else {
           if($commandStrip == 'day7'){
@@ -778,7 +778,7 @@ function syncGameChat() {
             $nextBloodmoon = mysql_fetch_array($getDay7);
             $nextBloodmoon = $nextBloodmoon['daysLeft'];
             if ($nextBloodmoon == 0) {
-              $url = 'http://' . API_HOST . ':' . API_PORT . '/api/executeconsolecommand?adminuser=' . API_USER . '&admintoken=' . API_PASS . '&command=say "[cc0000]7DM:[f2f3f4] Next Bloodmoon is tonight!!!"';
+              $url = 'http://' . API_HOST . ':' . API_PORT . '/api/executeconsolecommand?adminuser=' . API_USER . '&admintoken=' . API_PASS . '&command=say "[' . APP_NAME_COLOR . '][' . APP_SHORTNAME . '] [' . APP_CHAT_COLOR . '] Next Bloodmoon is tonight!!!"';
               $url = str_replace( ' ', '%20', $url);
               $queryAPI = file_get_contents($url);
               if(APP_LOG_LEVEL >= 2) {
@@ -788,7 +788,7 @@ function syncGameChat() {
                 }
               }
             } else {
-              $url = 'http://' . API_HOST . ':' . API_PORT . '/api/executeconsolecommand?adminuser=' . API_USER . '&admintoken=' . API_PASS . '&command=say "[cc0000]7DM:[f2f3f4] Next Bloodmoon in ' . $nextBloodmoon . ' days!"';
+              $url = 'http://' . API_HOST . ':' . API_PORT . '/api/executeconsolecommand?adminuser=' . API_USER . '&admintoken=' . API_PASS . '&command=say "[' . APP_NAME_COLOR . '][' . APP_SHORTNAME . '] [' . APP_CHAT_COLOR . '] Next Bloodmoon in ' . $nextBloodmoon . ' days!"';
               $url = str_replace( ' ', '%20', $url);
               $queryAPI = file_get_contents($url);
               if(APP_LOG_LEVEL >= 2) {
@@ -800,7 +800,7 @@ function syncGameChat() {
             }
           }
           if($commandStrip == 'day7-stats') {
-            $url = 'http://' . API_HOST . ':' . API_PORT . '/api/executeconsolecommand?adminuser=' . API_USER . '&admintoken=' . API_PASS . '&command=pm ' . $playerEntityID . ' "[cc0000]7DM:[f2f3f4] Function not availiable yet! Check back later or complain to NuTcAsE on Discord or Steam."';
+            $url = 'http://' . API_HOST . ':' . API_PORT . '/api/executeconsolecommand?adminuser=' . API_USER . '&admintoken=' . API_PASS . '&command=pm ' . $playerEntityID . ' "[' . APP_NAME_COLOR . '][' . APP_SHORTNAME . '] [' . APP_CHAT_COLOR . '] Function not availiable yet! Check back later or complain to NuTcAsE on Discord or Steam."';
             $url = str_replace( ' ', '%20', $url);
             $queryAPI = file_get_contents($url);
             if(APP_LOG_LEVEL >= 2) {
@@ -812,7 +812,7 @@ function syncGameChat() {
           }
           /*if($commandStrip == 'buy'|'shop') {
             echo "Execute store logic here\n";
-            $url = 'http://' . API_HOST . ':' . API_PORT . '/api/executeconsolecommand?adminuser=' . API_USER . '&admintoken=' . API_PASS . '&command=pm ' . $playerEntityID . ' "[cc0000]7DM:[f2f3f4]%20Function not availiable yet! Check back later or complain to NuTcAsE on Discord or Steam."';
+            $url = 'http://' . API_HOST . ':' . API_PORT . '/api/executeconsolecommand?adminuser=' . API_USER . '&admintoken=' . API_PASS . '&command=pm ' . $playerEntityID . ' "[' . APP_NAME_COLOR . '][' . APP_SHORTNAME . '] [' . APP_CHAT_COLOR . '] Function not availiable yet! Check back later or complain to NuTcAsE on Discord or Steam."';
             $url = str_replace( ' ', '%20', $url);
             $queryAPI = file_get_contents($url);
             if(APP_LOG_LEVEL >= 2) {
@@ -845,7 +845,7 @@ function syncGameChat() {
             }
           }
           if($commandStrip == 'help') {
-            $url = 'http://' . API_HOST . ':' . API_PORT . '/api/executeconsolecommand?adminuser=' . API_USER . '&admintoken=' . API_PASS . '&command=pm ' . $playerEntityID . ' "[cc0000]7DM:[f2f3f4] Function not availiable yet! Check back later or complain to NuTcAsE on Discord or Steam."';
+            $url = 'http://' . API_HOST . ':' . API_PORT . '/api/executeconsolecommand?adminuser=' . API_USER . '&admintoken=' . API_PASS . '&command=pm ' . $playerEntityID . ' "[' . APP_NAME_COLOR . '][' . APP_SHORTNAME . '] [' . APP_CHAT_COLOR . '] Function not availiable yet! Check back later or complain to NuTcAsE on Discord or Steam."';
             $url = str_replace( ' ', '%20', $url);
             $queryAPI = file_get_contents($url);
             if(APP_LOG_LEVEL >= 2) {
@@ -856,7 +856,7 @@ function syncGameChat() {
             }
           }
           if($commandStrip == 'zgate') {
-            $url = 'http://' . API_HOST . ':' . API_PORT . '/api/executeconsolecommand?adminuser=' . API_USER . '&admintoken=' . API_PASS . '&command=pm ' . $playerEntityID . ' "[cc0000]7DM:[f2f3f4] Function not availiable yet! Check back later or complain to NuTcAsE on Discord or Steam."';
+            $url = 'http://' . API_HOST . ':' . API_PORT . '/api/executeconsolecommand?adminuser=' . API_USER . '&admintoken=' . API_PASS . '&command=pm ' . $playerEntityID . ' "[' . APP_NAME_COLOR . '][' . APP_SHORTNAME . '] [' . APP_CHAT_COLOR . '] Function not availiable yet! Check back later or complain to NuTcAsE on Discord or Steam."';
             $url = str_replace( ' ', '%20', $url);
             $queryAPI = file_get_contents($url);
             if(APP_LOG_LEVEL >= 2) {
@@ -867,7 +867,7 @@ function syncGameChat() {
             }
           }
           if($commandStrip == 'wallet') {
-            $url = 'http://' . API_HOST . ':' . API_PORT . '/api/executeconsolecommand?adminuser=' . API_USER . '&admintoken=' . API_PASS . '&command=pm ' . $playerEntityID . ' "[cc0000]7DM:[f2f3f4] Function not availiable yet! Check back later or complain to NuTcAsE on Discord or Steam."';
+            $url = 'http://' . API_HOST . ':' . API_PORT . '/api/executeconsolecommand?adminuser=' . API_USER . '&admintoken=' . API_PASS . '&command=pm ' . $playerEntityID . ' "[' . APP_NAME_COLOR . '][' . APP_SHORTNAME . '] [' . APP_CHAT_COLOR . '] Function not availiable yet! Check back later or complain to NuTcAsE on Discord or Steam."';
             $url = str_replace( ' ', '%20', $url);
             $queryAPI = file_get_contents($url);
             if(APP_LOG_LEVEL >= 2) {
