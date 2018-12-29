@@ -680,7 +680,6 @@ function syncGameChat() {
       }
     }
   }
-  //2018-12-08T21:36:32 63345.176 INF Chat (from '76561198040479184', entity id '4407', to 'Global'): 'Luggistics': /day7
   while ($line = fgets($telnet)) {
     $line = trim($line);
     $_line = mysql_real_escape_string($line);
