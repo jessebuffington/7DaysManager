@@ -750,13 +750,19 @@ function syncGameChat() {
         $sqlOut = mysql_fetch_array($getCustomCommand);
         $customCommand = $sqlOut['command'];
         echo "SQL Output: " . $customCommand . "\n\n";
-        if($command != $customCommand) {
+        if($commandStrip != $customCommand) {
           $errorMessage = "**Not a custom command!**";
           echo $errorMessage . "\n";
+          if(APP_LOG_LEVEL >= 2) {
+            $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'WARN', 'executePlayerCommand', 'Command Output: " . $errorMessage . "')";
+            if(!mysql_query($log)) {
+              die('Error: ' . mysql_error());
+            }
+          }
           /*$url = 'http://' . API_HOST . ':' . API_PORT . '/api/executeconsolecommand?adminuser=' . API_USER . '&admintoken=' . API_PASS . '&command=say%20"**Not%20a%20custom%20command!**"';
           $queryAPI = file_get_contents($url);*/
         } else {
-          if($command == 'day7'){
+          if($commandStrip == 'day7'){
             $getDay7 = mysql_query("select daysLeft from server_gameTime where serverID = '1'");
             if(!$getDay7) {
               die('Error: ' . mysql_error());
@@ -764,19 +770,107 @@ function syncGameChat() {
             $nextBloodmoon = mysql_fetch_array($getDay7);
             $nextBloodmoon = $nextBloodmoon['daysLeft'];
             if ($nextBloodmoon == 0) {
-              $url = 'http://' . API_HOST . ':' . API_PORT . '/api/executeconsolecommand?adminuser=' . API_USER . '&admintoken=' . API_PASS . '&command=say%20"[cc0000]7DM:[f2f3f4]%20Next%20Bloodmoon%20is%20tonight!!!"';
+              $url = 'http://' . API_HOST . ':' . API_PORT . '/api/executeconsolecommand?adminuser=' . API_USER . '&admintoken=' . API_PASS . '&command=say "[cc0000]7DM:[f2f3f4] Next Bloodmoon is tonight!!!"';
+              $url = str_replace( ' ', '%20', $url);
               $queryAPI = file_get_contents($url);
+              if(APP_LOG_LEVEL >= 2) {
+                $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'WARN', 'executePlayerCommand', 'Command Output: Next Bloodmoon is tonight!!!')";
+                if(!mysql_query($log)) {
+                  die('Error: ' . mysql_error());
+                }
+              }
             } else {
-              $url = 'http://' . API_HOST . ':' . API_PORT . '/api/executeconsolecommand?adminuser=' . API_USER . '&admintoken=' . API_PASS . '&command=say%20"[cc0000]7DM:[f2f3f4]%20Next%20Bloodmoon%20in%20' . $nextBloodmoon['daysLeft'] . '%20days!"';
+              $url = 'http://' . API_HOST . ':' . API_PORT . '/api/executeconsolecommand?adminuser=' . API_USER . '&admintoken=' . API_PASS . '&command=say "[cc0000]7DM:[f2f3f4] Next Bloodmoon in ' . $nextBloodmoon . ' days!"';
+              $url = str_replace( ' ', '%20', $url);
               $queryAPI = file_get_contents($url);
+              if(APP_LOG_LEVEL >= 2) {
+                $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'WARN', 'executePlayerCommand', 'Command Output: Next Bloodmoon is in " . $nextBloodmoon . " days!')";
+                if(!mysql_query($log)) {
+                  die('Error: ' . mysql_error());
+                }
+              }
             }
           }
-          if($command == 'buy'|'shop') {
-            echo "Execute store logic here\n";
-          }
-          if($command == 'suicide') {
-            $url = 'http://' . API_HOST . ':' . API_PORT . '/api/executeconsolecommand?adminuser=' . API_USER . '&admintoken=' . API_PASS . '&command="kill ' . $string[8] . '"';
+          if($commandStrip == 'day7-stats') {
+            $url = 'http://' . API_HOST . ':' . API_PORT . '/api/executeconsolecommand?adminuser=' . API_USER . '&admintoken=' . API_PASS . '&command=pm ' . $playerEntityID . ' "[cc0000]7DM:[f2f3f4] Function not availiable yet! Check back later or complain to NuTcAsE on Discord or Steam."';
+            $url = str_replace( ' ', '%20', $url);
             $queryAPI = file_get_contents($url);
+            if(APP_LOG_LEVEL >= 2) {
+              $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'WARN', 'executePlayerCommand', 'Command Output: Function not availiable yet! Check back later or complain to NuTcAsE on Discord or Steam.')";
+              if(!mysql_query($log)) {
+                die('Error: ' . mysql_error());
+              }
+            }
+          }
+          /*if($commandStrip == 'buy'|'shop') {
+            echo "Execute store logic here\n";
+            $url = 'http://' . API_HOST . ':' . API_PORT . '/api/executeconsolecommand?adminuser=' . API_USER . '&admintoken=' . API_PASS . '&command=pm ' . $playerEntityID . ' "[cc0000]7DM:[f2f3f4]%20Function not availiable yet! Check back later or complain to NuTcAsE on Discord or Steam."';
+            $url = str_replace( ' ', '%20', $url);
+            $queryAPI = file_get_contents($url);
+            if(APP_LOG_LEVEL >= 2) {
+              $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'WARN', 'executePlayerCommand', 'Command Output: Function not availiable yet! Check back later or complain to NuTcAsE on Discord or Steam.')";
+              if(!mysql_query($log)) {
+                die('Error: ' . mysql_error());
+              }
+            }
+          }*/
+          if($commandStrip == 'suicide') {
+            $url = 'http://' . API_HOST . ':' . API_PORT . '/api/executeconsolecommand?adminuser=' . API_USER . '&admintoken=' . API_PASS . '&command=pm ' . $playerEntityID . ' R.I.P.';
+            $url = str_replace( ' ', '%20', $url);
+            echo $url . "\n";
+            $queryAPI = file_get_contents($url);
+            if(APP_LOG_LEVEL >= 2) {
+              $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'WARN', 'executePlayerCommand', 'Command Output: Executing kill command for player " . $playerName . ".')";
+              if(!mysql_query($log)) {
+                die('Error: ' . mysql_error());
+              }
+            }
+            $url = 'http://' . API_HOST . ':' . API_PORT . '/api/executeconsolecommand?adminuser=' . API_USER . '&admintoken=' . API_PASS . '&command=kill ' . $playerEntityID . '';
+            $url = str_replace( ' ', '%20', $url);
+            echo $url . "\n";
+            $queryAPI = file_get_contents($url);
+            if(APP_LOG_LEVEL >= 2) {
+              $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'WARN', 'executePlayerCommand', 'Command Output: Sent kill command for " . $playerName . "')";
+              if(!mysql_query($log)) {
+                die('Error: ' . mysql_error());
+              }
+            }
+          }
+          if($commandStrip == 'help') {
+            $url = 'http://' . API_HOST . ':' . API_PORT . '/api/executeconsolecommand?adminuser=' . API_USER . '&admintoken=' . API_PASS . '&command=pm ' . $playerEntityID . ' "[cc0000]7DM:[f2f3f4] Function not availiable yet! Check back later or complain to NuTcAsE on Discord or Steam."';
+            $url = str_replace( ' ', '%20', $url);
+            $queryAPI = file_get_contents($url);
+            if(APP_LOG_LEVEL >= 2) {
+              $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'WARN', 'executePlayerCommand', 'Command Output: Function not availiable yet! Check back later or complain to NuTcAsE on Discord or Steam.')";
+              if(!mysql_query($log)) {
+                die('Error: ' . mysql_error());
+              }
+            }
+          }
+          if($commandStrip == 'zgate') {
+            $url = 'http://' . API_HOST . ':' . API_PORT . '/api/executeconsolecommand?adminuser=' . API_USER . '&admintoken=' . API_PASS . '&command=pm ' . $playerEntityID . ' "[cc0000]7DM:[f2f3f4] Function not availiable yet! Check back later or complain to NuTcAsE on Discord or Steam."';
+            $url = str_replace( ' ', '%20', $url);
+            $queryAPI = file_get_contents($url);
+            if(APP_LOG_LEVEL >= 2) {
+              $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'WARN', 'executePlayerCommand', 'Command Output: Function not availiable yet! Check back later or complain to NuTcAsE on Discord or Steam.')";
+              if(!mysql_query($log)) {
+                die('Error: ' . mysql_error());
+              }
+            }
+          }
+          if($commandStrip == 'wallet') {
+            $url = 'http://' . API_HOST . ':' . API_PORT . '/api/executeconsolecommand?adminuser=' . API_USER . '&admintoken=' . API_PASS . '&command=pm ' . $playerEntityID . ' "[cc0000]7DM:[f2f3f4] Function not availiable yet! Check back later or complain to NuTcAsE on Discord or Steam."';
+            $url = str_replace( ' ', '%20', $url);
+            $queryAPI = file_get_contents($url);
+            if(APP_LOG_LEVEL >= 2) {
+              $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'WARN', 'executePlayerCommand', 'Command Output: Function not availiable yet! Check back later or complain to NuTcAsE on Discord or Steam.')";
+              if(!mysql_query($log)) {
+                die('Error: ' . mysql_error());
+              }
+            }
+          }
+        }
+      }
     } elseif (in_array('GMSG', $string)) {
       echo "Found General Message \n";
       //print_r($string);
