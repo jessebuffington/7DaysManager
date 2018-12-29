@@ -24,6 +24,8 @@ spawn telnet $host $port
 match_max 100000
 expect "Please enter password:\r"
 send "$pass\r"
+sleep 1
 send "say \"\[00ffff\]If there are any server issues, please contact NuTcAsE or Dragoon1CaN on Steam or our Discord server!\"\r"
+sleep 1
 send "exit\r"
 expect eof

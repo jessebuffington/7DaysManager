@@ -24,6 +24,8 @@ spawn telnet $host $port
 match_max 100000
 expect "Please enter password:\r"
 send "$pass\r"
+sleep 1
 send "say \"\[00ffff\]Come join us on our Discord server\!  https://discord.gg/hk3pz6w\"\r"
+sleep 1
 send "exit\r"
 expect eof

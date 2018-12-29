@@ -25,6 +25,8 @@ spawn telnet $host $port
 match_max 100000
 expect "Please enter password:\r"
 send "$pass\r"
+sleep 1
 send "say \"\[00ffff\]The player shop is now fully stocked! Type /shop to view the list. If you would like something special added (dev blocks), just let an admin know!\"\r"
+sleep 1
 send "exit\r"
 expect eof

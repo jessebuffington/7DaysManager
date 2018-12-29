@@ -24,6 +24,8 @@ spawn telnet $host $port
 match_max 100000
 expect "Please enter password:\r"
 send "$pass\r"
+sleep 1
 send "say \"\[7fff00\]Please familiarize yourselves with our server rules  - \[b2ffff\]https://goo.gl/pNz5yT\"\r"
+sleep 1
 send "exit\r"
 expect eof
