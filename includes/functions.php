@@ -772,11 +772,38 @@ function syncGameChat() {
           if($command == 'suicide') {
             $url = 'http://' . API_HOST . ':' . API_PORT . '/api/executeconsolecommand?adminuser=' . API_USER . '&admintoken=' . API_PASS . '&command="kill ' . $string[8] . '"';
             $queryAPI = file_get_contents($url);
+    } elseif (in_array('GMSG', $string)) {
+      echo "Found General Message \n";
+      //print_r($string);
+      if ($string[3] == 'GMSG') {
+        $generalMessage = "insert into chatLog (timestamp, playerName, message, inGame) values (NOW(), 'Server', '" . $string[4] . " " . $string[5] . " " . $string[6] . " " . $string[7] . " " . $string[8] . "', '0')";
+        echo "MySQL Command: " . $generalMessage . "\n";
+        if(!mysql_query($generalMessage)) {
+          echo "Error: " . mysql_error();
+          sleep(2);
+          //die('Error: ' . mysql_error());
+          if(APP_LOG_LEVEL >= 1) {
+            $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'syncGameChat', 'ERROR: COULD NOT CONNECT TO DB')";
+            if(!mysql_query($log)) {
+              die('Error: ' . mysql_error());
+            }
+          }
+        } while($maxret-- > 0);
+        if(APP_LOG_LEVEL >= 3) {
+          $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'INFO', 'GMSG', '" . $string[4] . " " . $string[5] . " " . $string[6] . " " . $string[7] . " " . $string[8] . "')";
+          if(!mysql_query($log)) {
+            die('Error: ' . mysql_error());
           }
         }
       }
     } else {
       echo "Not a chat message\n\n";
+      if(APP_LOG_LEVEL >= 4) {
+        $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'DEBUG', 'executePlayerCommand', 'Not a chat message')";
+        if(!mysql_query($log)) {
+          die('Error: ' . mysql_error());
+        }
+      }
     }
   }
 }
