@@ -661,6 +661,8 @@ function syncGameChat() {
   global $APP_LOG;
   global $APP_LOG_LEVEL;
 
+  $maxret = 4;
+
   $telnet = fsockopen(TELNET_HOST, TELNET_PORT, $errno, $errstr, 10);
   if($telnet) {
     fputs($telnet, TELNET_PASS."\r\n");
@@ -709,17 +711,19 @@ function syncGameChat() {
       } else {
         $gameChat = "insert into chatLog (timestamp, playerName, message, inGame) values (NOW(), '" . $string[11] . "', '" . $string[12] . "', '1')";
       }
-      print_r($gameChat);
+      echo "MySQL Command: " . $gameChat . "\n";
       if(!mysql_query($gameChat)) {
-        die('Error: ' . mysql_error());
+        echo "Error: " . mysql_error();
+        sleep(2);
+        //die('Error: ' . mysql_error());
         if(APP_LOG_LEVEL >= 1) {
           $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'syncGameChat', 'ERROR: COULD NOT CONNECT TO DB')";
           if(!mysql_query($log)) {
             die('Error: ' . mysql_error());
           }
         }
-      }
-      if(APP_LOG_LEVEL >= 4) {
+      } while($maxret-- > 0);
+      /*if(APP_LOG_LEVEL >= 4) {
         $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'DEBUG', 'syncGameChat', 'Game Chat synced to DB')";
         if (!mysql_query($log)) {
           die('Error: ' . mysql_error());
