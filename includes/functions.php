@@ -738,11 +738,12 @@ function syncGameChat() {
       /////////////////////////////
       // Execute Player Commands //
       /////////////////////////////
+      $playerEntityID = str_replace( ',', '', $string[8]);
+      $playerName =  $string[11];
+      $command = $string[12];
+      $commandStrip = ltrim($string[12], '/');
+
       if((substr($string[12], 0, 1) === '/')) {
-        echo "User: " . $string[11] . " executed a command.\n";
-        echo "Command: " . $string[12] . "\n";
-        $command = ltrim($string[12], '/');
-        $getCustomCommand = mysql_query("select * from customCommands where command = '" . $command . "'");
         if(!$getCustomCommand) {
           die('Error: ' . mysql_error());
         }
