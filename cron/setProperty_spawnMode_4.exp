@@ -26,9 +26,9 @@ match_max 100000
 expect "Please enter password:\r"
 send "$pass\r"
 sleep 1
-send "sg EnemySpawnMode 4\r"
+send "sg GameDifficulty 4\r"
 sleep 1
-expect "EnemySpawnMode set to 4\r"
+expect "GameDifficulty set to 4\r"
 send "say \"\[cc0000\]SERVER MSG: \[f2f3f4\]Enemy spawn is now set to level 4 - 125\%.\"\r"
 send "exit\r"
 expect eof
