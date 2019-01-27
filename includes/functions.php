@@ -778,7 +778,7 @@ function syncGameChat() {
             $nextBloodmoon = mysql_fetch_array($getDay7);
             $nextBloodmoon = $nextBloodmoon['daysLeft'];
             if ($nextBloodmoon == 0) {
-              $url = 'http://' . API_HOST . ':' . API_PORT . '/api/executeconsolecommand?adminuser=' . API_USER . '&admintoken=' . API_PASS . '&command=say "[' . APP_NAME_COLOR . '][' . APP_SHORTNAME . '] [' . APP_CHAT_COLOR . '] Next Bloodmoon is tonight!!!"';
+              $url = 'http://' . API_HOST . ':' . API_PORT . '/api/executeconsolecommand?adminuser=' . API_USER . '&admintoken=' . API_PASS . '&command=say "[' . APP_NAME_COLOR . '][' . APP_SHORTNAME . '][' . APP_CHAT_COLOR . '] Next Bloodmoon is tonight!!!"';
               $url = str_replace( ' ', '%20', $url);
               $queryAPI = file_get_contents($url);
               if(APP_LOG_LEVEL >= 2) {
@@ -788,7 +788,7 @@ function syncGameChat() {
                 }
               }
             } else {
-              $url = 'http://' . API_HOST . ':' . API_PORT . '/api/executeconsolecommand?adminuser=' . API_USER . '&admintoken=' . API_PASS . '&command=say "[' . APP_NAME_COLOR . '][' . APP_SHORTNAME . '] [' . APP_CHAT_COLOR . '] Next Bloodmoon in ' . $nextBloodmoon . ' days!"';
+              $url = 'http://' . API_HOST . ':' . API_PORT . '/api/executeconsolecommand?adminuser=' . API_USER . '&admintoken=' . API_PASS . '&command=say "[' . APP_NAME_COLOR . '][' . APP_SHORTNAME . '][' . APP_CHAT_COLOR . '] Next Bloodmoon in ' . $nextBloodmoon . ' days!"';
               $url = str_replace( ' ', '%20', $url);
               $queryAPI = file_get_contents($url);
               if(APP_LOG_LEVEL >= 2) {
