@@ -281,6 +281,104 @@ function startProcesses() {
   }
 }
 
+function monitorAppStatus() {
+  // Get app names from app_status table
+  $queryAppStatus = mysql_query('SELECT name FROM app_status where enabled = "1" order by id asc');
+  if (!$queryAppStatus) {
+    die('Invalid query: ' . mysql_error());
+    if(APP_LOG_LEVEL >= 1) {
+      $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'monitorAppStatus', 'ERROR: COULD NOT CONNECT TO DB')";
+      if (!mysql_query($log)) {
+        die('Error: ' . mysql_error());
+      }
+    }
+  }
+  while($appStatus = mysql_fetch_array($queryAppStatus)) {
+    $appName = $appStatus['name'];
+    if($appName != NULL) {
+      if(APP_LOG_LEVEL >= 4) {
+        $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'DEBUG', 'monitorAppStatus', 'SQLOUT VAR: " . $appName . "')";
+        if(!mysql_query($log)) {
+          die('Error: ' . mysql_error());
+          if(APP_LOG_LEVEL >= 1) {
+            $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'monitorAppStatus', 'ERROR: COULD NOT CONNECT TO DB')";
+            if (!mysql_query($log)) {
+              die('Error: ' . mysql_error());
+            }
+          }
+        }
+      }
+      $cmd = 'pgrep -f ' . $appName;
+      $pids = null;
+      exec($cmd, $pids);
+      if(empty($pids)) { // Update status of inactive apps
+        echo $appName . " is INACTIVE!\n";
+        $sql = "update app_status set status = 'InActive' where name = '" . $appName . "'";
+        if (!mysql_query($sql)) {
+          die('Error: ' . mysql_error());
+          if(APP_LOG_LEVEL >= 1) {
+            $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'monitorAppStatus', 'ERROR: COULD NOT CONNECT TO DB')";
+            if (!mysql_query($log)) {
+              die('Error: ' . mysql_error());
+            }
+          }
+        }
+        if(APP_LOG_LEVEL >= 2) {
+          $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'WARN', 'monitorAppStatus', '" . $appName . " is <b>NOT</b> running!')";
+          if(!mysql_query($log)) {
+            die('Error: ' . mysql_error());
+            if(APP_LOG_LEVEL >= 1) {
+              $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'monitorAppStatus', 'ERROR: COULD NOT CONNECT TO DB')";
+              if (!mysql_query($log)) {
+                die('Error: ' . mysql_error());
+              }
+            }
+          }
+        }
+      } else { // Update status of active apps
+        echo $appName . " is ACTIVE!\n";
+        $sql = "update app_status set status = 'Active' where name = '" . $appName . "'";
+        if (!mysql_query($sql)) {
+          die('Error: ' . mysql_error());
+          if(APP_LOG_LEVEL >= 1) {
+            $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'monitorAppStatus', 'ERROR: COULD NOT CONNECT TO DB')";
+            if (!mysql_query($log)) {
+              die('Error: ' . mysql_error());
+            }
+          }
+        }
+        if(APP_LOG_LEVEL >= 4) {
+          print_r($appName);
+          print_r($pids);
+          $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'DEBUG', 'monitorAppStatus', '" . $appName . " is running -- continuing')";
+          if(!mysql_query($log)) {
+            die('Error: ' . mysql_error());
+            if(APP_LOG_LEVEL >= 1) {
+              $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'monitorAppStatus', 'ERROR: COULD NOT CONNECT TO DB')";
+              if (!mysql_query($log)) {
+                die('Error: ' . mysql_error());
+              }
+            }
+          }
+        }
+      }
+    } else {
+      // Log SQL output if app_status table is empty
+      if(APP_LOG_LEVEL >= 3) {
+        echo "\n\n-- NO APPS IN ENABLED LIST -- PLEASE CONFIGURE DB --\n\n";
+        $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'INFO', 'monitorAppStatus', '-- NO APPS IN ENABLED LIST -- PLEASE CONFIGURE DB --')";
+        if(!mysql_query($log)) {
+          die('Error: ' . mysql_error());
+          if(APP_LOG_LEVEL >= 1) {
+            $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'monitorAppStatus', 'ERROR: COULD NOT CONNECT TO DB')";
+            if (!mysql_query($log)) {
+              die('Error: ' . mysql_error());
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 
