@@ -46,8 +46,17 @@ function displayUsage() {
     Usage:
       7daysManager.php [options]
       options:
-      --help      display this help message
-      --log=<filename>  The location of the log file (default: " . APP_LOG . ")\n\n");
+      -h , --help       Obviously displays this help message.
+      --start           Starts enabled app processes. This is the default option when running this command.
+      --starts          Stops ALL app processes.
+      -r , --restart    Restarts app processes (Kills all then starts only enabled processes in config).
+      -m , --monitor    Executes the monitoring function. This works best when set up as a cron job or a windows scheduled task.
+      \n\n
+      The location of the log file (default: " . APP_LOG . ")
+      \n\n"
+  );
+}
+
 }
 
 
