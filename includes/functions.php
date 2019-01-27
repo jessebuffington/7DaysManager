@@ -214,7 +214,7 @@ function startProcesses() {
             }
           }
         }
-        echo "Starting " . $appName . "...\n";
+        echo "Starting " . $appName . "...\n\n";
         shell_exec('nohup php -f lib/' . $appName . '.php >> var/log/' . $appName . '.log 2>&1 &');
         $sql = "update app_status set status = 'Active' where name = '" . $appName . "'";
         if (!mysql_query($sql)) {
