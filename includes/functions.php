@@ -160,7 +160,13 @@ function stopProcesses() {
 
 
 function startProcesses() {
+  global $API_HOST;
+  global $API_PORT;
+  global $API_USER;
+  global $API_PASS;
+  global $interval_syncGameVersion;
   global $APP_LOG;
+  global $APP_LOG_LEVEL;
   // Get app names from app_status table
   $queryAppStatus = mysql_query('SELECT name FROM app_status where enabled = "1" order by id asc');
   if (!$queryAppStatus) {
@@ -283,7 +289,13 @@ function startProcesses() {
 
 
 function restartProcesses() {
+  global $API_HOST;
+  global $API_PORT;
+  global $API_USER;
+  global $API_PASS;
+  global $interval_syncGameVersion;
   global $APP_LOG;
+  global $APP_LOG_LEVEL;
   // Get app names from app_status table
   $queryAppStatus = mysql_query('SELECT name FROM app_status order by id asc');
   if (!$queryAppStatus) {
