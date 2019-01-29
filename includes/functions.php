@@ -1153,6 +1153,7 @@ function syncAllPlayers() {
 
 
 function syncGameLog() {
+  // This is not really needed and will probably be removed in a future commit -- the game server already logs to a file (this logs to the DB) and the syncGameChat function watches the telnet socket for user input.
   global $TELNET_HOST;
   global $TELNET_PORT;
   global $TELNET_PASS;
