@@ -43,9 +43,9 @@
                 <thead>
                   <tr>
                     <th class="text-left">Date/Time</th>
-                    <th class="text-left">Log Level</th>
-                    <th class="text-left">Run Name</th>
-                    <th class="text-left">Message</th>
+                    <th class="text-left">Username</th>
+                    <th class="text-left">Page Title</th>
+                    <th class="text-left">IP</th>
                   </tr>
                 </thead>
                 <tbody>
