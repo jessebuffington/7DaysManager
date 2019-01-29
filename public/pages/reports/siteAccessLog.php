@@ -14,7 +14,7 @@
     function refresh_appLog() {
       $("#appLog").load(location.href + " #appLog");
     }
-    setInterval('refresh_appLog()', 1000);
+    setInterval('refresh_appLog()', 100000);
   </script>
 </head>
 <body class="hold-transition skin-<?php echo HEADER_COLOR ?> sidebar-mini">
