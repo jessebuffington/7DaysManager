@@ -51,6 +51,31 @@ function getAllPlayers_List() {
     echo '<td class="text-left">' . $row['currentPosition'] . '</td>';
     echo '<td class="text-left"><a href="http://steamidfinder.com/lookup/' . $row['steamid'] . ' "target="_blank">' . $row['steamid'] . '</a></td>';
     echo '<td class="text-left"><a href="https://tools.keycdn.com/geo?host=' . $row['ip'] . ' "target="_blank">' . $row['ip'] . '</a></td>';
+    if ($row['banned'] == 1) {
+     echo '<td class="text-left"><input type="submit" name="UnBan" id="UnBan" value="UnBan" class="btn btn-success pull-right">UnBan</input></td>';
+   } else {
+     echo '<td class="text-left"><input type="submit" name="Ban" id="Ban" value="Ban" class="btn btn-danger pull-right">Ban</input></td>';
+   }
+   if (isset($_POST['UnBan'])) {
+     $unbanPlayer = "UPDATE players set banned = '0' where playerid = '".$row['playerid']."'";
+     $manUnbanPlayer = "UPDATE server_bans set manUnban = '1' where steamid  = '".$row['steamid']."'";
+     if (!mysql_query($unbanPlayer)) {
+       die('Error: ' . mysql_error());
+     }
+     if (!mysql_query($manUnbanPlayer)) {
+       die('Error: ' . mysql_error());
+     }
+   } elseif (isset($_POST['Ban'])) {
+     $unbanPlayer = "UPDATE players set banned = '1' where playerid = '".$row['playerid']."'";
+     $manUnbanPlayer = "INSERT into server_bans (playerName, steamid, ip, reason, bannedTo, permanent, playTime, score, playerKills, zombies, dateAdded, admin)
+                         VALUES ('".$row['playerName']."', '".$row['steamid']."', '".$row['ip']."', $reason, $bannedTo, $permanent, '".$row['playTime']."', '".$row['score']."', '".$row['playerKills']."', '".$row['zombies']."', NOW(), '".$_SESSION['loginUsername']."')";
+     if (!mysql_query($unbanPlayer)) {
+       die('Error: ' . mysql_error());
+     }
+     if (!mysql_query($manUnbanPlayer)) {
+       die('Error: ' . mysql_error());
+     }
+   }
     echo '</tr>';
   }
 }
@@ -68,6 +93,9 @@ function getBannedPlayers_List() {
     echo '<td class="text-left">' . $row['bannedTo'] . '</td>';
     echo '<td class="text-left"><a href="http://steamidfinder.com/lookup/' . $row['steamid'] . ' "target="_blank">' . $row['steamid'] . '</a></td>';
     echo '<td class="text-left"><a href="https://tools.keycdn.com/geo?host=' . $row['ip'] . ' "target="_blank">' . $row['ip'] . '</a></td>';
+    if ($row['banned'] = 1) {
+      echo '<td class="text-left"><button type="submit" name="submit" id="submit" value="Submit" class="btn btn-success pull-right">UnBan</button></td>';
+    }
     echo '</tr>';
   }
 }
@@ -90,6 +118,11 @@ function getOnlinePlayers_List() {
     echo '<td class="text-left"><a href="http://steamidfinder.com/lookup/' . $row['steamid'] . ' "target="_blank">' . $row['steamid'] . '</a></td>';
     echo '<td class="text-left"><a href="https://tools.keycdn.com/geo?host=' . $row['ip'] . ' "target="_blank">' . $row['ip'] . '</a></td>';
     echo '<td class="text-left">' . $row['ping'] . '</td>';
+    echo '<td class="text-left">
+      <button type="submit" name="submit" id="submit" value="Submit" class="btn btn-primary pull-right">PM</button></td>
+      <button type="submit" name="submit" id="submit" value="Submit" class="btn btn-success pull-right">Give</button></td>
+      <button type="submit" name="submit" id="submit" value="Submit" class="btn btn-warning pull-right">Kick</button></td>
+      <button type="submit" name="submit" id="submit" value="Submit" class="btn btn-danger pull-right">Ban</button></td>';
     echo '</tr>';
   }
 }
