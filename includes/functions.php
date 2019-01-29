@@ -7,8 +7,11 @@ function __autoload($class) {
 //Method for displaying the help and default variables.
 function displayUsage() {
   global $APP_LOG;
-  printf("\n
-    7daysManager v" . APP_VERSION . " \n
+
+  printf("
+    " . Console::light_purple('7DaysManager') . "
+    " . Console::cyan(APP_VERSION) . "
+
     Usage:
       7daysManager.php [options]
       options:
@@ -81,7 +84,7 @@ function stopProcesses() {
           }
         }
       } else { // Kill active apps
-        echo $appName . " is active -- KILLING NOW!\n";
+        echo $appName . " is " . Console::light_green('active') . " -- " . Console::light_red('KILLING NOW!') . "\n";
         $cmd = 'pgrep -f ' . $appName . ' | xargs kill';
         exec($cmd);
         $sql = "update app_status set status = 'InActive' where name = '" . $appName . "'";
@@ -164,7 +167,7 @@ function startProcesses() {
       $pids = null;
       exec($cmd, $pids);
       if(empty($pids)) { // Update status of inactive apps
-        echo $appName . " is INACTIVE\n";
+        echo "\n" . $appName . " is " . Console::light_red('INACTIVE!') . "\n";
         $sql = "update app_status set status = 'InActive' where name = '" . $appName . "'";
         if (!mysql_query($sql)) {
           die('Error: ' . mysql_error());
@@ -187,7 +190,7 @@ function startProcesses() {
             }
           }
         }
-        echo "Starting " . $appName . "...\n\n";
+        echo Console::light_green('Starting ' . $appName . '...') . "\n\n";
         shell_exec('nohup php -f ' . APP_ROOT . 'lib/' . $appName . '.php >> ' . APP_ROOT . 'var/log/' . $appName . '_' . date('Ymd') . '.log 2>&1 &');
         $sql = "update app_status set status = 'Active' where name = '" . $appName . "'";
         if (!mysql_query($sql)) {
@@ -212,7 +215,7 @@ function startProcesses() {
           }
         }
       } else { // Start inactive apps
-        echo $appName . " is ACTIVE -- Skipping\n";
+        echo $appName . " is " . Console::light_green('ACTIVE') . " -- Skipping\n";
         $sql = "update app_status set status = 'Active' where name = '" . $appName . "'";
         if (!mysql_query($sql)) {
           die('Error: ' . mysql_error());
@@ -317,7 +320,7 @@ function restartProcesses() {
           }
         }
       } else { // Kill active apps
-        echo $appName . " is active -- KILLING NOW!\n";
+        echo $appName . " is " . Console::light_green('active') . " -- " . Console::light_red('KILLING NOW!') . "\n";
         $cmd = 'pgrep -f ' . $appName . ' | xargs kill';
         exec($cmd);
         $sql = "update app_status set status = 'InActive' where name = '" . $appName . "'";
@@ -391,7 +394,7 @@ function restartProcesses() {
       $pids = null;
       exec($cmd, $pids);
       if(empty($pids)) { // Update status of inactive apps
-        echo $appName . " is INACTIVE\n";
+        echo "\n" . $appName . " is " . Console::light_red('INACTIVE!') . "\n";
         $sql = "update app_status set status = 'InActive' where name = '" . $appName . "'";
         if (!mysql_query($sql)) {
           die('Error: ' . mysql_error());
@@ -414,7 +417,7 @@ function restartProcesses() {
             }
           }
         }
-        echo "Starting " . $appName . "...\n\n";
+        echo Console::light_green('Starting ' . $appName . '...') . "\n\n";
         shell_exec('nohup php -f ' . APP_ROOT . 'lib/' . $appName . '.php >> ' . APP_ROOT . 'var/log/' . $appName . '_' . date('Ymd') . '.log 2>&1 &');
         $sql = "update app_status set status = 'Active' where name = '" . $appName . "'";
         if (!mysql_query($sql)) {
@@ -439,7 +442,7 @@ function restartProcesses() {
           }
         }
       } else { // Start inactive apps
-        echo $appName . " is ACTIVE -- Skipping\n";
+        echo $appName . " is " . Console::light_green('ACTIVE') . " -- Skipping\n";
         $sql = "update app_status set status = 'Active' where name = '" . $appName . "'";
         if (!mysql_query($sql)) {
           die('Error: ' . mysql_error());
@@ -513,7 +516,7 @@ function monitorAppStatus() {
       $pids = null;
       exec($cmd, $pids);
       if(empty($pids)) { // Update status of inactive apps
-        echo $appName . " is INACTIVE!\n";
+        echo "\n" . $appName . " is " . Console::light_red('INACTIVE!') . "\n";
         $sql = "update app_status set status = 'InActive' where name = '" . $appName . "'";
         if (!mysql_query($sql)) {
           die('Error: ' . mysql_error());
@@ -537,7 +540,7 @@ function monitorAppStatus() {
           }
         }
       } else { // Update status of active apps
-        echo $appName . " is ACTIVE!\n";
+        echo $appName . " is " . Console::light_green('ACTIVE!') . "\n";
         $sql = "update app_status set status = 'Active' where name = '" . $appName . "'";
         if (!mysql_query($sql)) {
           die('Error: ' . mysql_error());
@@ -566,7 +569,7 @@ function monitorAppStatus() {
     } else {
       // Log SQL output if app_status table is empty
       if(APP_LOG_LEVEL >= 3) {
-        echo "\n\n-- NO APPS IN ENABLED LIST -- PLEASE CONFIGURE DB --\n\n";
+        echo "\n\n" . Console::yellow('-- NO APPS IN ENABLED LIST -- PLEASE CONFIGURE DB --') . "\n\n";
         $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'INFO', 'monitorAppStatus', '-- NO APPS IN ENABLED LIST -- PLEASE CONFIGURE DB --')";
         if(!mysql_query($log)) {
           die('Error: ' . mysql_error());
