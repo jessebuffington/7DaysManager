@@ -40,8 +40,14 @@ _.._ :`4MM$!YYYYYYYYYii,.__.diii$$YYYYYYYYYYY
     echo '</title>';
   }
   if (!isset($pageParent)) $pageParent = '';
-?>
 
+  $loginUsername = $_SESSION['loginUsername'];
+  $loginIP = $_SESSION['loginIP'];
+  $accessLog = "INSERT INTO site_accessLog (username, ip, page, datetime) VALUES ('$loginUsername', '$loginIP', '$pageTitle', NOW())";
+  if (!mysql_query($accessLog)) {
+    die('Error: ' . mysql_error());
+  }
+?>
 
 
   <link rel="shortcut icon" href="/lib/img/favicon.ico" type="image/x-icon">
