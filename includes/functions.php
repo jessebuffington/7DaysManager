@@ -41,16 +41,17 @@ function echos($text, $color="normal") {
 //Method for displaying the help and default variables.
 function displayUsage() {
   global $APP_LOG;
-  printf(
-    "\n7daysManager\n
+  printf("\n
+    7daysManager v" . APP_VERSION . " \n
     Usage:
       7daysManager.php [options]
       options:
-      -h , --help       Obviously displays this help message.
-      --start           Starts enabled app processes. This is the default option when running this command.
-      --starts          Stops ALL app processes.
-      -r , --restart    Restarts app processes (Kills all then starts only enabled processes in config).
-      -m , --monitor    Executes the monitoring function. This works best when set up as a cron job or a windows scheduled task.
+      -h , --help , help          Obviously displays this help message.
+      --start , start             Starts enabled app processes. This is the default option when running this command.
+      --stop , stop               Stops ALL app processes.
+      -r , --restart , restart    Restarts app processes. (Kills all then starts only enabled processes in config).
+      -m , --monitor , monitor    Executes the monitoring function.
+                                    This works best when set up as a cron job or a windows scheduled task.
       \n\n
       The location of the log file (default: " . APP_LOG . ")
       \n\n"
