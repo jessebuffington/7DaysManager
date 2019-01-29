@@ -42,6 +42,7 @@
                     <th class="text-left">Banned Until</th>
                     <th class="text-left">Steam ID</th>
                     <th class="text-left">IP</th>
+                    <th class="text-left">Action</th>
                   </tr>
                 </thead>
                 <tbody>
