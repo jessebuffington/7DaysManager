@@ -30,6 +30,7 @@
 
   include 'includes/appConfig.php';
   include 'includes/functions.php';
+  include 'includes/console.php';
 
 
   //configure command line arguments
