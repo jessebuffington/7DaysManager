@@ -36,8 +36,8 @@
             document.write('<script src="//embed.ftelnet.ca/js/ftelnet-loader.js?v=' + (new Date()).getTime() + '"><\/script>');
           </script>
           <script>
-            fTelnet.Hostname = "7dm.bcomps.net";
-            fTelnet.Port = 18081;
+            fTelnet.Hostname = "<?php echo SITE_FQDN ?>";
+            fTelnet.Port = "<?php echo TELNET_PORT ?>";
             fTelnet.ConnectionType = "telnet";
             fTelnet.Emulation = "ansi-bbs";
             fTelnet.VirtualKeyboardVisible = false;
