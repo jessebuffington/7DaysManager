@@ -14,7 +14,7 @@
     function refresh_shopLog() {
       $("#shopLog").load(location.href + " #shopLog");
     }
-    setInterval('refresh_shopLog()', 1000);
+    setInterval('refresh_shopLog()', 100000);
   </script>
 </head>
 <body class="hold-transition skin-<?php echo HEADER_COLOR ?> sidebar-mini">
@@ -42,10 +42,11 @@
               <table id="shopLog" class="table table-bordered table-striped">
                 <thead>
                   <tr>
+                    <th class="text-left">Date/Time</th>
                     <th class="text-left">Steam ID</th>
                     <th class="text-left">Username</th>
                     <th class="text-left">Item</th>
-                    <th class="text-left">Date/Time</th>
+                    <th class="text-left">zCoin Amount</th>
                   </tr>
                 </thead>
                 <tbody>
