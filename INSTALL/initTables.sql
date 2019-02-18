@@ -393,7 +393,9 @@ INSERT INTO `app_config` (configName, configValue, comment) VALUES
 ('interval_syncGameChat','1','Run interval in seconds -- Best to leave this one at 1 -- Also reads player commands in-game.'),
 ('APP_SHORTNAME','7DM','The name of the server that will display in game chat at the beginning of messages and command responses'),
 ('APP_NAME_COLOR','cc0000','The color of the APP_SHORTNAME'),
-('APP_CHAT_COLOR','f2f3f4','Default: f2f3f4 - Color of server chat messages');
+('APP_CHAT_COLOR','f2f3f4','Default: f2f3f4 - Color of server chat messages'),
+('DISCORD_ENABLED','0','0=Disabled, 1=Enabled'),
+('DISCORD_LINK','**CONFIG-ME**','URL to join discord server');
 
 INSERT INTO `site_config` (configName, configValue, comment) VALUES
 ('SITE_ROOT','/usr/local/etc/7daysManager/public/',NULL),
