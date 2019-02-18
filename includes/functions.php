@@ -1079,7 +1079,8 @@ function syncAllPlayers() {
         //var_dump($escaped_values);
         $values  = "'" . implode("', '", $escaped_values) . "'";
         //var_dump($values);
-        $sql = "replace into players (steamid, playerid, ip, playerName, onlineStatus, currentPosition, playtime, lastSeen, ping, banned) values ($values)";
+        //$sql = "replace into players (steamid, playerid, ip, playerName, onlineStatus, currentPosition, playtime, lastSeen, ping, banned) values ($values)";
+        $sql = "INSERT INTO players (steamid, playerid, ip, playerName, onlineStatus, currentPosition, playtime, lastSeen, ping, banned) VALUES ($values) ON DUPLICATE KEY UPDATE steamid = VALUES(steamid), ping = VALUES(ping), lastSeen = VALUES(lastSeen), playtime = VALUES(playtime), onlineStatus = VALUES(onlineStatus), banned = VALUES(banned)";
         //var_dump($sql);
         mysql_query($sql);
         if (!mysql_query($sql)) {
