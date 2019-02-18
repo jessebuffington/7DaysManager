@@ -190,16 +190,17 @@ function getGameLog() {
 }
 
 function getShopLog() {
-  $getAppLog = mysql_query("SELECT * FROM shop_log order by datetime desc limit " . SHOP_LOG_LIMIT . "");
-  if (!$getAppLog) {
+  $getShopLog = mysql_query("SELECT * FROM shop_log order by datetime desc limit " . SHOP_LOG_LIMIT . "");
+  if (!$getShopLog) {
     die('Invalid query: ' . mysql_error());
   }
   while($row = mysql_fetch_array($getShopLog)) {
     echo '<tr>';
     echo '<td class="text-left">' . $row['datetime'] . '</td>';
-    echo '<td class="text-left">' . $row['logLevel'] . '</td>';
-    echo '<td class="text-left">' . $row['runName'] . '</td>';
-    echo '<td class="text-left">' . $row['message'] . '</td>';
+    echo '<td class="text-left">' . $row['steamid'] . '</td>';
+    echo '<td class="text-left">' . $row['username'] . '</td>';
+    echo '<td class="text-left">' . $row['item'] . '</td>';
+    echo '<td class="text-left">' . $row['amount'] . '</td>';
     echo '</tr>';
   }
 }
