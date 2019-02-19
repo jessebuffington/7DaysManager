@@ -1413,6 +1413,160 @@ function syncGameChat() {
               }
             }
           }
+          if($commandStrip == 'discord') {
+            if (DISCORD_ENABLED == '0') {
+              $url = 'http://' . API_HOST . ':' . API_PORT . '/api/executeconsolecommand?adminuser=' . API_USER . '&admintoken=' . API_PASS . '&command=pm ' . $playerEntityID . ' "[' . APP_NAME_COLOR . '][' . APP_SHORTNAME . '][' . APP_CHAT_COLOR . '] Function not enabled."';
+              $url = str_replace( ' ', '%20', $url);
+              $queryAPI = file_get_contents($url);
+              if(APP_LOG_LEVEL >= 2) {
+                $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'WARN', 'executePlayerCommand', 'Command Output: Function not enabled (DISCORD_ENABLED = " . DISCORD_ENABLED . ". Please see the DISCORD_ENABLED setting to enable.')";
+                if(!mysql_query($log)) {
+                  die('Error: ' . mysql_error());
+                }
+              }
+            } else {
+              $url = 'http://' . API_HOST . ':' . API_PORT . '/api/executeconsolecommand?adminuser=' . API_USER . '&admintoken=' . API_PASS . '&command=pm ' . $playerEntityID . ' "[' . APP_NAME_COLOR . '][' . APP_SHORTNAME . '][' . APP_CHAT_COLOR . '] Come join us on our Discord server! ' . DISCORD_LINK . '"';
+              $url = str_replace( ' ', '%20', $url);
+              $queryAPI = file_get_contents($url);
+              if(APP_LOG_LEVEL >= 2) {
+                $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'WARN', 'executePlayerCommand', 'Command Output: Come join us on our Discord server! " . DISCORD_LINK . "')";
+                if(!mysql_query($log)) {
+                  die('Error: ' . mysql_error());
+                }
+              }
+            }
+          }
+          if($commandStrip == 'admin') {
+            $url = 'http://' . API_HOST . ':' . API_PORT . '/api/executeconsolecommand?adminuser=' . API_USER . '&admintoken=' . API_PASS . '&command=pm ' . $playerEntityID . ' "[' . APP_NAME_COLOR . '][' . APP_SHORTNAME . '][' . APP_CHAT_COLOR . '] Sure thing! We will notify an admin immediately! If you don\'t hear anything shortly, please reach out on the Discord server -- ' . DISCORD_LINK . '"';
+            $url = str_replace( ' ', '%20', $url);
+            echo $url . "\n";
+            $queryAPI = file_get_contents($url);
+            if(APP_LOG_LEVEL >= 2) {
+              $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'WARN', 'executePlayerCommand', '<b>" . $playerName . "</b> is trying to notify an admin!!!')";
+              if(!mysql_query($log)) {
+                die('Error: ' . mysql_error());
+              }
+            }
+            if (NOFITIFICATION_MASTER_SWITCH == '1'){
+              if (DISCORD_ENABLED == '1'){
+                $APP_NAME = APP_NAME;
+
+                $curl = curl_init();
+
+                curl_setopt_array($curl, array(
+                  CURLOPT_URL => DISCORD_WEBHOOK,
+                  CURLOPT_RETURNTRANSFER => true,
+                  CURLOPT_ENCODING => "",
+                  CURLOPT_MAXREDIRS => 10,
+                  CURLOPT_TIMEOUT => 30,
+                  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                  CURLOPT_CUSTOMREQUEST => "POST",
+                  CURLOPT_POSTFIELDS => "{\n
+                    \"username\": \"" . APP_NAME .  "\",\n
+                    \"avatar_url\":\"https://raw.githubusercontent.com/bassmastry101/7DaysManager/master/icon.png\",\n
+                    \"embeds\": [\n
+                      {\n
+                        \"color\": \"2067276\",\n
+                        \"fields\": [\n
+                          {\n
+                            \"name\": \"**Admin assistance needed!!**\",\n
+                            \"value\": \"User " . $playerName . " has requested an admin NAOW!\"\n
+                            }\n
+                          ]\n
+                        }\n
+                      ]\n
+                    }",
+                  CURLOPT_HTTPHEADER => array(
+                    "Content-Type: application/json",
+                    "cache-control: no-cache"
+                  ),
+                ));
+
+                $response = curl_exec($curl);
+                $err = curl_error($curl);
+
+                curl_close($curl);
+
+                if ($err) {
+                  echo "cURL Error #:" . $err . "\n\n";
+                } else {
+                  echo $response . "\n\n";
+                }
+
+                if(APP_LOG_LEVEL >= 2) {
+                  $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'WARN', 'executePlayerCommand', 'Sent notify command via Discord')";
+                  if(!mysql_query($log)) {
+                    die('Error: ' . mysql_error());
+                  }
+                }
+              }
+              if (PUSHBULLET_ENABLED == '1') {
+                $PUSHBULLET_TOKEN = PUSHBULLET_TOKEN;
+
+                $curl = curl_init();
+
+                curl_setopt_array($curl, array(
+                  CURLOPT_URL => "https://api.pushbullet.com/v2/pushes",
+                  CURLOPT_RETURNTRANSFER => true,
+                  CURLOPT_ENCODING => "",
+                  CURLOPT_MAXREDIRS => 10,
+                  CURLOPT_TIMEOUT => 30,
+                  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                  CURLOPT_CUSTOMREQUEST => "POST",
+                  CURLOPT_POSTFIELDS => "{\r\n
+                    \"channel_tag\": \"" . PUSHBULLET_CHANNELTAG . "\",\r\n
+                    \"type\": \"note\",\r\n
+                    \"title\": \"**Admin Assistance is needed!!**\",\r\n
+                    \"body\": \"User " . $playerName . " has requested an admin NAOW!\"\r\n}",
+                  CURLOPT_HTTPHEADER => array(
+                    "Access-Token: " . PUSHBULLET_TOKEN,
+                    "Content-Type: application/json",
+                    "cache-control: no-cache"
+                  ),
+                ));
+
+                $response = curl_exec($curl);
+                $err = curl_error($curl);
+
+                curl_close($curl);
+
+                if ($err) {
+                  echo "cURL Error #:" . $err . "\n\n";
+                } else {
+                  echo $response . "\n\n";
+                }
+
+                if(APP_LOG_LEVEL >= 2) {
+                  $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'WARN', 'executePlayerCommand', 'Sent notify command via Pushbullet')";
+                  if(!mysql_query($log)) {
+                    die('Error: ' . mysql_error());
+                  }
+                }
+              }
+              /*if (EMAIL_ENABLED == '1') {
+                //
+                //PUT EMAIL COMMAND HERE
+                //
+
+                if(APP_LOG_LEVEL >= 2) {
+                  $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'WARN', 'executePlayerCommand', 'Sent notify command via Email')";
+                  if(!mysql_query($log)) {
+                    die('Error: ' . mysql_error());
+                  }
+                }
+              }*/
+            } elseif (NOFITIFICATION_MASTER_SWITCH == '0') {
+              if(APP_LOG_LEVEL >= 2) {
+                $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'WARN', 'executePlayerCommand', '<b>**Could not notify an admin -- Notifications are not enabled.**</b>')";
+                if(!mysql_query($log)) {
+                  die('Error: ' . mysql_error());
+                }
+              }
+            }
+          }
+        //////////////////////////
+        // Continue Chat Parser //
+        //////////////////////////
         }
       }
     } elseif (in_array('GMSG', $string)) {
