@@ -1305,8 +1305,6 @@ function syncGameChat() {
               die('Error: ' . mysql_error());
             }
           }
-          /*$url = 'http://' . API_HOST . ':' . API_PORT . '/api/executeconsolecommand?adminuser=' . API_USER . '&admintoken=' . API_PASS . '&command=say "[' . APP_NAME_COLOR . ']\[' . APP_SHORTNAME . '\][' . APP_CHAT_COLOR . '] **Not a custom command!**"';
-          $queryAPI = file_get_contents($url);*/
         } else {
           if($commandStrip == 'day7'){
             $getDay7 = mysql_query("select daysLeft from server_gameTime where serverID = '1'");
