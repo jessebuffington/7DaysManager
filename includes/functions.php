@@ -1294,6 +1294,7 @@ function syncGameChat() {
         }
         $sqlOut = mysql_fetch_array($getCustomCommand);
         $customCommand = $sqlOut['command'];
+        $commandParams = $sqlOut['serverExecution'];
         echo "SQL Output: " . $customCommand . "\n\n";
         if($commandStrip != $customCommand) {
           $errorMessage = "**Not a custom command!**";
