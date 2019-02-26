@@ -400,7 +400,7 @@ INSERT INTO `app_config` (configName, configValue, comment) VALUES
 ('PUSHBULLET_ENABLED','0','0=Disabled, 1=Enabled'),
 ('PUSHBULLET_TOKEN','**CONFIG-ME**','URL to join discord server -- Advertisement'),
 ('PUSHBULLET_CHANNELTAG','**CONFIG-ME**','Pushbullet channel tag'),
-('NOFITIFICATION_MASTER_SWITCH','0','Master switch for admin notifications -- 0=Disabled, 1=Enabled');
+('NOTIFICATION_MASTER_SWITCH','0','Master switch for admin notifications -- 0=Disabled, 1=Enabled');
 
 INSERT INTO `site_config` (configName, configValue, comment) VALUES
 ('SITE_ROOT','/usr/local/etc/7daysManager/public/',NULL),
