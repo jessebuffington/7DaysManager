@@ -166,13 +166,6 @@
             <li <?php if($pageTitle == 'License Info') {echo 'class = "active"';} ?>><a href="/pages/settings/site/licenseInfo.php"><i class="fa fa-circle-o"></i> License Info</a></li>
           </ul>
         </li>
-
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
         <br />
         <br />
         <li <?php if($pageTitle == 'Comments/Suggestions') {echo 'class="active"';} ?>>

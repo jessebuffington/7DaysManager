@@ -25,7 +25,6 @@
           <li><a href="/"><i class="fa fa-dashboard"></i>Home</a></li>
           <?php if($pageParent) {echo "<li></i> " . $pageParent . "</li>";} ?>
           <li class="active"><?php echo $pageTitle ?></li>
-
         </ol>
       </section>
     <section class="content">
