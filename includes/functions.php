@@ -1447,7 +1447,7 @@ function syncGameChat() {
                 die('Error: ' . mysql_error());
               }
             }
-            if (NOFITIFICATION_MASTER_SWITCH == '1'){
+            if (NOTIFICATION_MASTER_SWITCH == '1'){
               if (DISCORD_ENABLED == '1'){
                 $APP_NAME = APP_NAME;
 
@@ -1555,7 +1555,7 @@ function syncGameChat() {
                   }
                 }
               }*/
-            } elseif (NOFITIFICATION_MASTER_SWITCH == '0') {
+            } elseif (NOTIFICATION_MASTER_SWITCH == '0') {
               if(APP_LOG_LEVEL >= 2) {
                 $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'WARN', 'executePlayerCommand', '<b>**Could not notify an admin -- Notifications are not enabled.**</b>')";
                 if(!mysql_query($log)) {
