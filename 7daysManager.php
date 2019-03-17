@@ -66,7 +66,13 @@
           return monitorAppStatus();
         case 'monitor';
           return monitorAppStatus();
-        $log = $args[1];
+        case '-s';
+          return monitorAppStatus();
+        case '--status';
+          return monitorAppStatus();
+        case 'status';
+          return monitorAppStatus();
+      $log = $args[1];
         break;
       }
     }

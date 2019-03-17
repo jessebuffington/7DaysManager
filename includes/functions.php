@@ -21,6 +21,7 @@ function displayUsage() {
       -r , --restart , restart    Restarts app processes. (Kills all then starts only enabled processes in config).
       -m , --monitor , monitor    Executes the monitoring function.
                                     This works best when set up as a cron job or a windows scheduled task.
+      -s , --status , status      Status/Monitor -- Same as -m
       \n\n
       The location of the log file (default: " . APP_LOG . ")
       \n\n"
