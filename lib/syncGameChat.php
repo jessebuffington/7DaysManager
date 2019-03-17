@@ -48,7 +48,7 @@ if($argc > 0){
 
 while(true) {
   exec(syncGameChat());
-  sleep(interval_syncGameChat());
+  sleep(interval_syncGameChat);
 }
 
 

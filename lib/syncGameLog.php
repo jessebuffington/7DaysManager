@@ -48,7 +48,7 @@ if($argc > 0){
 
 while(true) {
   exec(syncGameLog());
-  sleep(interval_syncGameLog());
+  sleep(interval_syncGameLog);
 }
 
 
