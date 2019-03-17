@@ -363,9 +363,9 @@ function restartProcesses() {
       }
     }
   }
-//
-// START APP PROCESSES
-//
+  //
+  // START APP PROCESSES
+  //
   $queryAppStatus = mysql_query('SELECT name FROM app_status where enabled = "1" order by id asc');
   if (!$queryAppStatus) {
     die('Invalid query: ' . mysql_error());
