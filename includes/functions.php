@@ -540,6 +540,57 @@ function monitorAppStatus() {
             }
           }
         }
+        $queryMonRestart = mysql_query('SELECT monRestart FROM app_status where name = "' . $appName . '" and enabled = "1"');
+        if (!$queryMonRestart) {
+          die('Invalid query: ' . mysql_error());
+          if(APP_LOG_LEVEL >= 1) {
+            $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'monitorAppStatus', 'ERROR: COULD NOT CONNECT TO DB')";
+            if (!mysql_query($log)) {
+              die('Error: ' . mysql_error());
+            }
+          }
+        }
+        $monRestart = mysql_fetch_array($queryMonRestart);
+        if ($monRestart['monRestart'] == 0) {
+          echo Console::light_red('**Monitor detected that ' . $appName . ' is NOT configured to restart upon failure. Please review. -- SKIPPING') . "\n\n";
+          if(APP_LOG_LEVEL >= 2) {
+            $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'WARN', 'monitorAppStatus', '<b>**Monitor detected that " . $appName . " is NOT configured to restart upon failure. Please review. -- SKIPPING</b>')";
+            if(!mysql_query($log)) {
+              die('Error: ' . mysql_error());
+              if(APP_LOG_LEVEL >= 1) {
+                $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'monitorAppStatus', 'ERROR: COULD NOT CONNECT TO DB')";
+                if (!mysql_query($log)) {
+                  die('Error: ' . mysql_error());
+                }
+              }
+            }
+          }
+        } else {
+          echo Console::light_green('**Monitor detected that process needs to be restarted upon failure -- Starting ' . $appName . '...') . "\n\n";
+          shell_exec('nohup php -f ' . APP_ROOT . 'lib/' . $appName . '.php >> ' . APP_ROOT . 'var/log/' . $appName . '_' . date('Ymd') . '.log 2>&1 &');
+          $sql = "update app_status set status = 'Active' where name = '" . $appName . "'";
+          if (!mysql_query($sql)) {
+            die('Error: ' . mysql_error());
+            if(APP_LOG_LEVEL >= 1) {
+              $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'monitorAppStatus', 'ERROR: COULD NOT CONNECT TO DB')";
+              if (!mysql_query($log)) {
+                die('Error: ' . mysql_error());
+              }
+            }
+          }
+          if(APP_LOG_LEVEL >= 2) {
+            $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'WARN', 'monitorAppStatus', '**Monitor detected that process needs to be restarted upon failure -- " . $appName . " is <b>STARTING UP!</b>')";
+            if(!mysql_query($log)) {
+              die('Error: ' . mysql_error());
+              if(APP_LOG_LEVEL >= 1) {
+                $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'monitorAppStatus', 'ERROR: COULD NOT CONNECT TO DB')";
+                if (!mysql_query($log)) {
+                  die('Error: ' . mysql_error());
+                }
+              }
+            }
+          }
+        }
       } else { // Update status of active apps
         echo $appName . " is " . Console::light_green('ACTIVE!') . "\n";
         $sql = "update app_status set status = 'Active' where name = '" . $appName . "'";

@@ -28,9 +28,11 @@ CREATE TABLE `app_status` (
   `name` varchar(45) NOT NULL,
   `status` varchar(8) NOT NULL DEFAULT 'Inactive',
   `enabled` varchar(1) NOT NULL DEFAULT '1',
+  `monRestart` varchar(1) NOT NULL DEFAULT '1',
   `description` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 
 CREATE TABLE `badWords` (
   `badWord` varchar(15) NOT NULL,
@@ -445,3 +447,15 @@ INSERT INTO `site_config` (configName, configValue, comment) VALUES
 ('SITE_ACCESS_LOG_LIMIT','200',NULL),
 ('SITE_FQDN','**CONFIG-ME**',NULL),
 ('TELNET_PORT','**CONFIG-ME**',NULL);
+
+INSERT INTO `app_status` VALUES
+(1,'syncAllPlayers','Active','1','1',NULL),
+(2,'syncEntities','InActive','0','0',NULL),
+(3,'syncGameLog','InActive','0','0',NULL),
+(4,'syncGameTime','Active','1','1',NULL),
+(5,'syncGameVersion','Active','1','1',NULL),
+(6,'syncLandclaims','InActive','0','0',NULL),
+(7,'syncOnlinePlayers','Active','1','1',NULL),
+(8,'syncServerInfo','Active','1','1',NULL),
+(9,'insertPlayerHistory','Active','1','1',NULL),
+(10,'syncGameChat','Active','1','1',NULL);
