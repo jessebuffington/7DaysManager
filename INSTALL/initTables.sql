@@ -117,6 +117,7 @@ CREATE TABLE `players` (
   `lastSeen` varchar(30) DEFAULT NULL,
   `playtime` varchar(10) DEFAULT NULL,
   `banned` varchar(1) DEFAULT '0',
+  `kickCount` varchar(10) NOT NULL DEFAULT '0',
   PRIMARY KEY (`playerid`,`steamid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
