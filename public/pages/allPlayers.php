@@ -52,6 +52,7 @@
                 <tbody>
                   <?php
                     echo getAllPlayers_List();
+                    echo playerAction();
       						?>
                 </tfoot>
               </table>
