@@ -198,9 +198,10 @@ function getBannedPlayers_List() {
     echo '<td class="text-left"><a href="http://steamidfinder.com/lookup/' . $row['steamid'] . ' "target="_blank">' . $row['steamid'] . '</a></td>';
     echo '<td class="text-left"><a href="https://tools.keycdn.com/geo?host=' . $row['ip'] . ' "target="_blank">' . $row['ip'] . '</a></td>';
     if ($row['banned'] = 1) {
-      echo '<td class="text-left"><button type="submit" name="submit" id="submit" value="Submit" class="btn btn-success pull-right">UnBan</button></td>';
+      echo '<td class="text-left"><form method="post" action="/pages/allPlayers.php?unbanPlayer='.$row['steamid'].'"><input type="submit" name="UnBan" id="UnBan" value="UnBan" class="btn btn-success pull-right"></input></form></td>';
     }
     echo '</tr>';
+    header("location: /pages/bannedPlayers.php");
   }
 }
 
