@@ -50,32 +50,17 @@ function getAllPlayers_List() {
     echo '<td class="text-left">' . $row['currentPosition'] . '</td>';
     echo '<td class="text-left"><a href="http://steamidfinder.com/lookup/' . $row['steamid'] . ' "target="_blank">' . $row['steamid'] . '</a></td>';
     echo '<td class="text-left"><a href="https://tools.keycdn.com/geo?host=' . $row['ip'] . ' "target="_blank">' . $row['ip'] . '</a></td>';
+    echo '<td class="text-left">';
     if ($row['banned'] == 1) {
-     echo '<td class="text-left"><input type="submit" name="UnBan" id="UnBan" value="UnBan" class="btn btn-success pull-right">UnBan</input></td>';
-   } else {
-     echo '<td class="text-left"><input type="submit" name="Ban" id="Ban" value="Ban" class="btn btn-danger pull-right">Ban</input></td>';
-   }
-   if (isset($_POST['UnBan'])) {
-     $unbanPlayer = "UPDATE players set banned = '0' where playerid = '".$row['playerid']."'";
-     $manUnbanPlayer = "UPDATE server_bans set manUnban = '1' where steamid  = '".$row['steamid']."'";
-     if (!mysql_query($unbanPlayer)) {
-       die('Error: ' . mysql_error());
-     }
-     if (!mysql_query($manUnbanPlayer)) {
-       die('Error: ' . mysql_error());
-     }
-   } elseif (isset($_POST['Ban'])) {
-     $unbanPlayer = "UPDATE players set banned = '1' where playerid = '".$row['playerid']."'";
-     $manUnbanPlayer = "INSERT into server_bans (playerName, steamid, ip, reason, bannedTo, permanent, playTime, score, playerKills, zombies, dateAdded, admin)
-                         VALUES ('".$row['playerName']."', '".$row['steamid']."', '".$row['ip']."', $reason, $bannedTo, $permanent, '".$row['playTime']."', '".$row['score']."', '".$row['playerKills']."', '".$row['zombies']."', NOW(), '".$_SESSION['loginUsername']."')";
-     if (!mysql_query($unbanPlayer)) {
-       die('Error: ' . mysql_error());
-     }
-     if (!mysql_query($manUnbanPlayer)) {
-       die('Error: ' . mysql_error());
-     }
-   }
+      echo '<form method="post" action="/pages/allPlayers.php?unbanPlayer='.$row['steamid'].'"><input type="submit" name="UnBan" id="UnBan" value="UnBan" class="btn btn-success pull-right"></input></form>';
+    } else {
+      echo '<form method="post" action="/pages/allPlayers.php?banPlayer='.$row['steamid'].'&playerName='.$row['playerName'].'&ip='.$row['ip'].'&playtime='.$row['playtime'].'&score='.$row['score'].'&playerKills='.$row['playersKilled'].'&zombies='.$row['zombiesKilled'].'&admin='.$_SESSION['loginUsername'].'"><input type="submit" name="" id="Ban" value="Ban" class="btn btn-danger pull-right"></input></form>';
+    }
+    if ($row['onlineStatus'] == 1) {
+      echo '<form method="post" action="/pages/allPlayers.php?kickPlayer='.$row['steamid'].'"><input type="submit" name="Kick" id="Kick" value="Kick" class="btn btn-warning pull-right"></input></form></td>';
+    }
     echo '</tr>';
+    header("location: /pages/allPlayers.php");
   }
 }
 
