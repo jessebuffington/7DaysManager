@@ -33,7 +33,6 @@ function insertComment() {
 //////////////////
 // 7DaysManager //
 //////////////////
-
 function getAllPlayers_List() {
   $onlinePlayers = mysql_query("SELECT * FROM players where not playerid = '0' order by onlineStatus desc, playerid asc;");
   if (!$onlinePlayers) {
