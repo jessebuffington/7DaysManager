@@ -25,3 +25,8 @@ $result = (mysql_query("SELECT configName, configValue FROM site_config"));
 while ($row = mysql_Fetch_assoc($result)) {
  	if (!defined($row['configName'])) define($row['configName'], $row['configValue']);
 }
+
+$result = (mysql_query("SELECT configName, configValue FROM app_config"));
+while ($row = mysql_Fetch_assoc($result)) {
+ 	if (!defined($row['configName'])) define($row['configName'], $row['configValue']);
+}
