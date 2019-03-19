@@ -53,6 +53,7 @@
                 <tbody>
                   <?php
                     echo getOnlinePlayers_List();
+                    echo playerAction();
                   ?>
                 </tfoot>
               </table>

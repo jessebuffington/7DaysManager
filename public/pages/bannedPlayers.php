@@ -48,6 +48,7 @@
                 <tbody>
                   <?php
                     echo getBannedPlayers_List();
+                    echo playerAction();
                   ?>
                 </tfoot>
               </table>
