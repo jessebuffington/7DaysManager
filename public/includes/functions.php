@@ -80,6 +80,126 @@ function getAllPlayers_List() {
   }
 }
 
+function playerAction() {
+  global $API_HOST;
+  global $API_PORT;
+  global $API_USER;
+  global $API_PASS;
+  global $interval_syncGameTime;
+  global $APP_LOG;
+  global $APP_LOG_LEVEL;
+
+  if (isset($_GET['banPlayer'])) {
+    $steamID=$_GET['banPlayer'];
+    $playerName=$_GET['playerName'];
+    $ip=$_GET['ip'];
+    $playtime=$_GET['playtime'];
+    $score=$_GET['score'];
+    $playerKills=$_GET['playerKills'];
+    $zombies=$_GET['zombies'];
+
+    $url = 'http://' . API_HOST . ':' . API_PORT . '/api/executeconsolecommand?adminuser=' . API_USER . '&admintoken=' . API_PASS . '&command=ban add '.$steamID.' 10 years "Basic for now"';
+    $url = str_replace( ' ', '%20', $url);
+    $queryAPI = file_get_contents($url);
+
+    if(APP_LOG_LEVEL >= 1) {
+      $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'webAdmin', 'Player ".$playerName." was banned via the admin site by ".$_SESSION['loginUsername']."<br/>Reason: Basic for now')";
+      if(!mysql_query($log)) {
+        die('Error: ' . mysql_error());
+        if(APP_LOG_LEVEL >= 1) {
+          $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'webAdmin', 'ERROR: COULD NOT CONNECT TO DB')";
+          if (!mysql_query($log)) {
+            die('Error: ' . mysql_error());
+          }
+        }
+      }
+    }
+    $banPlayer = "UPDATE players set banned = '1' where steamID = '".$steamID."'";
+    $manBanPlayer = "INSERT into server_bans (playerName, steamid, ip, reason, permanent, playTime, score, playerKills, zombies, dateAdded, admin)
+                        VALUES ('".$playerName."', '".$steamID."', '".$ip."', 'Basic reason for now', '1', '".$playtime."',
+                          '".$score."', '".$playerKills."', '".$zombies."', NOW(), '".$_SESSION['loginUsername']."')";
+    if (!mysql_query($banPlayer)) {
+      die('Error: ' . mysql_error());
+    }
+    if (!mysql_query($manBanPlayer)) {
+      die('Error: ' . mysql_error());
+    }
+
+    $url = 'http://' . API_HOST . ':' . API_PORT . '/api/executeconsolecommand?adminuser=' . API_USER . '&admintoken=' . API_PASS . '&command=say "[' . APP_NAME_COLOR . '][' . APP_SHORTNAME . '][' . APP_CHAT_COLOR . '] User ' . $playerName . ' was BANNED! :("';
+    $url = str_replace( ' ', '%20', $url);
+    $queryAPI = file_get_contents($url);
+
+    //echo $banPlayer."\n\n";
+    //echo $manBanPlayer."\n\n";
+    header("location: /pages/allPlayers.php");
+
+  } elseif (isset($_GET['unbanPlayer'])) {
+    $steamID=$_GET['unbanPlayer'];
+
+    $url = 'http://' . API_HOST . ':' . API_PORT . '/api/executeconsolecommand?adminuser=' . API_USER . '&admintoken=' . API_PASS . '&command=ban remove '.$steamID.'';
+    $url = str_replace( ' ', '%20', $url);
+    $queryAPI = file_get_contents($url);
+
+    if(APP_LOG_LEVEL >= 1) {
+      $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'webAdmin', 'Player ".$playerName." was unbanned via the admin site by ".$_SESSION['loginUsername']."<br/>Reason: Admin Unban')";
+      if(!mysql_query($log)) {
+        die('Error: ' . mysql_error());
+        if(APP_LOG_LEVEL >= 1) {
+          $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'webAdmin', 'ERROR: COULD NOT CONNECT TO DB')";
+          if (!mysql_query($log)) {
+            die('Error: ' . mysql_error());
+          }
+        }
+      }
+    }
+
+    $unbanPlayer = "UPDATE players set banned = '0' where steamID = '".$steamID."'";
+    $manUnbanPlayer = "UPDATE server_bans set manUnban = '1', unbanReason = 'Manual Unban' where steamid  = '".$steamID."' and manUnban = '0'";
+    if (!mysql_query($unbanPlayer)) {
+      die('Error: ' . mysql_error());
+    }
+    if (!mysql_query($manUnbanPlayer)) {
+      die('Error: ' . mysql_error());
+    }
+    //echo $unbanPlayer."\n";
+    header("location: /pages/allPlayers.php");
+
+  } elseif (isset($_GET['kickPlayer'])) {
+    $steamID=$_GET['kickPlayer'];
+
+    $url = 'http://' . API_HOST . ':' . API_PORT . '/api/executeconsolecommand?adminuser=' . API_USER . '&admintoken=' . API_PASS . '&command=kick '.$steamID.' "Basic for now"';
+    $url = str_replace( ' ', '%20', $url);
+    $queryAPI = file_get_contents($url);
+
+    if(APP_LOG_LEVEL >= 1) {
+      $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'webAdmin', 'Player ".$playerName." was kicked via the admin site by ".$_SESSION['loginUsername']."<br/>Reason: Basic for now')";
+      if(!mysql_query($log)) {
+        die('Error: ' . mysql_error());
+        if(APP_LOG_LEVEL >= 1) {
+          $log = "insert into app_log (datetime, logLevel, runName, message) values ('" . date('Y-m-d H:i:s') . "', 'CRIT', 'webAdmin', 'ERROR: COULD NOT CONNECT TO DB')";
+          if (!mysql_query($log)) {
+            die('Error: ' . mysql_error());
+          }
+        }
+      }
+    }
+
+    $kickPlayer = "UPDATE players set kickCount = kickCount + 1 where steamid  = '".$steamID."'";
+    if (!mysql_query($kickPlayer)) {
+      die('Error: ' . mysql_error());
+    }
+
+    $url = 'http://' . API_HOST . ':' . API_PORT . '/api/executeconsolecommand?adminuser=' . API_USER . '&admintoken=' . API_PASS . '&command=say "[' . APP_NAME_COLOR . '][' . APP_SHORTNAME . '][' . APP_CHAT_COLOR . '] User ' . $playerName . ' was KICKED! :("';
+    $url = str_replace( ' ', '%20', $url);
+    $queryAPI = file_get_contents($url);
+
+    //echo $kickPlayer."\n";
+    header("location: /pages/allPlayers.php");
+
+  }
+}
+
+
 function getBannedPlayers_List() {
   $onlinePlayers = mysql_query("SELECT * FROM server_bans where manUnban = '0' order by id asc");
   if (!$onlinePlayers) {
