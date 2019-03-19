@@ -223,13 +223,14 @@ function getOnlinePlayers_List() {
     echo '<td class="text-left"><a href="http://steamidfinder.com/lookup/' . $row['steamid'] . ' "target="_blank">' . $row['steamid'] . '</a></td>';
     echo '<td class="text-left"><a href="https://tools.keycdn.com/geo?host=' . $row['ip'] . ' "target="_blank">' . $row['ip'] . '</a></td>';
     echo '<td class="text-left">' . $row['ping'] . '</td>';
-    echo '<td class="text-left">
-      <button type="submit" name="submit" id="submit" value="Submit" class="btn btn-primary pull-right">PM</button></td>
-      <button type="submit" name="submit" id="submit" value="Submit" class="btn btn-success pull-right">Give</button></td>
-      <button type="submit" name="submit" id="submit" value="Submit" class="btn btn-warning pull-right">Kick</button></td>
-      <button type="submit" name="submit" id="submit" value="Submit" class="btn btn-danger pull-right">Ban</button></td>';
+    echo '<td class="text-left">';
+    //echo '<form method="post" action="/pages/onlinePlayers.php?pmPlayer='.$row['steamid'].'&admin='.$_SESSION['loginUsername'].'"><input type="submit" name="" id="PM" value="PM" class="btn btn-danger pull-right"></input></form>';
+    //echo '<form method="post" action="/pages/onlinePlayers.php?givePlayer='.$row['steamid'].'&admin='.$_SESSION['loginUsername'].'"><input type="submit" name="" id="Give" value="Give" class="btn btn-danger pull-right"></input></form>';
+    echo '<form method="post" action="/pages/onlinePlayers.php?banPlayer='.$row['steamid'].'&playerName='.$row['playerName'].'&ip='.$row['ip'].'&playtime='.$row['playtime'].'&score='.$row['score'].'&playerKills='.$row['playersKilled'].'&zombies='.$row['zombiesKilled'].'&admin='.$_SESSION['loginUsername'].'"><input type="submit" name="" id="Ban" value="Ban" class="btn btn-danger pull-right"></input></form>';
+    echo '<form method="post" action="/pages/onlinePlayers.php?kickPlayer='.$row['steamid'].'"><input type="submit" name="Kick" id="Kick" value="Kick" class="btn btn-warning pull-right"></input></form></td>';
     echo '</tr>';
   }
+  header("location: /pages/onlinePlayers.php");
 }
 
 function queryGameTime() {
