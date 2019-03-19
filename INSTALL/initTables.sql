@@ -134,26 +134,26 @@ CREATE TABLE `server_announcements` (
 CREATE TABLE `server_bans` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `playerName` varchar(45) DEFAULT NULL,
-  `steamid` varchar(17) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `ip` varchar(15) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `reason` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `bannedTo` varchar(22) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `steamid` varchar(17) NOT NULL,
+  `ip` varchar(15) DEFAULT NULL,
+  `reason` varchar(255) DEFAULT NULL,
+  `bannedTo` varchar(22) DEFAULT NULL,
   `permanent` tinyint(1) NOT NULL DEFAULT '0',
   `playTime` int(11) NOT NULL DEFAULT '0',
   `score` int(11) NOT NULL DEFAULT '0',
   `playerKills` int(11) NOT NULL DEFAULT '0',
   `zombies` int(11) NOT NULL DEFAULT '0',
-  `country` varchar(2) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `belt` varchar(500) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `pack` varchar(1000) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `equipment` varchar(500) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `country` varchar(2) DEFAULT NULL,
+  `belt` varchar(500) DEFAULT NULL,
+  `pack` varchar(1000) DEFAULT NULL,
+  `equipment` varchar(500) DEFAULT NULL,
   `dateAdded` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `botID` varchar(7) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `admin` varchar(17) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `botID` varchar(7) DEFAULT NULL,
+  `admin` varchar(30) DEFAULT NULL,
   `manUnban` int(1) NOT NULL DEFAULT '0',
   `unbanReason` varchar(1000) DEFAULT NULL,
   PRIMARY KEY (`id`,`steamid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `server_consoleCommands` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
