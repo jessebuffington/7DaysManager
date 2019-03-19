@@ -327,11 +327,11 @@ function getSiteLoginAttempts() {
 }
 
 function getSiteAccessLog() {
-  $getSiteLoginAttempts = mysql_query("SELECT * FROM site_accessLog order by id desc limit " . SITE_ACCESS_LOG_LIMIT . "");
-  if (!$getSiteLoginAttempts) {
+  $getSiteAccessLog = mysql_query("SELECT * FROM site_accessLog order by id desc limit " . SITE_ACCESS_LOG_LIMIT . "");
+  if (!$getSiteAccessLog) {
     die('Invalid query: ' . mysql_error());
   }
-  while($row = mysql_fetch_array($getSiteLoginAttempts)) {
+  while($row = mysql_fetch_array($getSiteAccessLog)) {
     echo '<tr>';
     echo '<td class="text-left">' . $row['datetime'] . '</td>';
     echo '<td class="text-left">' . $row['username'] . '</td>';
